@@ -60,8 +60,8 @@ t_FROM = r'-from->'
 t_TO = r'-to->'
 t_MODE = r'-mode->'
 
-t_LOCAL=r'"local"'
-t_CLOUD=r'"cloud"'
+t_LOCAL = r'("local")|local'
+t_CLOUD = r'("cloud")|cloud'
 t_TRUE=r'true'
 t_FALSE=r'false'
 
@@ -96,13 +96,23 @@ Arbol=[]
 def p_inicio(p):
     '''inicio : lexico
     '''
-    p[0]=Arbol
+    p[0]=p[1]
 
 def p_lexico(p):
     '''lexico : lexico comandos
                 | comandos
     '''
-
+    if len(p)==3:
+        arr = []
+        arr.append("lexico")
+        arr.append(p[1])
+        arr.append(p[2])
+        p[0]=arr
+    elif len(p)==2:
+        arr = []
+        arr.append("lexico")
+        arr.append(p[1])
+        p[0] = arr
 
 def p_comandos(p):
     '''comandos : maincomando subcomando
@@ -112,6 +122,7 @@ def p_comandos(p):
     arr.append(p[1])
     arr.append(p[2])
     Arbol.append(arr)
+    p[0]=arr
     
 
 def p_main_comando(p):
@@ -128,8 +139,29 @@ def p_main_comando(p):
     '''
     p[0] = p[1]
 
-def p_sub_comando(p):
-    '''subcomando : TYPE tipo
+
+def p_subcomando(p):
+    '''subcomando : subcomando sub
+                    | sub
+    '''
+    #print("tipo de:",type(p),type(p[0]),type(p[1]))
+    #print("ppppp",type(p),p,p[0],p[1])#object, none, none|array
+    #print("---")
+    if len(p) == 3:
+        arr=[]
+        arr.append("subcomando")
+        arr.append(p[1])
+        arr.append(p[2])
+        p[0]=arr
+    elif len(p) == 2:
+        arr = []
+        arr.append("subcomando")
+        arr.append(p[1])
+        p[0] = arr
+
+
+def p_sub(p):
+    '''sub : TYPE tipo
                     | ENCRYPTLOG encriptado
                     | ENCRYPTREAD encriptado
                     | LLAVE STRING
@@ -141,7 +173,7 @@ def p_sub_comando(p):
                     | MODE tipo
     '''
     arr=[]
-    arr.append("subcomando")
+    arr.append("sub")
     arr.append(p[1])
     arr.append(p[2])
     p[0]=arr
@@ -169,8 +201,9 @@ def p_error(p):
 
 parser = yacc.yacc()
 
-# f = open("./entradas.txt", "r")
-# input = f.read()
-# print(input)
-# parser.parse(input)
-# print(Arbol)
+f = open("./entradas.txt", "r")
+input = f.read()
+print(input)
+resultado=parser.parse(input.lower())
+print(resultado,'\n')
+print(Arbol)

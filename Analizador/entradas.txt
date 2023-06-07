@@ -1,4 +1,3 @@
 exec -path->/home/Desktop/calificacion.mia1
-exec -path->/home/Desktop/calificacion.mia2
-exec -path->/home/Desktop/calificacion.mia3
-exec -path->/home/Desktop/calificacion.mia4
+
+Configure -type->local -encrypt_log->false -encrypt_read->false
