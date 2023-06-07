@@ -17,61 +17,64 @@ Rule 11    maincomando -> MODIFY
 Rule 12    maincomando -> ADD
 Rule 13    maincomando -> BACKUP
 Rule 14    maincomando -> EXEC
-Rule 15    subcomando -> TYPE tipo
-Rule 16    subcomando -> ENCRYPTLOG encriptado
-Rule 17    subcomando -> ENCRYPTREAD encriptado
-Rule 18    subcomando -> LLAVE STRING
-Rule 19    subcomando -> NAME ARCHIVO
-Rule 20    subcomando -> BODY STRING
-Rule 21    subcomando -> PATH RUTA
-Rule 22    subcomando -> FROM RUTA
-Rule 23    subcomando -> TO RUTA
-Rule 24    subcomando -> MODE tipo
-Rule 25    tipo -> LOCAL
-Rule 26    tipo -> CLOUD
-Rule 27    encriptado -> TRUE
-Rule 28    encriptado -> FALSE
+Rule 15    subcomando -> subcomando sub
+Rule 16    subcomando -> sub
+Rule 17    sub -> TYPE tipo
+Rule 18    sub -> ENCRYPTLOG encriptado
+Rule 19    sub -> ENCRYPTREAD encriptado
+Rule 20    sub -> LLAVE STRING
+Rule 21    sub -> NAME ARCHIVO
+Rule 22    sub -> BODY STRING
+Rule 23    sub -> PATH RUTA
+Rule 24    sub -> FROM RUTA
+Rule 25    sub -> TO RUTA
+Rule 26    sub -> MODE tipo
+Rule 27    tipo -> LOCAL
+Rule 28    tipo -> CLOUD
+Rule 29    encriptado -> TRUE
+Rule 30    encriptado -> FALSE
 
 Terminals, with rules where they appear
 
 ADD                  : 12
-ARCHIVO              : 19
+ARCHIVO              : 21
 BACKUP               : 13
-BODY                 : 20
-CLOUD                : 26
+BODY                 : 22
+CLOUD                : 28
 CONFIGURE            : 5
 COPY                 : 8
 CREATE               : 6
 DELETE               : 7
-ENCRYPTLOG           : 16
-ENCRYPTREAD          : 17
+ENCRYPTLOG           : 18
+ENCRYPTREAD          : 19
 EXEC                 : 14
-FALSE                : 28
-FROM                 : 22
-LLAVE                : 18
-LOCAL                : 25
-MODE                 : 24
+FALSE                : 30
+FROM                 : 24
+LLAVE                : 20
+LOCAL                : 27
+MODE                 : 26
 MODIFY               : 11
-NAME                 : 19
-PATH                 : 21
+NAME                 : 21
+PATH                 : 23
 RENAME               : 10
-RUTA                 : 21 22 23
-STRING               : 18 20
-TO                   : 23
+RUTA                 : 23 24 25
+STRING               : 20 22
+TO                   : 25
 TRANSFER             : 9
-TRUE                 : 27
-TYPE                 : 15
+TRUE                 : 29
+TYPE                 : 17
 error                : 
 
 Nonterminals, with rules where they appear
 
 comandos             : 2 3
-encriptado           : 16 17
+encriptado           : 18 19
 inicio               : 0
 lexico               : 1 2
 maincomando          : 4
-subcomando           : 4
-tipo                 : 15 24
+sub                  : 15 16
+subcomando           : 4 15
+tipo                 : 17 26
 
 Parsing method: LALR
 
@@ -166,29 +169,32 @@ state 3
 state 4
 
     (4) comandos -> maincomando . subcomando
-    (15) subcomando -> . TYPE tipo
-    (16) subcomando -> . ENCRYPTLOG encriptado
-    (17) subcomando -> . ENCRYPTREAD encriptado
-    (18) subcomando -> . LLAVE STRING
-    (19) subcomando -> . NAME ARCHIVO
-    (20) subcomando -> . BODY STRING
-    (21) subcomando -> . PATH RUTA
-    (22) subcomando -> . FROM RUTA
-    (23) subcomando -> . TO RUTA
-    (24) subcomando -> . MODE tipo
+    (15) subcomando -> . subcomando sub
+    (16) subcomando -> . sub
+    (17) sub -> . TYPE tipo
+    (18) sub -> . ENCRYPTLOG encriptado
+    (19) sub -> . ENCRYPTREAD encriptado
+    (20) sub -> . LLAVE STRING
+    (21) sub -> . NAME ARCHIVO
+    (22) sub -> . BODY STRING
+    (23) sub -> . PATH RUTA
+    (24) sub -> . FROM RUTA
+    (25) sub -> . TO RUTA
+    (26) sub -> . MODE tipo
 
-    TYPE            shift and go to state 17
-    ENCRYPTLOG      shift and go to state 18
-    ENCRYPTREAD     shift and go to state 19
-    LLAVE           shift and go to state 20
-    NAME            shift and go to state 21
-    BODY            shift and go to state 22
-    PATH            shift and go to state 23
-    FROM            shift and go to state 24
-    TO              shift and go to state 25
-    MODE            shift and go to state 26
+    TYPE            shift and go to state 18
+    ENCRYPTLOG      shift and go to state 19
+    ENCRYPTREAD     shift and go to state 20
+    LLAVE           shift and go to state 21
+    NAME            shift and go to state 22
+    BODY            shift and go to state 23
+    PATH            shift and go to state 24
+    FROM            shift and go to state 25
+    TO              shift and go to state 26
+    MODE            shift and go to state 27
 
     subcomando                     shift and go to state 16
+    sub                            shift and go to state 17
 
 state 5
 
@@ -370,6 +376,17 @@ state 15
 state 16
 
     (4) comandos -> maincomando subcomando .
+    (15) subcomando -> subcomando . sub
+    (17) sub -> . TYPE tipo
+    (18) sub -> . ENCRYPTLOG encriptado
+    (19) sub -> . ENCRYPTREAD encriptado
+    (20) sub -> . LLAVE STRING
+    (21) sub -> . NAME ARCHIVO
+    (22) sub -> . BODY STRING
+    (23) sub -> . PATH RUTA
+    (24) sub -> . FROM RUTA
+    (25) sub -> . TO RUTA
+    (26) sub -> . MODE tipo
 
     CONFIGURE       reduce using rule 4 (comandos -> maincomando subcomando .)
     CREATE          reduce using rule 4 (comandos -> maincomando subcomando .)
@@ -382,328 +399,533 @@ state 16
     BACKUP          reduce using rule 4 (comandos -> maincomando subcomando .)
     EXEC            reduce using rule 4 (comandos -> maincomando subcomando .)
     $end            reduce using rule 4 (comandos -> maincomando subcomando .)
+    TYPE            shift and go to state 18
+    ENCRYPTLOG      shift and go to state 19
+    ENCRYPTREAD     shift and go to state 20
+    LLAVE           shift and go to state 21
+    NAME            shift and go to state 22
+    BODY            shift and go to state 23
+    PATH            shift and go to state 24
+    FROM            shift and go to state 25
+    TO              shift and go to state 26
+    MODE            shift and go to state 27
 
+    sub                            shift and go to state 28
 
 state 17
 
-    (15) subcomando -> TYPE . tipo
-    (25) tipo -> . LOCAL
-    (26) tipo -> . CLOUD
+    (16) subcomando -> sub .
 
-    LOCAL           shift and go to state 28
-    CLOUD           shift and go to state 29
+    TYPE            reduce using rule 16 (subcomando -> sub .)
+    ENCRYPTLOG      reduce using rule 16 (subcomando -> sub .)
+    ENCRYPTREAD     reduce using rule 16 (subcomando -> sub .)
+    LLAVE           reduce using rule 16 (subcomando -> sub .)
+    NAME            reduce using rule 16 (subcomando -> sub .)
+    BODY            reduce using rule 16 (subcomando -> sub .)
+    PATH            reduce using rule 16 (subcomando -> sub .)
+    FROM            reduce using rule 16 (subcomando -> sub .)
+    TO              reduce using rule 16 (subcomando -> sub .)
+    MODE            reduce using rule 16 (subcomando -> sub .)
+    CONFIGURE       reduce using rule 16 (subcomando -> sub .)
+    CREATE          reduce using rule 16 (subcomando -> sub .)
+    DELETE          reduce using rule 16 (subcomando -> sub .)
+    COPY            reduce using rule 16 (subcomando -> sub .)
+    TRANSFER        reduce using rule 16 (subcomando -> sub .)
+    RENAME          reduce using rule 16 (subcomando -> sub .)
+    MODIFY          reduce using rule 16 (subcomando -> sub .)
+    ADD             reduce using rule 16 (subcomando -> sub .)
+    BACKUP          reduce using rule 16 (subcomando -> sub .)
+    EXEC            reduce using rule 16 (subcomando -> sub .)
+    $end            reduce using rule 16 (subcomando -> sub .)
 
-    tipo                           shift and go to state 27
 
 state 18
 
-    (16) subcomando -> ENCRYPTLOG . encriptado
-    (27) encriptado -> . TRUE
-    (28) encriptado -> . FALSE
+    (17) sub -> TYPE . tipo
+    (27) tipo -> . LOCAL
+    (28) tipo -> . CLOUD
 
-    TRUE            shift and go to state 31
-    FALSE           shift and go to state 32
+    LOCAL           shift and go to state 30
+    CLOUD           shift and go to state 31
 
-    encriptado                     shift and go to state 30
+    tipo                           shift and go to state 29
 
 state 19
 
-    (17) subcomando -> ENCRYPTREAD . encriptado
-    (27) encriptado -> . TRUE
-    (28) encriptado -> . FALSE
+    (18) sub -> ENCRYPTLOG . encriptado
+    (29) encriptado -> . TRUE
+    (30) encriptado -> . FALSE
 
-    TRUE            shift and go to state 31
-    FALSE           shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
 
-    encriptado                     shift and go to state 33
+    encriptado                     shift and go to state 32
 
 state 20
 
-    (18) subcomando -> LLAVE . STRING
+    (19) sub -> ENCRYPTREAD . encriptado
+    (29) encriptado -> . TRUE
+    (30) encriptado -> . FALSE
 
-    STRING          shift and go to state 34
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
 
+    encriptado                     shift and go to state 35
 
 state 21
 
-    (19) subcomando -> NAME . ARCHIVO
-
-    ARCHIVO         shift and go to state 35
-
-
-state 22
-
-    (20) subcomando -> BODY . STRING
+    (20) sub -> LLAVE . STRING
 
     STRING          shift and go to state 36
 
 
+state 22
+
+    (21) sub -> NAME . ARCHIVO
+
+    ARCHIVO         shift and go to state 37
+
+
 state 23
 
-    (21) subcomando -> PATH . RUTA
+    (22) sub -> BODY . STRING
 
-    RUTA            shift and go to state 37
+    STRING          shift and go to state 38
 
 
 state 24
 
-    (22) subcomando -> FROM . RUTA
-
-    RUTA            shift and go to state 38
-
-
-state 25
-
-    (23) subcomando -> TO . RUTA
+    (23) sub -> PATH . RUTA
 
     RUTA            shift and go to state 39
 
 
+state 25
+
+    (24) sub -> FROM . RUTA
+
+    RUTA            shift and go to state 40
+
+
 state 26
 
-    (24) subcomando -> MODE . tipo
-    (25) tipo -> . LOCAL
-    (26) tipo -> . CLOUD
+    (25) sub -> TO . RUTA
 
-    LOCAL           shift and go to state 28
-    CLOUD           shift and go to state 29
+    RUTA            shift and go to state 41
 
-    tipo                           shift and go to state 40
 
 state 27
 
-    (15) subcomando -> TYPE tipo .
+    (26) sub -> MODE . tipo
+    (27) tipo -> . LOCAL
+    (28) tipo -> . CLOUD
 
-    CONFIGURE       reduce using rule 15 (subcomando -> TYPE tipo .)
-    CREATE          reduce using rule 15 (subcomando -> TYPE tipo .)
-    DELETE          reduce using rule 15 (subcomando -> TYPE tipo .)
-    COPY            reduce using rule 15 (subcomando -> TYPE tipo .)
-    TRANSFER        reduce using rule 15 (subcomando -> TYPE tipo .)
-    RENAME          reduce using rule 15 (subcomando -> TYPE tipo .)
-    MODIFY          reduce using rule 15 (subcomando -> TYPE tipo .)
-    ADD             reduce using rule 15 (subcomando -> TYPE tipo .)
-    BACKUP          reduce using rule 15 (subcomando -> TYPE tipo .)
-    EXEC            reduce using rule 15 (subcomando -> TYPE tipo .)
-    $end            reduce using rule 15 (subcomando -> TYPE tipo .)
+    LOCAL           shift and go to state 30
+    CLOUD           shift and go to state 31
 
+    tipo                           shift and go to state 42
 
 state 28
 
-    (25) tipo -> LOCAL .
+    (15) subcomando -> subcomando sub .
 
-    CONFIGURE       reduce using rule 25 (tipo -> LOCAL .)
-    CREATE          reduce using rule 25 (tipo -> LOCAL .)
-    DELETE          reduce using rule 25 (tipo -> LOCAL .)
-    COPY            reduce using rule 25 (tipo -> LOCAL .)
-    TRANSFER        reduce using rule 25 (tipo -> LOCAL .)
-    RENAME          reduce using rule 25 (tipo -> LOCAL .)
-    MODIFY          reduce using rule 25 (tipo -> LOCAL .)
-    ADD             reduce using rule 25 (tipo -> LOCAL .)
-    BACKUP          reduce using rule 25 (tipo -> LOCAL .)
-    EXEC            reduce using rule 25 (tipo -> LOCAL .)
-    $end            reduce using rule 25 (tipo -> LOCAL .)
+    TYPE            reduce using rule 15 (subcomando -> subcomando sub .)
+    ENCRYPTLOG      reduce using rule 15 (subcomando -> subcomando sub .)
+    ENCRYPTREAD     reduce using rule 15 (subcomando -> subcomando sub .)
+    LLAVE           reduce using rule 15 (subcomando -> subcomando sub .)
+    NAME            reduce using rule 15 (subcomando -> subcomando sub .)
+    BODY            reduce using rule 15 (subcomando -> subcomando sub .)
+    PATH            reduce using rule 15 (subcomando -> subcomando sub .)
+    FROM            reduce using rule 15 (subcomando -> subcomando sub .)
+    TO              reduce using rule 15 (subcomando -> subcomando sub .)
+    MODE            reduce using rule 15 (subcomando -> subcomando sub .)
+    CONFIGURE       reduce using rule 15 (subcomando -> subcomando sub .)
+    CREATE          reduce using rule 15 (subcomando -> subcomando sub .)
+    DELETE          reduce using rule 15 (subcomando -> subcomando sub .)
+    COPY            reduce using rule 15 (subcomando -> subcomando sub .)
+    TRANSFER        reduce using rule 15 (subcomando -> subcomando sub .)
+    RENAME          reduce using rule 15 (subcomando -> subcomando sub .)
+    MODIFY          reduce using rule 15 (subcomando -> subcomando sub .)
+    ADD             reduce using rule 15 (subcomando -> subcomando sub .)
+    BACKUP          reduce using rule 15 (subcomando -> subcomando sub .)
+    EXEC            reduce using rule 15 (subcomando -> subcomando sub .)
+    $end            reduce using rule 15 (subcomando -> subcomando sub .)
 
 
 state 29
 
-    (26) tipo -> CLOUD .
+    (17) sub -> TYPE tipo .
 
-    CONFIGURE       reduce using rule 26 (tipo -> CLOUD .)
-    CREATE          reduce using rule 26 (tipo -> CLOUD .)
-    DELETE          reduce using rule 26 (tipo -> CLOUD .)
-    COPY            reduce using rule 26 (tipo -> CLOUD .)
-    TRANSFER        reduce using rule 26 (tipo -> CLOUD .)
-    RENAME          reduce using rule 26 (tipo -> CLOUD .)
-    MODIFY          reduce using rule 26 (tipo -> CLOUD .)
-    ADD             reduce using rule 26 (tipo -> CLOUD .)
-    BACKUP          reduce using rule 26 (tipo -> CLOUD .)
-    EXEC            reduce using rule 26 (tipo -> CLOUD .)
-    $end            reduce using rule 26 (tipo -> CLOUD .)
+    TYPE            reduce using rule 17 (sub -> TYPE tipo .)
+    ENCRYPTLOG      reduce using rule 17 (sub -> TYPE tipo .)
+    ENCRYPTREAD     reduce using rule 17 (sub -> TYPE tipo .)
+    LLAVE           reduce using rule 17 (sub -> TYPE tipo .)
+    NAME            reduce using rule 17 (sub -> TYPE tipo .)
+    BODY            reduce using rule 17 (sub -> TYPE tipo .)
+    PATH            reduce using rule 17 (sub -> TYPE tipo .)
+    FROM            reduce using rule 17 (sub -> TYPE tipo .)
+    TO              reduce using rule 17 (sub -> TYPE tipo .)
+    MODE            reduce using rule 17 (sub -> TYPE tipo .)
+    CONFIGURE       reduce using rule 17 (sub -> TYPE tipo .)
+    CREATE          reduce using rule 17 (sub -> TYPE tipo .)
+    DELETE          reduce using rule 17 (sub -> TYPE tipo .)
+    COPY            reduce using rule 17 (sub -> TYPE tipo .)
+    TRANSFER        reduce using rule 17 (sub -> TYPE tipo .)
+    RENAME          reduce using rule 17 (sub -> TYPE tipo .)
+    MODIFY          reduce using rule 17 (sub -> TYPE tipo .)
+    ADD             reduce using rule 17 (sub -> TYPE tipo .)
+    BACKUP          reduce using rule 17 (sub -> TYPE tipo .)
+    EXEC            reduce using rule 17 (sub -> TYPE tipo .)
+    $end            reduce using rule 17 (sub -> TYPE tipo .)
 
 
 state 30
 
-    (16) subcomando -> ENCRYPTLOG encriptado .
+    (27) tipo -> LOCAL .
 
-    CONFIGURE       reduce using rule 16 (subcomando -> ENCRYPTLOG encriptado .)
-    CREATE          reduce using rule 16 (subcomando -> ENCRYPTLOG encriptado .)
-    DELETE          reduce using rule 16 (subcomando -> ENCRYPTLOG encriptado .)
-    COPY            reduce using rule 16 (subcomando -> ENCRYPTLOG encriptado .)
-    TRANSFER        reduce using rule 16 (subcomando -> ENCRYPTLOG encriptado .)
-    RENAME          reduce using rule 16 (subcomando -> ENCRYPTLOG encriptado .)
-    MODIFY          reduce using rule 16 (subcomando -> ENCRYPTLOG encriptado .)
-    ADD             reduce using rule 16 (subcomando -> ENCRYPTLOG encriptado .)
-    BACKUP          reduce using rule 16 (subcomando -> ENCRYPTLOG encriptado .)
-    EXEC            reduce using rule 16 (subcomando -> ENCRYPTLOG encriptado .)
-    $end            reduce using rule 16 (subcomando -> ENCRYPTLOG encriptado .)
+    TYPE            reduce using rule 27 (tipo -> LOCAL .)
+    ENCRYPTLOG      reduce using rule 27 (tipo -> LOCAL .)
+    ENCRYPTREAD     reduce using rule 27 (tipo -> LOCAL .)
+    LLAVE           reduce using rule 27 (tipo -> LOCAL .)
+    NAME            reduce using rule 27 (tipo -> LOCAL .)
+    BODY            reduce using rule 27 (tipo -> LOCAL .)
+    PATH            reduce using rule 27 (tipo -> LOCAL .)
+    FROM            reduce using rule 27 (tipo -> LOCAL .)
+    TO              reduce using rule 27 (tipo -> LOCAL .)
+    MODE            reduce using rule 27 (tipo -> LOCAL .)
+    CONFIGURE       reduce using rule 27 (tipo -> LOCAL .)
+    CREATE          reduce using rule 27 (tipo -> LOCAL .)
+    DELETE          reduce using rule 27 (tipo -> LOCAL .)
+    COPY            reduce using rule 27 (tipo -> LOCAL .)
+    TRANSFER        reduce using rule 27 (tipo -> LOCAL .)
+    RENAME          reduce using rule 27 (tipo -> LOCAL .)
+    MODIFY          reduce using rule 27 (tipo -> LOCAL .)
+    ADD             reduce using rule 27 (tipo -> LOCAL .)
+    BACKUP          reduce using rule 27 (tipo -> LOCAL .)
+    EXEC            reduce using rule 27 (tipo -> LOCAL .)
+    $end            reduce using rule 27 (tipo -> LOCAL .)
 
 
 state 31
 
-    (27) encriptado -> TRUE .
+    (28) tipo -> CLOUD .
 
-    CONFIGURE       reduce using rule 27 (encriptado -> TRUE .)
-    CREATE          reduce using rule 27 (encriptado -> TRUE .)
-    DELETE          reduce using rule 27 (encriptado -> TRUE .)
-    COPY            reduce using rule 27 (encriptado -> TRUE .)
-    TRANSFER        reduce using rule 27 (encriptado -> TRUE .)
-    RENAME          reduce using rule 27 (encriptado -> TRUE .)
-    MODIFY          reduce using rule 27 (encriptado -> TRUE .)
-    ADD             reduce using rule 27 (encriptado -> TRUE .)
-    BACKUP          reduce using rule 27 (encriptado -> TRUE .)
-    EXEC            reduce using rule 27 (encriptado -> TRUE .)
-    $end            reduce using rule 27 (encriptado -> TRUE .)
+    TYPE            reduce using rule 28 (tipo -> CLOUD .)
+    ENCRYPTLOG      reduce using rule 28 (tipo -> CLOUD .)
+    ENCRYPTREAD     reduce using rule 28 (tipo -> CLOUD .)
+    LLAVE           reduce using rule 28 (tipo -> CLOUD .)
+    NAME            reduce using rule 28 (tipo -> CLOUD .)
+    BODY            reduce using rule 28 (tipo -> CLOUD .)
+    PATH            reduce using rule 28 (tipo -> CLOUD .)
+    FROM            reduce using rule 28 (tipo -> CLOUD .)
+    TO              reduce using rule 28 (tipo -> CLOUD .)
+    MODE            reduce using rule 28 (tipo -> CLOUD .)
+    CONFIGURE       reduce using rule 28 (tipo -> CLOUD .)
+    CREATE          reduce using rule 28 (tipo -> CLOUD .)
+    DELETE          reduce using rule 28 (tipo -> CLOUD .)
+    COPY            reduce using rule 28 (tipo -> CLOUD .)
+    TRANSFER        reduce using rule 28 (tipo -> CLOUD .)
+    RENAME          reduce using rule 28 (tipo -> CLOUD .)
+    MODIFY          reduce using rule 28 (tipo -> CLOUD .)
+    ADD             reduce using rule 28 (tipo -> CLOUD .)
+    BACKUP          reduce using rule 28 (tipo -> CLOUD .)
+    EXEC            reduce using rule 28 (tipo -> CLOUD .)
+    $end            reduce using rule 28 (tipo -> CLOUD .)
 
 
 state 32
 
-    (28) encriptado -> FALSE .
+    (18) sub -> ENCRYPTLOG encriptado .
 
-    CONFIGURE       reduce using rule 28 (encriptado -> FALSE .)
-    CREATE          reduce using rule 28 (encriptado -> FALSE .)
-    DELETE          reduce using rule 28 (encriptado -> FALSE .)
-    COPY            reduce using rule 28 (encriptado -> FALSE .)
-    TRANSFER        reduce using rule 28 (encriptado -> FALSE .)
-    RENAME          reduce using rule 28 (encriptado -> FALSE .)
-    MODIFY          reduce using rule 28 (encriptado -> FALSE .)
-    ADD             reduce using rule 28 (encriptado -> FALSE .)
-    BACKUP          reduce using rule 28 (encriptado -> FALSE .)
-    EXEC            reduce using rule 28 (encriptado -> FALSE .)
-    $end            reduce using rule 28 (encriptado -> FALSE .)
+    TYPE            reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
+    ENCRYPTLOG      reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
+    ENCRYPTREAD     reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
+    LLAVE           reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
+    NAME            reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
+    BODY            reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
+    PATH            reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
+    FROM            reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
+    TO              reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
+    MODE            reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
+    CONFIGURE       reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
+    CREATE          reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
+    DELETE          reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
+    COPY            reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
+    TRANSFER        reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
+    RENAME          reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
+    MODIFY          reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
+    ADD             reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
+    BACKUP          reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
+    EXEC            reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
+    $end            reduce using rule 18 (sub -> ENCRYPTLOG encriptado .)
 
 
 state 33
 
-    (17) subcomando -> ENCRYPTREAD encriptado .
+    (29) encriptado -> TRUE .
 
-    CONFIGURE       reduce using rule 17 (subcomando -> ENCRYPTREAD encriptado .)
-    CREATE          reduce using rule 17 (subcomando -> ENCRYPTREAD encriptado .)
-    DELETE          reduce using rule 17 (subcomando -> ENCRYPTREAD encriptado .)
-    COPY            reduce using rule 17 (subcomando -> ENCRYPTREAD encriptado .)
-    TRANSFER        reduce using rule 17 (subcomando -> ENCRYPTREAD encriptado .)
-    RENAME          reduce using rule 17 (subcomando -> ENCRYPTREAD encriptado .)
-    MODIFY          reduce using rule 17 (subcomando -> ENCRYPTREAD encriptado .)
-    ADD             reduce using rule 17 (subcomando -> ENCRYPTREAD encriptado .)
-    BACKUP          reduce using rule 17 (subcomando -> ENCRYPTREAD encriptado .)
-    EXEC            reduce using rule 17 (subcomando -> ENCRYPTREAD encriptado .)
-    $end            reduce using rule 17 (subcomando -> ENCRYPTREAD encriptado .)
+    TYPE            reduce using rule 29 (encriptado -> TRUE .)
+    ENCRYPTLOG      reduce using rule 29 (encriptado -> TRUE .)
+    ENCRYPTREAD     reduce using rule 29 (encriptado -> TRUE .)
+    LLAVE           reduce using rule 29 (encriptado -> TRUE .)
+    NAME            reduce using rule 29 (encriptado -> TRUE .)
+    BODY            reduce using rule 29 (encriptado -> TRUE .)
+    PATH            reduce using rule 29 (encriptado -> TRUE .)
+    FROM            reduce using rule 29 (encriptado -> TRUE .)
+    TO              reduce using rule 29 (encriptado -> TRUE .)
+    MODE            reduce using rule 29 (encriptado -> TRUE .)
+    CONFIGURE       reduce using rule 29 (encriptado -> TRUE .)
+    CREATE          reduce using rule 29 (encriptado -> TRUE .)
+    DELETE          reduce using rule 29 (encriptado -> TRUE .)
+    COPY            reduce using rule 29 (encriptado -> TRUE .)
+    TRANSFER        reduce using rule 29 (encriptado -> TRUE .)
+    RENAME          reduce using rule 29 (encriptado -> TRUE .)
+    MODIFY          reduce using rule 29 (encriptado -> TRUE .)
+    ADD             reduce using rule 29 (encriptado -> TRUE .)
+    BACKUP          reduce using rule 29 (encriptado -> TRUE .)
+    EXEC            reduce using rule 29 (encriptado -> TRUE .)
+    $end            reduce using rule 29 (encriptado -> TRUE .)
 
 
 state 34
 
-    (18) subcomando -> LLAVE STRING .
+    (30) encriptado -> FALSE .
 
-    CONFIGURE       reduce using rule 18 (subcomando -> LLAVE STRING .)
-    CREATE          reduce using rule 18 (subcomando -> LLAVE STRING .)
-    DELETE          reduce using rule 18 (subcomando -> LLAVE STRING .)
-    COPY            reduce using rule 18 (subcomando -> LLAVE STRING .)
-    TRANSFER        reduce using rule 18 (subcomando -> LLAVE STRING .)
-    RENAME          reduce using rule 18 (subcomando -> LLAVE STRING .)
-    MODIFY          reduce using rule 18 (subcomando -> LLAVE STRING .)
-    ADD             reduce using rule 18 (subcomando -> LLAVE STRING .)
-    BACKUP          reduce using rule 18 (subcomando -> LLAVE STRING .)
-    EXEC            reduce using rule 18 (subcomando -> LLAVE STRING .)
-    $end            reduce using rule 18 (subcomando -> LLAVE STRING .)
+    TYPE            reduce using rule 30 (encriptado -> FALSE .)
+    ENCRYPTLOG      reduce using rule 30 (encriptado -> FALSE .)
+    ENCRYPTREAD     reduce using rule 30 (encriptado -> FALSE .)
+    LLAVE           reduce using rule 30 (encriptado -> FALSE .)
+    NAME            reduce using rule 30 (encriptado -> FALSE .)
+    BODY            reduce using rule 30 (encriptado -> FALSE .)
+    PATH            reduce using rule 30 (encriptado -> FALSE .)
+    FROM            reduce using rule 30 (encriptado -> FALSE .)
+    TO              reduce using rule 30 (encriptado -> FALSE .)
+    MODE            reduce using rule 30 (encriptado -> FALSE .)
+    CONFIGURE       reduce using rule 30 (encriptado -> FALSE .)
+    CREATE          reduce using rule 30 (encriptado -> FALSE .)
+    DELETE          reduce using rule 30 (encriptado -> FALSE .)
+    COPY            reduce using rule 30 (encriptado -> FALSE .)
+    TRANSFER        reduce using rule 30 (encriptado -> FALSE .)
+    RENAME          reduce using rule 30 (encriptado -> FALSE .)
+    MODIFY          reduce using rule 30 (encriptado -> FALSE .)
+    ADD             reduce using rule 30 (encriptado -> FALSE .)
+    BACKUP          reduce using rule 30 (encriptado -> FALSE .)
+    EXEC            reduce using rule 30 (encriptado -> FALSE .)
+    $end            reduce using rule 30 (encriptado -> FALSE .)
 
 
 state 35
 
-    (19) subcomando -> NAME ARCHIVO .
+    (19) sub -> ENCRYPTREAD encriptado .
 
-    CONFIGURE       reduce using rule 19 (subcomando -> NAME ARCHIVO .)
-    CREATE          reduce using rule 19 (subcomando -> NAME ARCHIVO .)
-    DELETE          reduce using rule 19 (subcomando -> NAME ARCHIVO .)
-    COPY            reduce using rule 19 (subcomando -> NAME ARCHIVO .)
-    TRANSFER        reduce using rule 19 (subcomando -> NAME ARCHIVO .)
-    RENAME          reduce using rule 19 (subcomando -> NAME ARCHIVO .)
-    MODIFY          reduce using rule 19 (subcomando -> NAME ARCHIVO .)
-    ADD             reduce using rule 19 (subcomando -> NAME ARCHIVO .)
-    BACKUP          reduce using rule 19 (subcomando -> NAME ARCHIVO .)
-    EXEC            reduce using rule 19 (subcomando -> NAME ARCHIVO .)
-    $end            reduce using rule 19 (subcomando -> NAME ARCHIVO .)
+    TYPE            reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
+    ENCRYPTLOG      reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
+    ENCRYPTREAD     reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
+    LLAVE           reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
+    NAME            reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
+    BODY            reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
+    PATH            reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
+    FROM            reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
+    TO              reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
+    MODE            reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
+    CONFIGURE       reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
+    CREATE          reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
+    DELETE          reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
+    COPY            reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
+    TRANSFER        reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
+    RENAME          reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
+    MODIFY          reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
+    ADD             reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
+    BACKUP          reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
+    EXEC            reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
+    $end            reduce using rule 19 (sub -> ENCRYPTREAD encriptado .)
 
 
 state 36
 
-    (20) subcomando -> BODY STRING .
+    (20) sub -> LLAVE STRING .
 
-    CONFIGURE       reduce using rule 20 (subcomando -> BODY STRING .)
-    CREATE          reduce using rule 20 (subcomando -> BODY STRING .)
-    DELETE          reduce using rule 20 (subcomando -> BODY STRING .)
-    COPY            reduce using rule 20 (subcomando -> BODY STRING .)
-    TRANSFER        reduce using rule 20 (subcomando -> BODY STRING .)
-    RENAME          reduce using rule 20 (subcomando -> BODY STRING .)
-    MODIFY          reduce using rule 20 (subcomando -> BODY STRING .)
-    ADD             reduce using rule 20 (subcomando -> BODY STRING .)
-    BACKUP          reduce using rule 20 (subcomando -> BODY STRING .)
-    EXEC            reduce using rule 20 (subcomando -> BODY STRING .)
-    $end            reduce using rule 20 (subcomando -> BODY STRING .)
+    TYPE            reduce using rule 20 (sub -> LLAVE STRING .)
+    ENCRYPTLOG      reduce using rule 20 (sub -> LLAVE STRING .)
+    ENCRYPTREAD     reduce using rule 20 (sub -> LLAVE STRING .)
+    LLAVE           reduce using rule 20 (sub -> LLAVE STRING .)
+    NAME            reduce using rule 20 (sub -> LLAVE STRING .)
+    BODY            reduce using rule 20 (sub -> LLAVE STRING .)
+    PATH            reduce using rule 20 (sub -> LLAVE STRING .)
+    FROM            reduce using rule 20 (sub -> LLAVE STRING .)
+    TO              reduce using rule 20 (sub -> LLAVE STRING .)
+    MODE            reduce using rule 20 (sub -> LLAVE STRING .)
+    CONFIGURE       reduce using rule 20 (sub -> LLAVE STRING .)
+    CREATE          reduce using rule 20 (sub -> LLAVE STRING .)
+    DELETE          reduce using rule 20 (sub -> LLAVE STRING .)
+    COPY            reduce using rule 20 (sub -> LLAVE STRING .)
+    TRANSFER        reduce using rule 20 (sub -> LLAVE STRING .)
+    RENAME          reduce using rule 20 (sub -> LLAVE STRING .)
+    MODIFY          reduce using rule 20 (sub -> LLAVE STRING .)
+    ADD             reduce using rule 20 (sub -> LLAVE STRING .)
+    BACKUP          reduce using rule 20 (sub -> LLAVE STRING .)
+    EXEC            reduce using rule 20 (sub -> LLAVE STRING .)
+    $end            reduce using rule 20 (sub -> LLAVE STRING .)
 
 
 state 37
 
-    (21) subcomando -> PATH RUTA .
+    (21) sub -> NAME ARCHIVO .
 
-    CONFIGURE       reduce using rule 21 (subcomando -> PATH RUTA .)
-    CREATE          reduce using rule 21 (subcomando -> PATH RUTA .)
-    DELETE          reduce using rule 21 (subcomando -> PATH RUTA .)
-    COPY            reduce using rule 21 (subcomando -> PATH RUTA .)
-    TRANSFER        reduce using rule 21 (subcomando -> PATH RUTA .)
-    RENAME          reduce using rule 21 (subcomando -> PATH RUTA .)
-    MODIFY          reduce using rule 21 (subcomando -> PATH RUTA .)
-    ADD             reduce using rule 21 (subcomando -> PATH RUTA .)
-    BACKUP          reduce using rule 21 (subcomando -> PATH RUTA .)
-    EXEC            reduce using rule 21 (subcomando -> PATH RUTA .)
-    $end            reduce using rule 21 (subcomando -> PATH RUTA .)
+    TYPE            reduce using rule 21 (sub -> NAME ARCHIVO .)
+    ENCRYPTLOG      reduce using rule 21 (sub -> NAME ARCHIVO .)
+    ENCRYPTREAD     reduce using rule 21 (sub -> NAME ARCHIVO .)
+    LLAVE           reduce using rule 21 (sub -> NAME ARCHIVO .)
+    NAME            reduce using rule 21 (sub -> NAME ARCHIVO .)
+    BODY            reduce using rule 21 (sub -> NAME ARCHIVO .)
+    PATH            reduce using rule 21 (sub -> NAME ARCHIVO .)
+    FROM            reduce using rule 21 (sub -> NAME ARCHIVO .)
+    TO              reduce using rule 21 (sub -> NAME ARCHIVO .)
+    MODE            reduce using rule 21 (sub -> NAME ARCHIVO .)
+    CONFIGURE       reduce using rule 21 (sub -> NAME ARCHIVO .)
+    CREATE          reduce using rule 21 (sub -> NAME ARCHIVO .)
+    DELETE          reduce using rule 21 (sub -> NAME ARCHIVO .)
+    COPY            reduce using rule 21 (sub -> NAME ARCHIVO .)
+    TRANSFER        reduce using rule 21 (sub -> NAME ARCHIVO .)
+    RENAME          reduce using rule 21 (sub -> NAME ARCHIVO .)
+    MODIFY          reduce using rule 21 (sub -> NAME ARCHIVO .)
+    ADD             reduce using rule 21 (sub -> NAME ARCHIVO .)
+    BACKUP          reduce using rule 21 (sub -> NAME ARCHIVO .)
+    EXEC            reduce using rule 21 (sub -> NAME ARCHIVO .)
+    $end            reduce using rule 21 (sub -> NAME ARCHIVO .)
 
 
 state 38
 
-    (22) subcomando -> FROM RUTA .
+    (22) sub -> BODY STRING .
 
-    CONFIGURE       reduce using rule 22 (subcomando -> FROM RUTA .)
-    CREATE          reduce using rule 22 (subcomando -> FROM RUTA .)
-    DELETE          reduce using rule 22 (subcomando -> FROM RUTA .)
-    COPY            reduce using rule 22 (subcomando -> FROM RUTA .)
-    TRANSFER        reduce using rule 22 (subcomando -> FROM RUTA .)
-    RENAME          reduce using rule 22 (subcomando -> FROM RUTA .)
-    MODIFY          reduce using rule 22 (subcomando -> FROM RUTA .)
-    ADD             reduce using rule 22 (subcomando -> FROM RUTA .)
-    BACKUP          reduce using rule 22 (subcomando -> FROM RUTA .)
-    EXEC            reduce using rule 22 (subcomando -> FROM RUTA .)
-    $end            reduce using rule 22 (subcomando -> FROM RUTA .)
+    TYPE            reduce using rule 22 (sub -> BODY STRING .)
+    ENCRYPTLOG      reduce using rule 22 (sub -> BODY STRING .)
+    ENCRYPTREAD     reduce using rule 22 (sub -> BODY STRING .)
+    LLAVE           reduce using rule 22 (sub -> BODY STRING .)
+    NAME            reduce using rule 22 (sub -> BODY STRING .)
+    BODY            reduce using rule 22 (sub -> BODY STRING .)
+    PATH            reduce using rule 22 (sub -> BODY STRING .)
+    FROM            reduce using rule 22 (sub -> BODY STRING .)
+    TO              reduce using rule 22 (sub -> BODY STRING .)
+    MODE            reduce using rule 22 (sub -> BODY STRING .)
+    CONFIGURE       reduce using rule 22 (sub -> BODY STRING .)
+    CREATE          reduce using rule 22 (sub -> BODY STRING .)
+    DELETE          reduce using rule 22 (sub -> BODY STRING .)
+    COPY            reduce using rule 22 (sub -> BODY STRING .)
+    TRANSFER        reduce using rule 22 (sub -> BODY STRING .)
+    RENAME          reduce using rule 22 (sub -> BODY STRING .)
+    MODIFY          reduce using rule 22 (sub -> BODY STRING .)
+    ADD             reduce using rule 22 (sub -> BODY STRING .)
+    BACKUP          reduce using rule 22 (sub -> BODY STRING .)
+    EXEC            reduce using rule 22 (sub -> BODY STRING .)
+    $end            reduce using rule 22 (sub -> BODY STRING .)
 
 
 state 39
 
-    (23) subcomando -> TO RUTA .
+    (23) sub -> PATH RUTA .
 
-    CONFIGURE       reduce using rule 23 (subcomando -> TO RUTA .)
-    CREATE          reduce using rule 23 (subcomando -> TO RUTA .)
-    DELETE          reduce using rule 23 (subcomando -> TO RUTA .)
-    COPY            reduce using rule 23 (subcomando -> TO RUTA .)
-    TRANSFER        reduce using rule 23 (subcomando -> TO RUTA .)
-    RENAME          reduce using rule 23 (subcomando -> TO RUTA .)
-    MODIFY          reduce using rule 23 (subcomando -> TO RUTA .)
-    ADD             reduce using rule 23 (subcomando -> TO RUTA .)
-    BACKUP          reduce using rule 23 (subcomando -> TO RUTA .)
-    EXEC            reduce using rule 23 (subcomando -> TO RUTA .)
-    $end            reduce using rule 23 (subcomando -> TO RUTA .)
+    TYPE            reduce using rule 23 (sub -> PATH RUTA .)
+    ENCRYPTLOG      reduce using rule 23 (sub -> PATH RUTA .)
+    ENCRYPTREAD     reduce using rule 23 (sub -> PATH RUTA .)
+    LLAVE           reduce using rule 23 (sub -> PATH RUTA .)
+    NAME            reduce using rule 23 (sub -> PATH RUTA .)
+    BODY            reduce using rule 23 (sub -> PATH RUTA .)
+    PATH            reduce using rule 23 (sub -> PATH RUTA .)
+    FROM            reduce using rule 23 (sub -> PATH RUTA .)
+    TO              reduce using rule 23 (sub -> PATH RUTA .)
+    MODE            reduce using rule 23 (sub -> PATH RUTA .)
+    CONFIGURE       reduce using rule 23 (sub -> PATH RUTA .)
+    CREATE          reduce using rule 23 (sub -> PATH RUTA .)
+    DELETE          reduce using rule 23 (sub -> PATH RUTA .)
+    COPY            reduce using rule 23 (sub -> PATH RUTA .)
+    TRANSFER        reduce using rule 23 (sub -> PATH RUTA .)
+    RENAME          reduce using rule 23 (sub -> PATH RUTA .)
+    MODIFY          reduce using rule 23 (sub -> PATH RUTA .)
+    ADD             reduce using rule 23 (sub -> PATH RUTA .)
+    BACKUP          reduce using rule 23 (sub -> PATH RUTA .)
+    EXEC            reduce using rule 23 (sub -> PATH RUTA .)
+    $end            reduce using rule 23 (sub -> PATH RUTA .)
 
 
 state 40
 
-    (24) subcomando -> MODE tipo .
+    (24) sub -> FROM RUTA .
 
-    CONFIGURE       reduce using rule 24 (subcomando -> MODE tipo .)
-    CREATE          reduce using rule 24 (subcomando -> MODE tipo .)
-    DELETE          reduce using rule 24 (subcomando -> MODE tipo .)
-    COPY            reduce using rule 24 (subcomando -> MODE tipo .)
-    TRANSFER        reduce using rule 24 (subcomando -> MODE tipo .)
-    RENAME          reduce using rule 24 (subcomando -> MODE tipo .)
-    MODIFY          reduce using rule 24 (subcomando -> MODE tipo .)
-    ADD             reduce using rule 24 (subcomando -> MODE tipo .)
-    BACKUP          reduce using rule 24 (subcomando -> MODE tipo .)
-    EXEC            reduce using rule 24 (subcomando -> MODE tipo .)
-    $end            reduce using rule 24 (subcomando -> MODE tipo .)
+    TYPE            reduce using rule 24 (sub -> FROM RUTA .)
+    ENCRYPTLOG      reduce using rule 24 (sub -> FROM RUTA .)
+    ENCRYPTREAD     reduce using rule 24 (sub -> FROM RUTA .)
+    LLAVE           reduce using rule 24 (sub -> FROM RUTA .)
+    NAME            reduce using rule 24 (sub -> FROM RUTA .)
+    BODY            reduce using rule 24 (sub -> FROM RUTA .)
+    PATH            reduce using rule 24 (sub -> FROM RUTA .)
+    FROM            reduce using rule 24 (sub -> FROM RUTA .)
+    TO              reduce using rule 24 (sub -> FROM RUTA .)
+    MODE            reduce using rule 24 (sub -> FROM RUTA .)
+    CONFIGURE       reduce using rule 24 (sub -> FROM RUTA .)
+    CREATE          reduce using rule 24 (sub -> FROM RUTA .)
+    DELETE          reduce using rule 24 (sub -> FROM RUTA .)
+    COPY            reduce using rule 24 (sub -> FROM RUTA .)
+    TRANSFER        reduce using rule 24 (sub -> FROM RUTA .)
+    RENAME          reduce using rule 24 (sub -> FROM RUTA .)
+    MODIFY          reduce using rule 24 (sub -> FROM RUTA .)
+    ADD             reduce using rule 24 (sub -> FROM RUTA .)
+    BACKUP          reduce using rule 24 (sub -> FROM RUTA .)
+    EXEC            reduce using rule 24 (sub -> FROM RUTA .)
+    $end            reduce using rule 24 (sub -> FROM RUTA .)
+
+
+state 41
+
+    (25) sub -> TO RUTA .
+
+    TYPE            reduce using rule 25 (sub -> TO RUTA .)
+    ENCRYPTLOG      reduce using rule 25 (sub -> TO RUTA .)
+    ENCRYPTREAD     reduce using rule 25 (sub -> TO RUTA .)
+    LLAVE           reduce using rule 25 (sub -> TO RUTA .)
+    NAME            reduce using rule 25 (sub -> TO RUTA .)
+    BODY            reduce using rule 25 (sub -> TO RUTA .)
+    PATH            reduce using rule 25 (sub -> TO RUTA .)
+    FROM            reduce using rule 25 (sub -> TO RUTA .)
+    TO              reduce using rule 25 (sub -> TO RUTA .)
+    MODE            reduce using rule 25 (sub -> TO RUTA .)
+    CONFIGURE       reduce using rule 25 (sub -> TO RUTA .)
+    CREATE          reduce using rule 25 (sub -> TO RUTA .)
+    DELETE          reduce using rule 25 (sub -> TO RUTA .)
+    COPY            reduce using rule 25 (sub -> TO RUTA .)
+    TRANSFER        reduce using rule 25 (sub -> TO RUTA .)
+    RENAME          reduce using rule 25 (sub -> TO RUTA .)
+    MODIFY          reduce using rule 25 (sub -> TO RUTA .)
+    ADD             reduce using rule 25 (sub -> TO RUTA .)
+    BACKUP          reduce using rule 25 (sub -> TO RUTA .)
+    EXEC            reduce using rule 25 (sub -> TO RUTA .)
+    $end            reduce using rule 25 (sub -> TO RUTA .)
+
+
+state 42
+
+    (26) sub -> MODE tipo .
+
+    TYPE            reduce using rule 26 (sub -> MODE tipo .)
+    ENCRYPTLOG      reduce using rule 26 (sub -> MODE tipo .)
+    ENCRYPTREAD     reduce using rule 26 (sub -> MODE tipo .)
+    LLAVE           reduce using rule 26 (sub -> MODE tipo .)
+    NAME            reduce using rule 26 (sub -> MODE tipo .)
+    BODY            reduce using rule 26 (sub -> MODE tipo .)
+    PATH            reduce using rule 26 (sub -> MODE tipo .)
+    FROM            reduce using rule 26 (sub -> MODE tipo .)
+    TO              reduce using rule 26 (sub -> MODE tipo .)
+    MODE            reduce using rule 26 (sub -> MODE tipo .)
+    CONFIGURE       reduce using rule 26 (sub -> MODE tipo .)
+    CREATE          reduce using rule 26 (sub -> MODE tipo .)
+    DELETE          reduce using rule 26 (sub -> MODE tipo .)
+    COPY            reduce using rule 26 (sub -> MODE tipo .)
+    TRANSFER        reduce using rule 26 (sub -> MODE tipo .)
+    RENAME          reduce using rule 26 (sub -> MODE tipo .)
+    MODIFY          reduce using rule 26 (sub -> MODE tipo .)
+    ADD             reduce using rule 26 (sub -> MODE tipo .)
+    BACKUP          reduce using rule 26 (sub -> MODE tipo .)
+    EXEC            reduce using rule 26 (sub -> MODE tipo .)
+    $end            reduce using rule 26 (sub -> MODE tipo .)
 

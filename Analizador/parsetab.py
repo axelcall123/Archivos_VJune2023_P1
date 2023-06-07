@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ADD ARCHIVO BACKUP BODY CLOUD CONFIGURE COPY CREATE DELETE ENCRYPTLOG ENCRYPTREAD EXEC FALSE FROM LLAVE LOCAL MODE MODIFY NAME PATH RENAME RUTA STRING TO TRANSFER TRUE TYPEinicio : lexico\n    lexico : lexico comandos\n                | comandos\n    comandos : maincomando subcomando\n    maincomando : CONFIGURE\n                | CREATE\n                | DELETE\n                | COPY\n                | TRANSFER\n                | RENAME\n                | MODIFY\n                | ADD\n                | BACKUP\n                | EXEC\n    subcomando : TYPE tipo\n                    | ENCRYPTLOG encriptado\n                    | ENCRYPTREAD encriptado\n                    | LLAVE STRING\n                    | NAME ARCHIVO\n                    | BODY STRING\n                    | PATH RUTA\n                    | FROM RUTA\n                    | TO RUTA\n                    | MODE tipo\n    tipo : LOCAL\n            | CLOUD\n    encriptado : TRUE\n            | FALSE\n    '
+_lr_signature = 'ADD ARCHIVO BACKUP BODY CLOUD CONFIGURE COPY CREATE DELETE ENCRYPTLOG ENCRYPTREAD EXEC FALSE FROM LLAVE LOCAL MODE MODIFY NAME PATH RENAME RUTA STRING TO TRANSFER TRUE TYPEinicio : lexico\n    lexico : lexico comandos\n                | comandos\n    comandos : maincomando subcomando\n    maincomando : CONFIGURE\n                | CREATE\n                | DELETE\n                | COPY\n                | TRANSFER\n                | RENAME\n                | MODIFY\n                | ADD\n                | BACKUP\n                | EXEC\n    subcomando : subcomando sub\n                    | sub\n    sub : TYPE tipo\n                    | ENCRYPTLOG encriptado\n                    | ENCRYPTREAD encriptado\n                    | LLAVE STRING\n                    | NAME ARCHIVO\n                    | BODY STRING\n                    | PATH RUTA\n                    | FROM RUTA\n                    | TO RUTA\n                    | MODE tipo\n    tipo : LOCAL\n            | CLOUD\n    encriptado : TRUE\n            | FALSE\n    '
     
-_lr_action_items = {'CONFIGURE':([0,2,3,15,16,27,28,29,30,31,32,33,34,35,36,37,38,39,40,],[5,5,-3,-2,-4,-15,-25,-26,-16,-27,-28,-17,-18,-19,-20,-21,-22,-23,-24,]),'CREATE':([0,2,3,15,16,27,28,29,30,31,32,33,34,35,36,37,38,39,40,],[6,6,-3,-2,-4,-15,-25,-26,-16,-27,-28,-17,-18,-19,-20,-21,-22,-23,-24,]),'DELETE':([0,2,3,15,16,27,28,29,30,31,32,33,34,35,36,37,38,39,40,],[7,7,-3,-2,-4,-15,-25,-26,-16,-27,-28,-17,-18,-19,-20,-21,-22,-23,-24,]),'COPY':([0,2,3,15,16,27,28,29,30,31,32,33,34,35,36,37,38,39,40,],[8,8,-3,-2,-4,-15,-25,-26,-16,-27,-28,-17,-18,-19,-20,-21,-22,-23,-24,]),'TRANSFER':([0,2,3,15,16,27,28,29,30,31,32,33,34,35,36,37,38,39,40,],[9,9,-3,-2,-4,-15,-25,-26,-16,-27,-28,-17,-18,-19,-20,-21,-22,-23,-24,]),'RENAME':([0,2,3,15,16,27,28,29,30,31,32,33,34,35,36,37,38,39,40,],[10,10,-3,-2,-4,-15,-25,-26,-16,-27,-28,-17,-18,-19,-20,-21,-22,-23,-24,]),'MODIFY':([0,2,3,15,16,27,28,29,30,31,32,33,34,35,36,37,38,39,40,],[11,11,-3,-2,-4,-15,-25,-26,-16,-27,-28,-17,-18,-19,-20,-21,-22,-23,-24,]),'ADD':([0,2,3,15,16,27,28,29,30,31,32,33,34,35,36,37,38,39,40,],[12,12,-3,-2,-4,-15,-25,-26,-16,-27,-28,-17,-18,-19,-20,-21,-22,-23,-24,]),'BACKUP':([0,2,3,15,16,27,28,29,30,31,32,33,34,35,36,37,38,39,40,],[13,13,-3,-2,-4,-15,-25,-26,-16,-27,-28,-17,-18,-19,-20,-21,-22,-23,-24,]),'EXEC':([0,2,3,15,16,27,28,29,30,31,32,33,34,35,36,37,38,39,40,],[14,14,-3,-2,-4,-15,-25,-26,-16,-27,-28,-17,-18,-19,-20,-21,-22,-23,-24,]),'$end':([1,2,3,15,16,27,28,29,30,31,32,33,34,35,36,37,38,39,40,],[0,-1,-3,-2,-4,-15,-25,-26,-16,-27,-28,-17,-18,-19,-20,-21,-22,-23,-24,]),'TYPE':([4,5,6,7,8,9,10,11,12,13,14,],[17,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,]),'ENCRYPTLOG':([4,5,6,7,8,9,10,11,12,13,14,],[18,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,]),'ENCRYPTREAD':([4,5,6,7,8,9,10,11,12,13,14,],[19,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,]),'LLAVE':([4,5,6,7,8,9,10,11,12,13,14,],[20,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,]),'NAME':([4,5,6,7,8,9,10,11,12,13,14,],[21,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,]),'BODY':([4,5,6,7,8,9,10,11,12,13,14,],[22,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,]),'PATH':([4,5,6,7,8,9,10,11,12,13,14,],[23,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,]),'FROM':([4,5,6,7,8,9,10,11,12,13,14,],[24,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,]),'TO':([4,5,6,7,8,9,10,11,12,13,14,],[25,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,]),'MODE':([4,5,6,7,8,9,10,11,12,13,14,],[26,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,]),'LOCAL':([17,26,],[28,28,]),'CLOUD':([17,26,],[29,29,]),'TRUE':([18,19,],[31,31,]),'FALSE':([18,19,],[32,32,]),'STRING':([20,22,],[34,36,]),'ARCHIVO':([21,],[35,]),'RUTA':([23,24,25,],[37,38,39,]),}
+_lr_action_items = {'CONFIGURE':([0,2,3,15,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[5,5,-3,-2,-4,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'CREATE':([0,2,3,15,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[6,6,-3,-2,-4,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'DELETE':([0,2,3,15,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[7,7,-3,-2,-4,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'COPY':([0,2,3,15,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[8,8,-3,-2,-4,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'TRANSFER':([0,2,3,15,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[9,9,-3,-2,-4,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'RENAME':([0,2,3,15,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[10,10,-3,-2,-4,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'MODIFY':([0,2,3,15,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[11,11,-3,-2,-4,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'ADD':([0,2,3,15,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[12,12,-3,-2,-4,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'BACKUP':([0,2,3,15,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[13,13,-3,-2,-4,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'EXEC':([0,2,3,15,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[14,14,-3,-2,-4,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'$end':([1,2,3,15,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[0,-1,-3,-2,-4,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'TYPE':([4,5,6,7,8,9,10,11,12,13,14,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[18,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,18,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'ENCRYPTLOG':([4,5,6,7,8,9,10,11,12,13,14,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[19,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,19,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'ENCRYPTREAD':([4,5,6,7,8,9,10,11,12,13,14,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[20,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,20,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'LLAVE':([4,5,6,7,8,9,10,11,12,13,14,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[21,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,21,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'NAME':([4,5,6,7,8,9,10,11,12,13,14,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[22,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,22,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'BODY':([4,5,6,7,8,9,10,11,12,13,14,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[23,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,23,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'PATH':([4,5,6,7,8,9,10,11,12,13,14,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[24,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,24,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'FROM':([4,5,6,7,8,9,10,11,12,13,14,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[25,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,25,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'TO':([4,5,6,7,8,9,10,11,12,13,14,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[26,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,26,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'MODE':([4,5,6,7,8,9,10,11,12,13,14,16,17,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,],[27,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,27,-16,-15,-17,-27,-28,-18,-29,-30,-19,-20,-21,-22,-23,-24,-25,-26,]),'LOCAL':([18,27,],[30,30,]),'CLOUD':([18,27,],[31,31,]),'TRUE':([19,20,],[33,33,]),'FALSE':([19,20,],[34,34,]),'STRING':([21,23,],[36,38,]),'ARCHIVO':([22,],[37,]),'RUTA':([24,25,26,],[39,40,41,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'inicio':([0,],[1,]),'lexico':([0,],[2,]),'comandos':([0,2,],[3,15,]),'maincomando':([0,2,],[4,4,]),'subcomando':([4,],[16,]),'tipo':([17,26,],[27,40,]),'encriptado':([18,19,],[30,33,]),}
+_lr_goto_items = {'inicio':([0,],[1,]),'lexico':([0,],[2,]),'comandos':([0,2,],[3,15,]),'maincomando':([0,2,],[4,4,]),'subcomando':([4,],[16,]),'sub':([4,16,],[17,28,]),'tipo':([18,27,],[29,42,]),'encriptado':([19,20,],[32,35,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,32 +27,34 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> inicio","S'",1,None,None,None),
-  ('inicio -> lexico','inicio',1,'p_inicio','gramar.py',96),
-  ('lexico -> lexico comandos','lexico',2,'p_lexico','gramar.py',101),
-  ('lexico -> comandos','lexico',1,'p_lexico','gramar.py',102),
-  ('comandos -> maincomando subcomando','comandos',2,'p_comandos','gramar.py',117),
-  ('maincomando -> CONFIGURE','maincomando',1,'p_main_comando','gramar.py',127),
-  ('maincomando -> CREATE','maincomando',1,'p_main_comando','gramar.py',128),
-  ('maincomando -> DELETE','maincomando',1,'p_main_comando','gramar.py',129),
-  ('maincomando -> COPY','maincomando',1,'p_main_comando','gramar.py',130),
-  ('maincomando -> TRANSFER','maincomando',1,'p_main_comando','gramar.py',131),
-  ('maincomando -> RENAME','maincomando',1,'p_main_comando','gramar.py',132),
-  ('maincomando -> MODIFY','maincomando',1,'p_main_comando','gramar.py',133),
-  ('maincomando -> ADD','maincomando',1,'p_main_comando','gramar.py',134),
-  ('maincomando -> BACKUP','maincomando',1,'p_main_comando','gramar.py',135),
-  ('maincomando -> EXEC','maincomando',1,'p_main_comando','gramar.py',136),
-  ('subcomando -> TYPE tipo','subcomando',2,'p_sub_comando','gramar.py',141),
-  ('subcomando -> ENCRYPTLOG encriptado','subcomando',2,'p_sub_comando','gramar.py',142),
-  ('subcomando -> ENCRYPTREAD encriptado','subcomando',2,'p_sub_comando','gramar.py',143),
-  ('subcomando -> LLAVE STRING','subcomando',2,'p_sub_comando','gramar.py',144),
-  ('subcomando -> NAME ARCHIVO','subcomando',2,'p_sub_comando','gramar.py',145),
-  ('subcomando -> BODY STRING','subcomando',2,'p_sub_comando','gramar.py',146),
-  ('subcomando -> PATH RUTA','subcomando',2,'p_sub_comando','gramar.py',147),
-  ('subcomando -> FROM RUTA','subcomando',2,'p_sub_comando','gramar.py',148),
-  ('subcomando -> TO RUTA','subcomando',2,'p_sub_comando','gramar.py',149),
-  ('subcomando -> MODE tipo','subcomando',2,'p_sub_comando','gramar.py',150),
-  ('tipo -> LOCAL','tipo',1,'p_tipo','gramar.py',160),
-  ('tipo -> CLOUD','tipo',1,'p_tipo','gramar.py',161),
-  ('encriptado -> TRUE','encriptado',1,'p_encriptado','gramar.py',166),
-  ('encriptado -> FALSE','encriptado',1,'p_encriptado','gramar.py',167),
+  ('inicio -> lexico','inicio',1,'p_inicio','gramar.py',97),
+  ('lexico -> lexico comandos','lexico',2,'p_lexico','gramar.py',102),
+  ('lexico -> comandos','lexico',1,'p_lexico','gramar.py',103),
+  ('comandos -> maincomando subcomando','comandos',2,'p_comandos','gramar.py',108),
+  ('maincomando -> CONFIGURE','maincomando',1,'p_main_comando','gramar.py',117),
+  ('maincomando -> CREATE','maincomando',1,'p_main_comando','gramar.py',118),
+  ('maincomando -> DELETE','maincomando',1,'p_main_comando','gramar.py',119),
+  ('maincomando -> COPY','maincomando',1,'p_main_comando','gramar.py',120),
+  ('maincomando -> TRANSFER','maincomando',1,'p_main_comando','gramar.py',121),
+  ('maincomando -> RENAME','maincomando',1,'p_main_comando','gramar.py',122),
+  ('maincomando -> MODIFY','maincomando',1,'p_main_comando','gramar.py',123),
+  ('maincomando -> ADD','maincomando',1,'p_main_comando','gramar.py',124),
+  ('maincomando -> BACKUP','maincomando',1,'p_main_comando','gramar.py',125),
+  ('maincomando -> EXEC','maincomando',1,'p_main_comando','gramar.py',126),
+  ('subcomando -> subcomando sub','subcomando',2,'p_subcomando','gramar.py',132),
+  ('subcomando -> sub','subcomando',1,'p_subcomando','gramar.py',133),
+  ('sub -> TYPE tipo','sub',2,'p_sub','gramar.py',148),
+  ('sub -> ENCRYPTLOG encriptado','sub',2,'p_sub','gramar.py',149),
+  ('sub -> ENCRYPTREAD encriptado','sub',2,'p_sub','gramar.py',150),
+  ('sub -> LLAVE STRING','sub',2,'p_sub','gramar.py',151),
+  ('sub -> NAME ARCHIVO','sub',2,'p_sub','gramar.py',152),
+  ('sub -> BODY STRING','sub',2,'p_sub','gramar.py',153),
+  ('sub -> PATH RUTA','sub',2,'p_sub','gramar.py',154),
+  ('sub -> FROM RUTA','sub',2,'p_sub','gramar.py',155),
+  ('sub -> TO RUTA','sub',2,'p_sub','gramar.py',156),
+  ('sub -> MODE tipo','sub',2,'p_sub','gramar.py',157),
+  ('tipo -> LOCAL','tipo',1,'p_tipo','gramar.py',167),
+  ('tipo -> CLOUD','tipo',1,'p_tipo','gramar.py',168),
+  ('encriptado -> TRUE','encriptado',1,'p_encriptado','gramar.py',173),
+  ('encriptado -> FALSE','encriptado',1,'p_encriptado','gramar.py',174),
 ]
