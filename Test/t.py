@@ -5,20 +5,18 @@ from Crypto.Random import get_random_bytes
 data = b'secret data'
 header = b"header"
 #key str
-stringK = 'key'
-arrK = bytes(stringK, 'ascii')
+stringK = b'0123456789abcdef'#16
 #Encryption
 key = get_random_bytes(16)
-print("tipo",arrK)
-print("key 1<>2",key,"<>",arrK)
+print("key 1<>2",key,"<>",stringK)
 
-cipher = AES.new(key, AES.MODE_EAX)
+cipher = AES.new(stringK, AES.MODE_EAX)
 ciphertext, tag = cipher.encrypt_and_digest(data)
 print("->",ciphertext)
 nonce = cipher.nonce
 
 #Decryption
-cipher = AES.new(key, AES.MODE_EAX, nonce)
+cipher = AES.new(stringK, AES.MODE_EAX, nonce)
 data = cipher.decrypt_and_verify(ciphertext, tag)
 print("-#",data)
 print("-----------------------------------------")
