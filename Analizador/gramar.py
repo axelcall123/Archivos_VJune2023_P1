@@ -1,5 +1,8 @@
 import ply.lex as lex
 import ply.yacc as yacc
+from Comandos.esencial import Leer
+
+resultado = None
 
 #LEXICO
 tokens = (
@@ -103,22 +106,15 @@ def p_lexico(p):
                 | comandos
     '''
     if len(p)==3:
-        arr = []
-        arr.append("lexico")
-        arr.append(p[1])
-        arr.append(p[2])
-        p[0]=arr
-    elif len(p)==2:
-        arr = []
-        arr.append("lexico")
-        arr.append(p[1])
-        p[0] = arr
+        p[0] = p[1]
+        p[0].append(p[2])
+    else:
+        p[0] = [p[1]]
 
 def p_comandos(p):
     '''comandos : maincomando subcomando
     '''
     arr = []
-    arr.append("comandos")
     arr.append(p[1])
     arr.append(p[2])
     Arbol.append(arr)
@@ -126,7 +122,7 @@ def p_comandos(p):
     
 
 def p_main_comando(p):
-    '''maincomando : CONFIGURE
+    '''maincomando : CONFIGURE 
                 | CREATE
                 | DELETE
                 | COPY
@@ -137,7 +133,7 @@ def p_main_comando(p):
                 | BACKUP
                 | EXEC
     '''
-    p[0] = p[1]
+    p[0] = p[1] 
 
 
 def p_subcomando(p):
@@ -148,14 +144,13 @@ def p_subcomando(p):
     #print("ppppp",type(p),p,p[0],p[1])#object, none, none|array
     #print("---")
     if len(p) == 3:
-        arr=[]
-        arr.append("subcomando")
-        arr.append(p[1])
+        arr=p[1]
+        #arr.append("subcomando")
         arr.append(p[2])
         p[0]=arr
     elif len(p) == 2:
-        arr = []
-        arr.append("subcomando")
+        arr = [] 
+        #arr.append("subcomando")
         arr.append(p[1])
         p[0] = arr
 
@@ -173,7 +168,7 @@ def p_sub(p):
                     | MODE tipo
     '''
     arr=[]
-    arr.append("sub")
+    #arr.append("sub")
     arr.append(p[1])
     arr.append(p[2])
     p[0]=arr
@@ -203,7 +198,12 @@ parser = yacc.yacc()
 
 f = open("./entradas.txt", "r")
 input = f.read()
-print(input)
+#print(input)
 resultado=parser.parse(input.lower())
-print(resultado,'\n')
-print(Arbol)
+#print(resultado,'\n')
+#lectura=Leer()
+#lectura.comando(resultado)
+#print(resultado)
+
+analizar=Leer()
+analizar.comando(resultado)
