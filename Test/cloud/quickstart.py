@@ -1,14 +1,15 @@
 from __future__ import print_function
 
 import os.path
+import time
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+from googleapiclient.http import MediaInMemoryUpload
 
-from google.oauth2 import service_account
 #CREAR 
     #CARPETA CLOUD
 def funcAdFolder(service):
@@ -19,11 +20,33 @@ def funcAdFolder(service):
     folder = service.files().create(
     body=folder_metadata, fields='id').execute()
     # Retrieve the ID of the newly created folder
-    folder_id = folder.get('id')
-    print(f'New folder created with ID: {folder_id}')
-    #ARCHIVO CLOUD
-#ELMINAR EN CLOUD
+    #folder_id = folder.get("id")
+    print(f'New folder created with ID: {folder.get("id")}')
 
+    #ARCHIVO CLOUD
+def funcAdFile(service):
+    file_name = 'example.txt'
+    file_content = 'This is the content of the file.'
+    file_metadata = {
+        'name': file_name,
+        'mimeType': 'text/plain'
+    }
+    media = MediaInMemoryUpload(
+        file_content.encode(),
+        mimetype='text/plain',
+        resumable=True
+    )
+    created_file = service.files().create(
+        body=file_metadata,
+        media_body=media,
+        fields='id'
+    ).execute()
+    print(f'File created with ID: {created_file.get("id")}')
+
+    
+
+#ELIMINAR EN CLOUD
+    #CARPETA
 def getFolderId(service,folder_name):
     response = service.files().list(
         q="mimeType='application/vnd.google-apps.folder' and trashed=false",
@@ -37,17 +60,21 @@ def getFolderId(service,folder_name):
             return folder['id']
 
     return None
-    
 
 def funcDelFolder(service):
+    start_time = time.time()#inicio 
     # Provide the folder name
-    nombreFolder = 'New Folder123'
+    nombreFolder = 'Newa Folder123'
     folder_id = getFolderId(service, nombreFolder)
     if folder_id is None:
         print("Folder not found.")
         exit()
     service.files().delete(fileId=folder_id).execute()
     print(f"Folder '{nombreFolder}' borrado totalmente.")
+    end_time = time.time()
+    print((end_time - start_time) * 1000, "ms tardo la accion")
+    #ARCHIVO
+
 #COPIAR:
     #CLOUD->CLOUD
 #MOVER(TRANSFERIR)
@@ -84,7 +111,8 @@ def funcDef(service):
 # If modifying these scopes, delete the file token.json.
 scopes=[#
     'https://www.googleapis.com/auth/drive.metadata.readonly',
-    'https://www.googleapis.com/auth/drive'
+    'https://www.googleapis.com/auth/drive'#carpeta
+    #'https://www.googleapis.com/auth/drive.file'#archivos
 ]
 #enlace que podes hacer, credenciales para modificar etcc...
 #abilitar api json, drive
@@ -117,10 +145,10 @@ def main():
     try:
         # acceso a la nube,buscar,subir
         service = build('drive', 'v3', credentials=creds)
-        funcDef(service)
-        funcAdFolder(service)
-        funcDelFolder(service)
-        
+        #funcDef(service)
+        #funcAdFolder(service)
+        #funcDelFolder(service)
+        funcAdFile(service)
         
     except HttpError as error:
         # TODO(developer) - Handle errors from drive API.
