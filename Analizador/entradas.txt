@@ -1,3 +1,2 @@
-create -name->prueba1.txt -path->/carpeta1/ 
-create -path->/carpeta1/ -name->prueba1.txt 
 Configure -type->local -encrypt_log->false -encrypt_read->false
+Configure -type->local -encrypt_log->True -encrypt_read->True -llave->"miaProyecto12345"

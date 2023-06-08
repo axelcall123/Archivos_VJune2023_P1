@@ -6,21 +6,34 @@ class Create:
         self.nombre=""
         self.contenido=""
         self.ruta=""
+
     def name (self,nombre):
         #posibles cambios necesario al nombre
-        self.nombre=nombre
+        if('"' in nombre):
+            self.nombre=nombre.split("\"")[1]
+        else:
+            self.nombre=nombre
+        
+        
 
     def body (self,contenido):
-        self.contenido=contenido
+        if('"' in contenido):
+            self.contenido=contenido.split("\"")[1]
+        else:
+            self.contenido=contenido
+
 
     def path (self,ruta):
         #posibles cambios necesario ala ruta
-        self.ruta=ruta
+        if('"' in ruta):
+            self.ruta="/"+ruta.split("\"")[1]+"/"
+        else:
+            self.ruta=ruta
 
     def creacionLocal(self):
-        #print(self.nombre)
-        #print(self.contenido)
-        #print(self.ruta)
+        print(self.nombre)
+        print(self.contenido)
+        print(self.ruta)
         pathArchivo= "../Archivo/"+self.ruta.split("/")[1]
         if(os.path.exists(pathArchivo)==True):
             print("Archivo ya existente")

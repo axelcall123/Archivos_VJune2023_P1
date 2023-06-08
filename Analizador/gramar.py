@@ -69,12 +69,12 @@ t_TRUE=r'true'
 t_FALSE=r'false'
 
 def t_ARCHIVO(t):
-    r'("\w+[.]\w+")|(\w+[.]\w+)'
+    r'("[\w ]+[.]\w+")|(\w+[.]\w+)'
     t.value = t.value.lower()
     return t
 
 def t_RUTA(t):
-    r'([/](\w+[/])+(\w+[.]\w+)?)|(["][/](\w?[\w ]+[/])+(\w+[.]\w+)?["])'
+    r'([/](\w+[/])+(\w+[.]\w+)?)|(["][/](\w?[\w ]+[/])+(\w+[.]\w+)?["]|([/]["](\w?[\w ]+["][/])))'
     t.value = t.value.lower()
     return t
 
@@ -203,7 +203,7 @@ resultado=parser.parse(input.lower())
 #print(resultado,'\n')
 #lectura=Leer()
 #lectura.comando(resultado)
-#print(resultado)
+print(resultado)
 
 analizar=Leer()
 analizar.comando(resultado)

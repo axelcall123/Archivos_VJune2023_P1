@@ -1,34 +1,48 @@
 class Configure:
     def __init__ (self,):
-        pass
+        self.logBool=False
+        self.readBool=False
+        self.local=False
+        self.key=""
 
-
-    def type (self,typeBool):
-        if(typeBool.lower()=="local"):
+    def type (self,type):
+        if(type.lower()=="local"):
             self.local=True
             return True
-        elif(typeBool.lower()=="cloud"):
+        elif(type.lower()=="cloud"):
             return False
 
     def encryptLog(self,logBool):
         if(logBool.lower()=="true"):
-            #mandar a encriptar
-            pass
+            #La bitacora debe de estar encriptada
+            self.logBool=True
+            return True
         elif(logBool.lower()=="false"):
-            #mensaje no se encripta
-            pass
+            #La bitacora NO debe de estar encriptada
+            return False
+            
 
     def encryptRead(self,redBool):
         if(redBool.lower()=="true"):
-            #el mensaje esta encriptado
-            pass
+            #el mensaje a leer Esta encriptado
+            self.readBool=True
+            return True
         elif(redBool.lower()=="false"):
-            #el mensaje NO esta encriptado
-            pass
+           #el mensaje a leer NO Esta encriptado
+            return False
         
     def llave(self,llave):
         #lo que usa la llave
-        pass
+        self.key=llave
+        return self.key
+
+    def printConfiguracion(self):
+        #Imprimiendo configuraciones del comando
+        print(self.local)
+        print(self.logBool)
+        print(self.readBool)
+        print(self.key)
+
 
 
 
@@ -38,5 +52,4 @@ class Configure:
         
         
     
-a=Configure()
-a.type("local")
+
