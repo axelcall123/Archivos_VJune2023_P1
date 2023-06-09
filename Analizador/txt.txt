@@ -9,3 +9,5 @@ Configure -type->local -encrypt_log->True -encrypt_read->True -llave->"miaProyec
 
 delete -path->/carpeta1/ -name->prueba1.txt
 delete -path->/carpeta1/ 
+
+Copy -from->/carpeta1/prueba1.txt -to->"/carpeta 2/"

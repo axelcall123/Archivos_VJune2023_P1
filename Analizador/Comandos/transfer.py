@@ -1,10 +1,11 @@
 import os
 import shutil
 
-class Copy:
+class Transfer:
     def __init__ (self,):
         self.de=""
         self.a=""
+        self.modo=""
 
     def desde (self,de):
         if('"' in de):
@@ -18,23 +19,24 @@ class Copy:
         else:
             self.a=a
 
-    def copiar(self):
+    def mode(self,mode):
+        if('"' in mode):
+            self.modo=mode.split("\"")[1]
+        else:
+            self.modo=mode
+
+    def transferir(self):
         pathArchivofrom= "../Archivo"+self.de
         pathArchivoto="../Archivo"+self.a
-        #print(pathArchivofrom)
-        #print(pathArchivoto)
-        
-
-
         if(os.path.exists(pathArchivofrom)&('.' in pathArchivofrom)):
-            #copiar archivo
-            shutil.copy(pathArchivofrom,pathArchivoto)
-            print("******EL ARCHIVO FUE COPIADO CON EXITO******")
+            #mover archivo
+            shutil.move(pathArchivofrom,pathArchivoto)
+            print("******EL ARCHIVO FUE TRASFERIDO CON EXITO******")
         else:
             if(os.path.exists(pathArchivofrom)):
                 #existe la ruta
                 shutil.copytree(pathArchivofrom,pathArchivoto)
-                print("******LA CARPETA FUE COPIADA CON EXITO******")
+                print("******LA CARPETA FUE TRASFERIDA CON EXITO******")
             else:
                 #si no existe nada
                  print("******ERROR NO SE ENCONTRO LA DIRECCION******")

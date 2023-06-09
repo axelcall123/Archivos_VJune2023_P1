@@ -2,10 +2,18 @@ from Comandos.create import Create
 from Comandos.configure import Configure
 from Comandos.delete import Delete
 from Comandos.copy import Copy
+from Comandos.transfer import Transfer
 from cripto import encrypt_string,decrypt_string
 
 
- 
+        #plaintext = "sssssss!"
+        #stringK = b'miaproyecto12345'
+        #encrypted_data = encrypt_string(stringK, plaintext)
+        # Decrypting the string
+        #decrypted_data = decrypt_string(stringK, encrypted_data)
+        #print("Original String:", plaintext)
+        #print("Encrypted Data:", encrypted_data.hex())
+        #print("Decrypted String:", decrypted_data)
 class Leer:
     def __init__ (self,):
         self.localmente=False
@@ -64,16 +72,30 @@ class Leer:
                                 comandoDelete.borrar()
                 if(comando=="copy" and self.localmente): #!Comando delete
                         #self.localmente=False
-                        comandoDelete=Copy()
+                        comandoCopy=Copy()
                         for parametros in element:
                             if(parametros!="copy"):
                                 for elementos2 in parametros:
                                     if(elementos2[0]=="-from->"):
-                                        comandoDelete.desde(elementos2[1])
+                                        comandoCopy.desde(elementos2[1])
                                     elif(elementos2[0]=="-to->"):
-                                        comandoDelete.to(elementos2[1])
+                                        comandoCopy.to(elementos2[1])
                                 #copiar
-                                comandoDelete.copiar()
+                                comandoCopy.copiar()
+                if(comando=="transfer" and self.localmente): #!Comando delete
+                        #self.localmente=False
+                        comandoTransfer=Transfer()
+                        for parametros in element:
+                            if(parametros!="transfer"):
+                                for elementos2 in parametros:
+                                    if(elementos2[0]=="-from->"):
+                                        comandoTransfer.desde(elementos2[1])
+                                    elif(elementos2[0]=="-to->"):
+                                        comandoTransfer.to(elementos2[1])
+                                    elif(elementos2[0]=="-mode->"):
+                                        comandoTransfer.mode(elementos2[1])
+                                #copiar
+                                comandoTransfer.transferir()
                    
 
 
