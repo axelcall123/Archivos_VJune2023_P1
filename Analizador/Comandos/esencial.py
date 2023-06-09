@@ -1,16 +1,20 @@
 from Comandos.create import Create
 from Comandos.configure import Configure
+from Comandos.delete import Delete
+from Comandos.copy import Copy
+from cripto import encrypt_string,decrypt_string
 
 
+ 
 class Leer:
     def __init__ (self,):
-        #
         self.localmente=False
         self.encryptLog=False
         self.encryptRead=False
-        self.llave="s"
+        self.llave=""
 
     def comando(self,arreglo):
+       
         #la cantidad de comandos
         #print(arreglo)
         for element in arreglo:
@@ -30,8 +34,8 @@ class Leer:
                                     self.encryptRead=comandoConfigure.encryptRead(elementos2[1])
                                 elif(elementos2[0]=="-llave->"):
                                     self.llave=comandoConfigure.llave(elementos2[1])
-                            #ejecucion configure
-                            comandoConfigure.printConfiguracion()
+                            #print configure
+                            #comandoConfigure.printConfiguracion()
                 if(comando=="create" and self.localmente): #!Comando Create y self.local es True
                         #self.localmente=False
                         comandoCreate=Create()
@@ -46,6 +50,30 @@ class Leer:
                                         comandoCreate.body(elementos2[1])
                                 #creando archivo
                                 comandoCreate.creacionLocal()
+                if(comando=="delete" and self.localmente): #!Comando delete
+                        #self.localmente=False
+                        comandoDelete=Delete()
+                        for parametros in element:
+                            if(parametros!="delete"):
+                                for elementos2 in parametros:
+                                    if(elementos2[0]=="-path->"):
+                                        comandoDelete.path(elementos2[1])
+                                    elif(elementos2[0]=="-name->"):
+                                        comandoDelete.name(elementos2[1])
+                                #borrar
+                                comandoDelete.borrar()
+                if(comando=="copy" and self.localmente): #!Comando delete
+                        #self.localmente=False
+                        comandoDelete=Copy()
+                        for parametros in element:
+                            if(parametros!="copy"):
+                                for elementos2 in parametros:
+                                    if(elementos2[0]=="-from->"):
+                                        comandoDelete.desde(elementos2[1])
+                                    elif(elementos2[0]=="-to->"):
+                                        comandoDelete.to(elementos2[1])
+                                #copiar
+                                comandoDelete.copiar()
                    
 
 

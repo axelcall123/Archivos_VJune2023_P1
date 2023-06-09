@@ -7,9 +7,11 @@ class Configure:
 
     def type (self,type):
         if(type.lower()=="local"):
+            print("*****SE TRABAJARA LOCALMENTE******")
             self.local=True
             return True
         elif(type.lower()=="cloud"):
+            print("*****SE TRABAJARA EN LA NUBE******")
             return False
 
     def encryptLog(self,logBool):

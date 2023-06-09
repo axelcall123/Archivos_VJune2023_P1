@@ -1,4 +1,5 @@
-from Analizador.gramar import parser
+import sys
+"""from Analizador.gramar import parser
 
 while True:
     try:
@@ -8,4 +9,6 @@ while True:
         Arbol=parser.parse(input)
         print(Arbol)
     except EOFError:
-        break
+        break"""
+
+print(sys.path)

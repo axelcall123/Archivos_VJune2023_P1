@@ -1,2 +1,4 @@
 Configure -type->local -encrypt_log->false -encrypt_read->false
-Configure -type->local -encrypt_log->True -encrypt_read->True -llave->"miaProyecto12345"
+create -name->prueba1.txt -path->/carpeta1/ -body->"Este es el contenido del archivo 1"
+Copy -from->/carpeta1/prueba1.txt -to->"/carpeta 2/"
+
