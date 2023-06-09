@@ -245,11 +245,20 @@ def agregar(service):
     ).execute()
     print('Content added successfully!')
 #NAVEGACION
-def getContent(service):
+def tipo(nombre):
+    arr=nombre.split(".")
+    if len(arr) == 1:
+        return "folder"
+    elif len(arr) == 2:
+        return arr[1]
+
+def getContentC(service):
     folder_id = '1Cc9Vp0d8EsT2xsWCFMC8Je1rkpFd5TE_'
+    #1Cc9Vp0d8EsT2xsWCFMC8Je1rkpFd5TE_ TEST
+    #1A96eWVdigi-6NFAD9A4igr1n_fnXkH94 A
     # Retrieve the contents of the specified folder
     results = service.files().list(
-        q=f"'{folder_id}' in parents", 
+        q=f"'{folder_id}' in parents and trashed=false",
         fields="files(id, name, mimeType)").execute()
     files = results.get('files', [])
     if not files:
@@ -258,6 +267,20 @@ def getContent(service):
         print('Files in the folder:')
         for file in files:
             print(f"Name: {file['name']}, ID: {file['id']}, Type: {file['mimeType']}")
+
+def getContentL():
+    ejemplo_dir = 'Test/cloud/TEST/A'
+    # with os.scandir(ejemplo_dir) as ficheros:
+    #     for fichero in ficheros:
+    #         print(fichero.name, tipo(fichero.name))
+    dir = os.listdir(ejemplo_dir)
+    # Checking if the list is empty or not
+    if len(dir) == 0:
+        print("No files found")
+    else:
+        for fichero in dir:
+            print(fichero, tipo(fichero))
+        
 
 #DEFAULT
 def funcDef(service):
@@ -323,14 +346,16 @@ def main():
         #funcDelFolder(service)
         #funcAdFile(service)
         #funcDelFile(service)
-        #getContent(service)
         #moverCC(service)
         #downlaod(service)
         #copiarA(service)
         #moverLC(service)
         #renameC(service)
         #sust(service)
-        agregar(service)
+        #agregar(service)
+        getContentL()
+        print("---")
+        getContentC(service)
     except HttpError as error:
         # TODO(developer) - Handle errors from drive API.
         print(f'a ocurrido un error: {error}')
