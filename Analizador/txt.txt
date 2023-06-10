@@ -1,1 +1,13 @@
 py .\gramar.py
+
+
+
+
+create -name->"prueba 2.txt" -path->/"carpeta 2"/ -body->"Este es el contenido del archivo 2"
+
+Configure -type->local -encrypt_log->True -encrypt_read->True -llave->"miaProyecto12345"
+
+delete -path->/carpeta1/ -name->prueba1.txt
+delete -path->/carpeta1/ 
+
+Copy -from->/carpeta1/prueba1.txt -to->"/carpeta 2/"
