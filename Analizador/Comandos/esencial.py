@@ -2,7 +2,10 @@ from Comandos.create import Create
 from Comandos.configure import Configure
 from Comandos.delete import Delete
 from Comandos.copy import Copy
+from Comandos.rename import Rename
+from Comandos.modify import Modify
 from Comandos.transfer import Transfer
+from Comandos.add import Add
 from cripto import encrypt_string,decrypt_string
 
 
@@ -82,7 +85,7 @@ class Leer:
                                         comandoCopy.to(elementos2[1])
                                 #copiar
                                 comandoCopy.copiar()
-                if(comando=="transfer" and self.localmente): #!Comando delete
+                if(comando=="transfer" and self.localmente): #!Comando trasnfer
                         #self.localmente=False
                         comandoTransfer=Transfer()
                         for parametros in element:
@@ -94,8 +97,44 @@ class Leer:
                                         comandoTransfer.to(elementos2[1])
                                     elif(elementos2[0]=="-mode->"):
                                         comandoTransfer.mode(elementos2[1])
-                                #copiar
+                                #transferir
                                 comandoTransfer.transferir()
+                if(comando=="rename" and self.localmente): #!Comando rename
+                        #self.localmente=False
+                        comandoTransfer=Rename()
+                        for parametros in element:
+                            if(parametros!="rename"):
+                                for elementos2 in parametros:
+                                    if(elementos2[0]=="-path->"):
+                                        comandoTransfer.path(elementos2[1])
+                                    elif(elementos2[0]=="-name->"):
+                                        comandoTransfer.name(elementos2[1])
+                                #renombrar
+                                comandoTransfer.reNombrar()
+                if(comando=="modify" and self.localmente): #!Comando modify
+                        #self.localmente=False
+                        comandoTransfer=Modify()
+                        for parametros in element:
+                            if(parametros!="modify"):
+                                for elementos2 in parametros:
+                                    if(elementos2[0]=="-path->"):
+                                        comandoTransfer.path(elementos2[1])
+                                    elif(elementos2[0]=="-body->"):
+                                        comandoTransfer.body(elementos2[1])
+                                #modificar
+                                comandoTransfer.modificar()
+                if(comando=="add" and self.localmente): #!Comando add
+                        #self.localmente=False
+                        comandoTransfer=Add()
+                        for parametros in element:
+                            if(parametros!="add"):
+                                for elementos2 in parametros:
+                                    if(elementos2[0]=="-path->"):
+                                        comandoTransfer.path(elementos2[1])
+                                    elif(elementos2[0]=="-body->"):
+                                        comandoTransfer.body(elementos2[1])
+                                #añadir
+                                comandoTransfer.aniadir()
                    
 
 

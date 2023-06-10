@@ -11,3 +11,9 @@ delete -path->/carpeta1/ -name->prueba1.txt
 delete -path->/carpeta1/ 
 
 Copy -from->/carpeta1/prueba1.txt -to->"/carpeta 2/"
+
+transfer     -from->/carpeta1/prueba1.txt -to->"/carpeta 2/"  -mode->local
+
+rename -path->/carpeta1/prueba1.txt -name->b1.txt
+
+modify -path->/carpeta1/prueba1.txt -body->" este es el nuevo contenido del archivo"

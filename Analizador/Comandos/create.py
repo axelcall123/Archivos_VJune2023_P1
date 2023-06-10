@@ -17,10 +17,7 @@ class Create:
         
 
     def body (self,contenido):
-        if('"' in contenido):
-            self.contenido=contenido.split("\"")[1]
-        else:
-            self.contenido=contenido
+        self.contenido=contenido
 
 
     def path (self,ruta):
