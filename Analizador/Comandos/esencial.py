@@ -5,8 +5,11 @@ from Comandos.copy import Copy
 from Comandos.rename import Rename
 from Comandos.modify import Modify
 from Comandos.transfer import Transfer
+from Comandos.exec import Exec
 from Comandos.add import Add
+
 from cripto import encrypt_string,decrypt_string
+
 
 
         #plaintext = "sssssss!"
@@ -24,6 +27,8 @@ class Leer:
         self.encryptRead=False
         self.llave=""
 
+        self.exceString=""
+
     def comando(self,arreglo):
        
         #la cantidad de comandos
@@ -32,7 +37,7 @@ class Leer:
             # cuales comandos
             for comando in element:      
                 # Separando comandos
-                if(comando=="configure"): #!Comando Configure
+                if(comando=="configure"): #!Comando Configure 
                     comandoConfigure=Configure()
                     for parametros in element:
                         if(parametros!="configure"):
@@ -101,40 +106,52 @@ class Leer:
                                 comandoTransfer.transferir()
                 if(comando=="rename" and self.localmente): #!Comando rename
                         #self.localmente=False
-                        comandoTransfer=Rename()
+                        comandoRenombrar=Rename()
                         for parametros in element:
                             if(parametros!="rename"):
                                 for elementos2 in parametros:
                                     if(elementos2[0]=="-path->"):
-                                        comandoTransfer.path(elementos2[1])
+                                        comandoRenombrar.path(elementos2[1])
                                     elif(elementos2[0]=="-name->"):
-                                        comandoTransfer.name(elementos2[1])
+                                        comandoRenombrar.name(elementos2[1])
                                 #renombrar
-                                comandoTransfer.reNombrar()
+                                comandoRenombrar.reNombrar()
                 if(comando=="modify" and self.localmente): #!Comando modify
                         #self.localmente=False
-                        comandoTransfer=Modify()
+                        comandoModificar=Modify()
                         for parametros in element:
                             if(parametros!="modify"):
                                 for elementos2 in parametros:
                                     if(elementos2[0]=="-path->"):
-                                        comandoTransfer.path(elementos2[1])
+                                        comandoModificar.path(elementos2[1])
                                     elif(elementos2[0]=="-body->"):
-                                        comandoTransfer.body(elementos2[1])
+                                        comandoModificar.body(elementos2[1])
                                 #modificar
-                                comandoTransfer.modificar()
+                                comandoModificar.modificar()
                 if(comando=="add" and self.localmente): #!Comando add
                         #self.localmente=False
-                        comandoTransfer=Add()
+                        comandoAgregar=Add()
                         for parametros in element:
                             if(parametros!="add"):
                                 for elementos2 in parametros:
                                     if(elementos2[0]=="-path->"):
-                                        comandoTransfer.path(elementos2[1])
+                                        comandoAgregar.path(elementos2[1])
                                     elif(elementos2[0]=="-body->"):
-                                        comandoTransfer.body(elementos2[1])
+                                        comandoAgregar.body(elementos2[1])
                                 #añadir
-                                comandoTransfer.aniadir()
+                                comandoAgregar.aniadir()
+                if(comando=="exec" and self.localmente): #!Comando add
+                        #self.localmente=False
+                        
+                        comandoEjecutar=Exec()
+                        for parametros in element:
+                            if(parametros!="exec"):
+                                for elementos2 in parametros:
+                                    if(elementos2[0]=="-path->"):
+                                        comandoEjecutar.path(elementos2[1])
+                                #añadir
+                                self.exceString=comandoEjecutar.ejecutarArchivo()
+                                return self.exceString
                    
 
 

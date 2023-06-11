@@ -5,12 +5,15 @@ class Add:
         self.ruta=""
 
     def body (self,contenido):
-        self.contenido=contenido
+        if('"' in contenido):
+            self.contenido=contenido.split("\"")[1]
+        else:
+            self.contenido=contenido
             
 
     def path(self,ruta):
         if('"' in ruta):
-            self.ruta="/"+ruta.split("\"")[1]+"/"
+            self.ruta=ruta.split("\"")[1]
         else:
             self.ruta=ruta
 

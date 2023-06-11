@@ -17,13 +17,16 @@ class Create:
         
 
     def body (self,contenido):
-        self.contenido=contenido
+        if('"' in contenido):
+            self.contenido=contenido.split("\"")[1]
+        else:
+            self.contenido=contenido
 
 
     def path (self,ruta):
         #posibles cambios necesario ala ruta
         if('"' in ruta):
-            self.ruta="/"+ruta.split("\"")[1]+"/"
+            self.ruta=ruta.split("\"")[1]
         else:
             self.ruta=ruta
 
@@ -31,8 +34,7 @@ class Create:
         #print(self.nombre)
         #print(self.contenido)
         #print(self.ruta)
-        pathArchivo= "../Archivo/"+self.ruta.split("/")[1]
-        #print(pathArchivo)
+        pathArchivo= "../Archivo"+self.ruta
         if(os.path.exists(pathArchivo+"/"+self.nombre)==True):
             print("Archivo ya existente")
         else:
@@ -44,11 +46,28 @@ class Create:
                 print("archivo creado")
             else:
                 #si no existe nada
-                os.mkdir(pathArchivo)
-                f = open(pathArchivo+"/"+self.nombre, "w") #abriendo y creando
+                self.directoriosAnidados(self.ruta)
+                f = open(pathArchivo+self.nombre, "w") #abriendo y creando
                 f.write(self.contenido)
                 f.close() # siempre cerrar
                 print("ARCHIVO CREADO")
+
+    def directoriosAnidados(self,path):
+        split=path.split("/")
+        concatenar="../Archivo/"
+        for element in split:
+            if(element!=""):
+                concatenar=concatenar+element+"/"
+                if(not(os.path.exists(concatenar))):
+                    os.mkdir(concatenar) 
+                else:
+                    print("RUTA YA CREADA")
+                    
+
+
+                
+
+
    
 
 

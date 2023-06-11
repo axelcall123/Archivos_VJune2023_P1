@@ -50,6 +50,6 @@ encrypted_data = encrypt_string(stringK, plaintext)
 decrypted_data = decrypt_string(stringK, encrypted_data)
 # Printing the results
 
-print("Original String:", plaintext)
-print("Encrypted Data:", encrypted_data.hex())
-print("Decrypted String:", decrypted_data)
+#print("Original String:", plaintext)
+#print("Encrypted Data:", encrypted_data.hex())
+#print("Decrypted String:", decrypted_data)

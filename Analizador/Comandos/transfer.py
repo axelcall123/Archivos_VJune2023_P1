@@ -33,13 +33,15 @@ class Transfer:
             shutil.move(pathArchivofrom,pathArchivoto)
             print("******EL ARCHIVO FUE TRASFERIDO CON EXITO******")
         else:
-            if(os.path.exists(pathArchivofrom)):
+            if(os.path.exists(pathArchivofrom)&(not (os.path.exists(pathArchivoto)))):
                 #existe la ruta
                 shutil.copytree(pathArchivofrom,pathArchivoto)
                 print("******LA CARPETA FUE TRASFERIDA CON EXITO******")
             else:
                 #si no existe nada
-                 print("******ERROR NO SE ENCONTRO LA DIRECCION******")
+                if(os.path.exists(pathArchivoto)):print("******ERROR LA DIRECCION YA EXISTE******")
+                else:print("******ERROR NO SE ENCONTRO LA DIRECCION******")
+                
        
             
 
