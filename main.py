@@ -1,14 +1,5 @@
-import sys
-"""from Analizador.gramar import parser
-
-while True:
-    try:
-        f = open("./Analizador/entradas.txt", "r")
-        input = f.read()
-        print(input)
-        Arbol=parser.parse(input)
-        print(Arbol)
-    except EOFError:
-        break"""
-
-print(sys.path)
+from Analizador.gramar import gramarMain
+from Analizador.Comandos.esencial import Leer
+resultado=gramarMain()
+analizar=Leer()
+analizar.comando(resultado)

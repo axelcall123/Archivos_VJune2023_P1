@@ -1,9 +1,9 @@
-from Comandos.create import Create
-from Comandos.configure import Configure
-from Comandos.delete import Delete
-from Comandos.copy import Copy
-from Comandos.transfer import Transfer
-from cripto import encrypt_string,decrypt_string
+from Analizador.Comandos.create import Create
+from Analizador.Comandos.configure import Configure
+from Analizador.Comandos.delete import Delete
+from Analizador.Comandos.copy import Copy
+from Analizador.Comandos.transfer import Transfer
+from Analizador.cripto import encrypt_string,decrypt_string
 
 
         #plaintext = "sssssss!"
@@ -44,7 +44,7 @@ class Leer:
                                     self.llave=comandoConfigure.llave(elementos2[1])
                             #print configure
                             #comandoConfigure.printConfiguracion()
-                if(comando=="create" and self.localmente): #!Comando Create y self.local es True
+                elif(comando=="create" and self.localmente): #!Comando Create y self.local es True
                         #self.localmente=False
                         comandoCreate=Create()
                         for parametros in element:
@@ -57,8 +57,9 @@ class Leer:
                                     elif(elementos2[0]=="-body->"):
                                         comandoCreate.body(elementos2[1])
                                 #creando archivo
-                                comandoCreate.creacionLocal()
-                if(comando=="delete" and self.localmente): #!Comando delete
+                                #comandoCreate.creacionLocal()
+                                #comandoCreate.creacionCloud()
+                elif(comando=="delete" and self.localmente): #!Comando delete
                         #self.localmente=False
                         comandoDelete=Delete()
                         for parametros in element:
@@ -70,7 +71,7 @@ class Leer:
                                         comandoDelete.name(elementos2[1])
                                 #borrar
                                 comandoDelete.borrar()
-                if(comando=="copy" and self.localmente): #!Comando delete
+                elif(comando=="copy" and self.localmente): #!Comando delete
                         #self.localmente=False
                         comandoCopy=Copy()
                         for parametros in element:
@@ -82,7 +83,7 @@ class Leer:
                                         comandoCopy.to(elementos2[1])
                                 #copiar
                                 comandoCopy.copiar()
-                if(comando=="transfer" and self.localmente): #!Comando delete
+                elif(comando=="transfer" and self.localmente): #!Comando delete
                         #self.localmente=False
                         comandoTransfer=Transfer()
                         for parametros in element:

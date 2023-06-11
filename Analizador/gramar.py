@@ -1,6 +1,6 @@
-import ply.lex as lex
-import ply.yacc as yacc
-from Comandos.esencial import Leer
+import Analizador.ply.lex as lex
+import Analizador.ply.yacc as yacc
+#from Comandos.esencial import Leer
 
 resultado = None
 
@@ -99,17 +99,17 @@ Arbol=[]
 def p_inicio(p):
     '''inicio : lexico
     '''
-    p[0]=p[1]
+    p[0]=Arbol
 
 def p_lexico(p):
     '''lexico : lexico comandos
                 | comandos
     '''
-    if len(p)==3:
-        p[0] = p[1]
-        p[0].append(p[2])
-    else:
-        p[0] = [p[1]]
+    # if len(p)==3:
+    #     p[0] = p[1]
+    #     p[0].append(p[2])
+    # else:
+    #     p[0] = [p[1]]
 
 def p_comandos(p):
     '''comandos : maincomando subcomando
@@ -118,7 +118,7 @@ def p_comandos(p):
     arr.append(p[1])
     arr.append(p[2])
     Arbol.append(arr)
-    p[0]=arr
+    # p[0]=arr
     
 
 def p_main_comando(p):
@@ -193,17 +193,16 @@ def p_error(p):
     else:
         print("Error sintactico EOF")
 
-
-parser = yacc.yacc()
-
-f = open("./entradas.txt", "r")
-input = f.read()
-#print(input)
-resultado=parser.parse(input.lower())
-#print(resultado,'\n')
-#lectura=Leer()
-#lectura.comando(resultado)
-print(resultado)
-
-analizar=Leer()
-analizar.comando(resultado)
+def gramarMain():
+    parser = yacc.yacc()
+    f = open("./Analizador/entradas.txt", "r")
+    input = f.read()
+    #print(input)
+    resultado=parser.parse(input.lower())
+    #print(resultado,'\n')
+    #lectura=Leer()
+    #lectura.comando(resultado)
+    #print(resultado)
+    return resultado
+    #analizar=Leer()
+    #analizar.comando(resultado)

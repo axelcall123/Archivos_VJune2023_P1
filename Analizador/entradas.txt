@@ -1,3 +1,2 @@
 Configure -type->local -encrypt_log->false -encrypt_read->false
-create -name->prueba1.txt -path->/carpeta1/ -body->"Este es el contenido del archivo 1"
-transfer     -from->/carpeta1/prueba1.txt -to->"/carpeta 2/"  -mode->local
+create -name->prueba1.txt -path->/carp1/carp2/carp3/ -body->"Este es el contenido del archivo 1"

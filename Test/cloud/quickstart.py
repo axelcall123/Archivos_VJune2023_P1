@@ -2,7 +2,7 @@ from __future__ import print_function
 
 import os.path
 import time
-
+import json
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -300,7 +300,9 @@ def funcDef(service):
     #end func
     print()
 
-
+def Test():
+    jsonT = {'A': 'a', "B": "b"}
+    print(jsonT,jsonT['A'])
 #PASO 1:https://www.youtube.com/watch?v=RGXMO8VvmcU
 #PASO 2:pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
 #PASO 3
@@ -353,9 +355,10 @@ def main():
         #renameC(service)
         #sust(service)
         #agregar(service)
-        getContentL()
-        print("---")
-        getContentC(service)
+        #getContentL()
+        #print("---")
+        #getContentC(service)
+        Test()
     except HttpError as error:
         # TODO(developer) - Handle errors from drive API.
         print(f'a ocurrido un error: {error}')
