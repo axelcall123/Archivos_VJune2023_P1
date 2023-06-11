@@ -1,12 +1,12 @@
-from Comandos.create import Create
-from Comandos.configure import Configure
-from Comandos.delete import Delete
-from Comandos.copy import Copy
-from Comandos.rename import Rename
-from Comandos.modify import Modify
-from Comandos.transfer import Transfer
-from Comandos.add import Add
-from cripto import encrypt_string,decrypt_string
+from Analizador.Comandos.create import Create
+from Analizador.Comandos.configure import Configure
+from Analizador.Comandos.delete import Delete
+from Analizador.Comandos.copy import Copy
+from Analizador.Comandos.rename import Rename
+from Analizador.Comandos.modify import Modify
+from Analizador.Comandos.transfer import Transfer
+from Analizador.Comandos.add import Add
+from Analizador.cripto import encrypt_string,decrypt_string
 
 
         #plaintext = "sssssss!"
@@ -84,7 +84,8 @@ class Leer:
                                     elif(elementos2[0]=="-to->"):
                                         comandoCopy.to(elementos2[1])
                                 #copiar
-                                comandoCopy.copiar()
+                                #comandoCopy.copiar()
+                                comandoCopy.copiarCloud()
                 if(comando=="transfer" and self.localmente): #!Comando trasnfer
                         #self.localmente=False
                         comandoTransfer=Transfer()

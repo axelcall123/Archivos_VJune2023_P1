@@ -1,6 +1,7 @@
 import os
 import sys
-
+import Analizador.Comandos._generalCloud as gC  # alias
+import Analizador.Comandos._general as gG
 class Create:
     def __init__ (self,):
         self.nombre=""
@@ -31,7 +32,7 @@ class Create:
         #print(self.nombre)
         #print(self.contenido)
         #print(self.ruta)
-        pathArchivo= "../Archivo/"+self.ruta.split("/")[1]
+        pathArchivo= "./Archivo/"+self.ruta.split("/")[1]
         #print(pathArchivo)
         if(os.path.exists(pathArchivo+"/"+self.nombre)==True):
             print("Archivo ya existente")
@@ -50,7 +51,24 @@ class Create:
                 f.close() # siempre cerrar
                 print("ARCHIVO CREADO")
    
-
+    def creacionCloud(self):
+        #print('ver')
+        #print(self.nombre, self.contenido, self.ruta)
+        arrayRuta = gG.arrayRuta(self.ruta)
+        servicio = gC.servicioCloud()
+        resultado = gC.navegacionCarpetasC(
+            servicio, arrayRuta, '1JrC25YFAk-DL_nsSSQt6vZzt1zKruXYm')  # navego lo maximo posible
+        # no navego hasta el final de la carpeta, crear carpetas restantes
+        if len(resultado[0]) != 0:
+            res = gC.creacionCarpetaIteraC(
+                servicio, resultado[0], resultado[1]["id"])
+            gC.crearCloud(servicio, self.nombre,
+                          'text/plain', res, self.contenido)
+        else:  # crear archivo
+            rename = gC.creRenameC(servicio, resultado[1]["id"], self.nombre)
+            gC.crearCloud(servicio, rename,
+                          'text/plain', resultado[1]["id"], self.contenido)
+        return
 
 
         

@@ -3,3 +3,4 @@ create -name->prueba1.txt -path->/carpeta1/ -body->"Este es el contenido del arc
 
 add -path->/carpeta1/prueba1.txt -body->" Este texto es aniadido"
 
+Copy  -to->/uno/dos/ -from->/carp1/carp2/carp3/nombre2.txt

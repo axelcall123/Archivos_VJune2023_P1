@@ -19,7 +19,7 @@ class Rename:
             self.nombre=nombre
 
     def reNombrar(self):
-        pathArchivo= "../Archivo"+self.ruta
+        pathArchivo= "./Archivo"+self.ruta
 
         #obtener ruta para el nuevo nombre
         obtNomber=self.ruta.split("/")
@@ -32,7 +32,7 @@ class Rename:
             contador=contador+1
 
 
-        pathNuevoNombre="../Archivo"+nuevaRuta+"/"+self.nombre
+        pathNuevoNombre="./Archivo"+nuevaRuta+"/"+self.nombre
         
         if(os.path.exists(pathArchivo)& (not(os.path.exists(pathNuevoNombre)))):
             os.rename(pathArchivo,pathNuevoNombre)
