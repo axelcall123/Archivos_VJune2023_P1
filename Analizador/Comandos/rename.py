@@ -30,7 +30,9 @@ class Rename:
                 if(element!=""):
                     nuevaRuta=nuevaRuta+"/"+element
             contador=contador+1
-        pathNuevoNombre="../Archivo"+nuevaRuta+"/"+self.nombre
+
+
+        pathNuevoNombre="./Archivo"+nuevaRuta+"/"+self.nombre
         
         if(os.path.exists(pathArchivo)& (not(os.path.exists(pathNuevoNombre)))):
             os.rename(pathArchivo,pathNuevoNombre)

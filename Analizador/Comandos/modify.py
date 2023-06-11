@@ -18,7 +18,7 @@ class Modify:
             self.ruta=ruta
 
     def modificar(self):
-        pathArchivo= "../Archivo"+self.ruta
+        pathArchivo= "./Archivo"+self.ruta
         print(pathArchivo)
         
         if(os.path.exists(pathArchivo)):

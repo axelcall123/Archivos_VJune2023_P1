@@ -1,6 +1,7 @@
 import os
 import shutil
-
+import Analizador.Comandos._generalCloud as gC  # alias
+import Analizador.Comandos._general as gG
 class Copy:
     def __init__ (self,):
         self.de=""
@@ -21,8 +22,8 @@ class Copy:
     def copiar(self):
         pathArchivofrom= "../Archivo"+self.de
         pathArchivoto="../Archivo"+self.a
-        print(pathArchivofrom)
-        print(pathArchivoto)
+        #print(pathArchivofrom)
+        #print(pathArchivoto)
         
 
         print(os.path.exists(pathArchivofrom)&('.' in self.de))
@@ -39,11 +40,10 @@ class Copy:
                 print("******LA CARPETA FUE COPIADA CON EXITO******")
             else:
                 #si no existe nada
-                if(not os.path.exists(pathArchivoto)): print("YA EXISTE ESA DIRECCION")
-                print("******ERROR NO SE ENCONTRO LA DIRECCION******")
-                 
+                 print("******ERROR NO SE ENCONTRO LA DIRECCION******")
        
             
+
 
 
 
