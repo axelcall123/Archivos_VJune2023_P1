@@ -35,7 +35,7 @@ class Create:
         #print(self.nombre)
         #print(self.contenido)
         #print(self.ruta)
-        pathArchivo= "../Archivo"+self.ruta
+        pathArchivo= "./archivos"+self.ruta
         if(os.path.exists(pathArchivo+"/"+self.nombre)==True):
             print("Archivo ya existente")
         else:
@@ -55,7 +55,7 @@ class Create:
 
     def directoriosAnidados(self,path):
         split=path.split("/")
-        concatenar="../Archivo/"
+        concatenar="./archivos/"
         for element in split:
             if(element!=""):
                 concatenar=concatenar+element+"/"

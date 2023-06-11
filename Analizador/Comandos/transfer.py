@@ -26,8 +26,11 @@ class Transfer:
             self.modo=mode
 
     def transferir(self):
-        pathArchivofrom= "./Archivo"+self.de
-        pathArchivoto="./Archivo"+self.a
+        pathArchivofrom= "./archivos"+self.de
+        pathArchivoto="./archivos"+self.a
+        print(pathArchivofrom)
+        print(pathArchivoto)
+        print(os.path.exists(pathArchivofrom))
         if(os.path.exists(pathArchivofrom)&('.' in pathArchivofrom)):
             #mover archivo
             shutil.move(pathArchivofrom,pathArchivoto)

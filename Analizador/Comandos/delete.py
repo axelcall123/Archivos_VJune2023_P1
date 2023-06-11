@@ -6,6 +6,8 @@ class Delete:
         self.ruta=""
         self.nombre=""
 
+        self.num=0
+
     def path (self,ruta):
 
         if('"' in ruta):
@@ -20,13 +22,18 @@ class Delete:
             self.nombre=nombre
 
     def borrar(self):
-        pathArchivo= "../Archivo"+self.ruta
+        pathArchivo= "./archivos"+self.ruta
         if(os.path.exists(pathArchivo+self.nombre)&(self.nombre!="")):
             os.remove(pathArchivo+self.nombre)
             print("******EL ARCHIVO FUE BORRADO CON EXITO******")
         else:
             if(os.path.exists(pathArchivo)):
+                x=0
                 self.elementosDirectorio(pathArchivo)
+                while x<=self.num:
+                    self.elementosDirectorio(pathArchivo)
+                    print(x)
+                    x=x+1
                 os.rmdir(pathArchivo)
                 print("******LA CARPETA FUE BORRADO CON EXITO******")
             else:
@@ -36,21 +43,30 @@ class Delete:
     def elementosDirectorio(self,path):
         contenido = os.listdir(path)
         print(contenido)
-        print(contenido==[])
+        print(path+"-------+------------------------/-")
         if(contenido==[]):
-            return
+            return 
         else:
             for element in contenido:
+                print("ESTOS SONASDJKSADYHASUJIKDSAD: "+element)
+                #SI ES ARCHIVO
                 if("." in element):
                     os.remove(path+"/"+element)
                     print("*****SE ELIMINO EL ARCHIVO DENTRO DE CARPETA: "+path+element)
+                #SI ES CARPETA
                 else:
                     contenido2=os.listdir(path+element)
+                    #print("-------------+----+++++++++++++++++++++++++++++++++++++++++++++")
+                    print(contenido2)
                     if(contenido2==[]):
+                        #print("-------------+-----------------------------------------------")
+                        print(path+element)
                         os.rmdir(path+element)
                         print("*****SE ELIMINO EL CARPETA DENTRO DE CARPETA: "+path+element)
                     else:
-                        self.elementosDirectorio(path+element)
+                        print(path+element+"-------+------------------------/")
+                        self.num=self.num+1
+                        self.elementosDirectorio(path+element+"/")
 
             
             

@@ -1,3 +1,11 @@
 
 token.json
 Test/cloud/credentials.json
+
+Analizador/entradaslocal.txt
+
+Analizador/__pycache__/
+
+Analizador/ply/__pycache__/
+
+Analizador/Comandos/__pycache__/
