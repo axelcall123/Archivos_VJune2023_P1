@@ -42,7 +42,7 @@ class Delete:
         arrayRuta = gG.arrayRuta(self.ruta)
         servicio = gC.servicioCloud()
         resultado = gC.navegacionCarpetasC(
-            servicio, arrayRuta, '1JrC25YFAk-DL_nsSSQt6vZzt1zKruXYm')  # navego lo maximo posible
+            servicio, arrayRuta, '1JrC25YFAk-DL_nsSSQt6vZzt1zKruXYm')# navego lo maximo posible
         if len(resultado[0])==0:#llegue al final de las carpetas
             if self.nombre=="":#es una carpeta que se elminina
                 gC.eliminarCloud(servicio,resultado[1]["id"],'folder')

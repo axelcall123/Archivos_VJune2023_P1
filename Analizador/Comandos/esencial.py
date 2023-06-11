@@ -71,7 +71,7 @@ class Leer:
                                         comandoDelete.name(elementos2[1])
                                 #borrar
                                 #comandoDelete.borrar()
-                                comandoDelete.borrarCloud()
+                                #comandoDelete.borrarCloud()
                 elif(comando=="copy" and self.localmente): #!Comando delete
                         #self.localmente=False
                         comandoCopy=Copy()
@@ -83,7 +83,8 @@ class Leer:
                                     elif(elementos2[0]=="-to->"):
                                         comandoCopy.to(elementos2[1])
                                 #copiar
-                                comandoCopy.copiar()
+                                #comandoCopy.copiar()
+                                comandoCopy.copiarCloud()
                 elif(comando=="transfer" and self.localmente): #!Comando delete
                         #self.localmente=False
                         comandoTransfer=Transfer()

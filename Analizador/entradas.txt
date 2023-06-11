@@ -1,2 +1,2 @@
 Configure -type->local -encrypt_log->false -encrypt_read->false
-delete -name->prueba1.txt -path->/carp1/carp2/carp3/
+Copy  -to->/uno/dos/ -from->/carp1/carp2/carp3/nombre2.txt

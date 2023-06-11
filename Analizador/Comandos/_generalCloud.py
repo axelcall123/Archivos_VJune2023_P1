@@ -96,6 +96,7 @@ def navegacionCarpetasC(service,arrayCarpetas:List[str],idFolderRaiz:str)->list[
                 arrayCarpetas.pop(0)
                 return navegacionCarpetasC(service, arrayCarpetas,json["id"])
             elif quetipo=="txt":#llegue al final de la url, solo queda txt [txt.txt], con nombre igual
+                arrayCarpetas.pop(0)
                 json={"Tipo":"txt","Same":"True","id":json["id"]}
                 return [arrayCarpetas,json]
             else:
