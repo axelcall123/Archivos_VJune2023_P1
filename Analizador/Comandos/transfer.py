@@ -25,32 +25,6 @@ class Transfer:
         else:
             self.modo=mode
 
-    def transferir(self):
-        pathArchivofrom= "../Archivo"+self.de
-        pathArchivoto="../Archivo"+self.a
-        if(os.path.exists(pathArchivofrom)&('.' in pathArchivofrom)):
-            #mover archivo
-            shutil.move(pathArchivofrom,pathArchivoto)
-            print("******EL ARCHIVO FUE TRASFERIDO CON EXITO******")
-        else:
-            if(os.path.exists(pathArchivofrom)):
-                #existe la ruta
-                shutil.copytree(pathArchivofrom,pathArchivoto)
-                print("******LA CARPETA FUE TRASFERIDA CON EXITO******")
-            else:
-                #si no existe nada
-                 print("******ERROR NO SE ENCONTRO LA DIRECCION******")
+    
        
             
-
-
-
-
-
-        
-            
-
-        
-        
-    
-

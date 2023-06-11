@@ -14,16 +14,7 @@ class Add:
         else:
             self.ruta=ruta
 
-    def aniadir(self):
-        pathArchivo= "./Archivo"+self.ruta
-        if(os.path.exists(pathArchivo)):
-            f = open(pathArchivo, "a+") #abriendo y creando
-            f.write(f.read()+self.contenido)
-            f.close() # siempre cerrar
-            print("******SE AÑADIO CONTENIDO AL ARCHIVO CON EXITO******")
-            
-        else:
-             print("******ERROR NO SE ENCONTRO LA DIRECCION ******")
+    
         
 
 

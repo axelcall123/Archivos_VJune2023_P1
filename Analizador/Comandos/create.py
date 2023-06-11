@@ -31,35 +31,15 @@ class Create:
         else:
             self.ruta=ruta
 
-    def creacionLocal(self):
-        #print(self.nombre)
-        #print(self.contenido)
-        #print(self.ruta)
-        pathArchivo= "../Archivo/"+self.ruta.split("/")[1]
-        #print(pathArchivo)
-        if(os.path.exists(pathArchivo+"/"+self.nombre)==True):
-            print("Archivo ya existente")
-        else:
-            if(os.path.exists(pathArchivo)==True):
-                #existe la ruta
-                f = open(pathArchivo+"/"+self.nombre, "w") #abriendo y creando
-                f.write(self.contenido)
-                f.close() # siempre cerrar
-                print("archivo creado")
-            else:
-                #si no existe nada
-                os.mkdir(pathArchivo)
-                f = open(pathArchivo+"/"+self.nombre, "w") #abriendo y creando
-                f.write(self.contenido)
-                f.close() # siempre cerrar
-                print("ARCHIVO CREADO")
     
-
     
-            
     
-        
-        return
+    
+    
+    
+    
+    
+    
     
     def creacionCloud(self):
         #print('ver')
@@ -75,11 +55,3 @@ class Create:
             gC.crearCloud(servicio, rename,
                           'text/plain', resultado[1]["id"],self.contenido)
         return
-
-
-        
-            
-
-        
-        
-    
