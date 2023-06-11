@@ -132,4 +132,10 @@ def creacionCarpetaIteraC(service, array: list[str], idFolder: str) -> str:
         array.pop(0)
         return creacionCarpetaIteraC(service, array, idFolder)
     return idFolder
-    
+
+def eliminarCloud(service, idDelete:str,tipo):
+    service.files().delete(fileId=idDelete).execute()
+    if tipo=="txt":
+        print(f"Archivo borrado totalmente.")
+    elif tipo=="folder":
+        print(f"Folder borrado totalmente.")

@@ -1,6 +1,7 @@
 import os
 import sys
 import Analizador.Comandos._generalCloud as gC# alias
+import Analizador.Comandos._general as gG
 class Create:
     def __init__ (self,):
         self.nombre=""
@@ -62,10 +63,7 @@ class Create:
     def creacionCloud(self):
         #print('ver')
         #print(self.nombre, self.contenido, self.ruta)
-        arrayRuta=self.ruta.split("/")
-        for i in range(len(arrayRuta)-1):
-            if arrayRuta[i]=='':
-                arrayRuta.pop(i)
+        arrayRuta = gG.arrayRuta(self.ruta)
         servicio = gC.servicioCloud()
         resultado=gC.navegacionCarpetasC(servicio, arrayRuta,'1JrC25YFAk-DL_nsSSQt6vZzt1zKruXYm')#navego lo maximo posible
         if len(resultado[0])!=0:#no navego hasta el final de la carpeta, crear carpetas restantes
