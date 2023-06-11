@@ -70,24 +70,6 @@ class Create:
 
 
    
-    def creacionCloud(self):
-        #print('ver')
-        #print(self.nombre, self.contenido, self.ruta)
-        arrayRuta = gG.arrayRuta(self.ruta)
-        servicio = gC.servicioCloud()
-        resultado = gC.navegacionCarpetasC(
-            servicio, arrayRuta, '1JrC25YFAk-DL_nsSSQt6vZzt1zKruXYm')  # navego lo maximo posible
-        # no navego hasta el final de la carpeta, crear carpetas restantes
-        if len(resultado[0]) != 0:
-            res = gC.creacionCarpetaIteraC(
-                servicio, resultado[0], resultado[1]["id"])
-            gC.crearCloud(servicio, self.nombre,
-                          'text/plain', res, self.contenido)
-        else:  # crear archivo
-            rename = gC.creRenameC(servicio, resultado[1]["id"], self.nombre)
-            gC.crearCloud(servicio, rename,
-                          'text/plain', resultado[1]["id"], self.contenido)
-        return
 
 
         

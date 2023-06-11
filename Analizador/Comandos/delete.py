@@ -54,24 +54,6 @@ class Delete:
 
             
             
-    def borrarCloud(self):
-        arrayRuta = gG.arrayRuta(self.ruta)
-        servicio = gC.servicioCloud()
-        resultado = gC.navegacionCarpetasC(
-            servicio, arrayRuta, '1JrC25YFAk-DL_nsSSQt6vZzt1zKruXYm')  # navego lo maximo posible
-        if len(resultado[0]) == 0:  # llegue al final de las carpetas
-            if self.nombre == "":  # es una carpeta que se elminina
-                gC.eliminarCloud(servicio, resultado[1]["id"], 'folder')
-            else:  # es una archivo que se elminina
-                res = gC.existeNombreC(
-                    servicio, resultado[1]["id"], self.nombre)
-                if res["existe"] == "true":  # existe archivo que elminar
-                    gC.eliminarCloud(servicio, res["id"], 'txt')
-                else:
-                    print("Indico mal el nombre del archivo vuelva a intentarlo")
-
-        else:  # url mala
-            print(f"La ruta especificada {self.ruta}, esta mal")
 
 
 
