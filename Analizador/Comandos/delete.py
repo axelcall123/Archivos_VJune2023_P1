@@ -20,7 +20,7 @@ class Delete:
             self.nombre=nombre
 
     def borrar(self):
-        pathArchivo= "../Archivo/"+self.ruta.split("/")[1]
+        pathArchivo= "./Archivo/"+self.ruta.split("/")[1]
         print(pathArchivo)
         
         if(os.path.exists(pathArchivo+"/"+self.nombre)&(self.nombre!="")):
