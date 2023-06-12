@@ -248,9 +248,10 @@ def upLoading(service,folderLocal,folderCloud):#
     for file_name in files:
         file_path = os.path.join(folderLocal, file_name)
         if tipo(file_name)=="txt":# subir solo archivos
-            #os.path.isfile(file_path)
-            resultado=existeNombreC(service,folderCloud,file_name)
-            if resultado["existe"]=="true":#si existe nombre, creo nuevo nombre
+            response = service.files().list(
+                q=f"name = '{file_name}'").execute()
+            files = response.get('files', [])
+            if files:#si existe nombre, creo nuevo nombre
                 file_name=creRenameC(service,folderCloud,file_name)#nuevo nombre
             file_metadata = {
                 'name': file_name,
@@ -278,7 +279,6 @@ def downLoading(service,folderLocal,folderCloud):
     for item in items:
         if item['mimeType'] == 'text/plain':  # es un archivo,descargar archivo
             file_name = item['name']
-            
             if os.path.exists(folderLocal+'/'+file_name):  # si existe nombre, creo nuevo nombre
                 file_name = creRenameL(folderLocal, file_name)  # nuevo nombre
             request = service.files().get_media(fileId=item['id'])
