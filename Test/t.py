@@ -63,3 +63,9 @@ decrypted_data = decrypt_string(stringK, encrypted_data)
 print("Original String:", plaintext)
 print("Encrypted Data:", encrypted_data.hex())
 print("Decrypted String:", decrypted_data)
+
+
+hex_string = "686BBE3F53BF138427FFC03A64340A0C"
+newstr = bytearray.fromhex(hex_string)
+decrypted_data = decrypt_string(stringK, newstr)
+print("Decrypted String, 1/1:", decrypted_data)
