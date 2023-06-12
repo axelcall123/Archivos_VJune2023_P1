@@ -103,6 +103,7 @@ class Leer:
                                         comandoTransfer.mode(elementos2[1])
                                 #transferir
                                 #comandoTransfer.transferir()
+                                comandoTransfer.transferCloud()
                 if(comando=="rename" and self.localmente): #!Comando rename
                         #self.localmente=False
                         comandoRenombrar=Rename()
@@ -139,4 +140,4 @@ class Leer:
                                         comandoAgregar.body(elementos2[1])
                                 #añadir
                                 #comandoAgregar.aniadir()
-                                comandoAgregar.agregarCloud()
+                                

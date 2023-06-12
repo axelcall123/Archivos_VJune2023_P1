@@ -182,6 +182,7 @@ def tranferCloud(service,idA:str,idDe:str)->str:
                                   removeParents=previous_parents,
                                   fields='id, parents').execute()
     print(f"Directorio movido")
+    return file['id']
     
 def auxDeParaC(rutaA:str,rutaDE:str)->list[str,str]:#es aux para no copiar mismo codigo de copy.py y tranfer.py
 

@@ -32,7 +32,15 @@ class Transfer:
         servicio = gC.servicioCloud()
         idA = retorno[0]
         idDe = retorno[1]
-        gC.tranferCloud(servicio,idA,idDe)
+        response = servicio.files().get(
+            fileId=idDe, fields='name, mimeType').execute()  # DOBLEX2
+        respuesta=gC.existeNombreC(servicio,idA,response["name"])
+        if respuesta["existe"]=="false":#solo copio
+            gC.tranferCloud(servicio, idA, idDe)
+        else:
+            reName=gC.creRenameC(servicio, idA, response["name"])
+            gC.tranferCloud(servicio, idA, idDe)
+            gC.renameCloud(servicio, idDe,reName)
         print(f"se tranfirieron todos los archivos")
 
         
