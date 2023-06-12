@@ -1,6 +1,6 @@
 import os
 import shutil
-
+import Analizador.Comandos._generalCloud as gC  # alias
 class Transfer:
     def __init__ (self,):
         self.de=""
@@ -25,6 +25,16 @@ class Transfer:
         else:
             self.modo=mode
 
-    
+    def transferCloud(self):
+        retorno = gC.auxDeParaC(self.a, self.de)
+        if retorno[0] == " ":
+            return
+        servicio = gC.servicioCloud()
+        idA = retorno[0]
+        idDe = retorno[1]
+        gC.tranferCloud(servicio,idA,idDe)
+        print(f"se tranfirieron todos los archivos")
+
+        
        
             

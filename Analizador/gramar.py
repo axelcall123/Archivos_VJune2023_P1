@@ -84,9 +84,7 @@ def t_STRING(t):
     t.value = t.value.lower()
     return t
 
-
 t_ignore = ' \t\n'
-
 
 def t_error(t):
     print(f"Caracter Invalido: '{t.value[0]}'")
@@ -161,7 +159,7 @@ def p_sub(p):
                     | ENCRYPTLOG encriptado
                     | ENCRYPTREAD encriptado
                     | LLAVE STRING
-                    | NAME ARCHIVO
+                    | NAME name
                     | BODY STRING
                     | PATH RUTA
                     | FROM RUTA
@@ -187,6 +185,11 @@ def p_encriptado(p):
     '''
     p[0] = p[1]
 
+def p_name(p):
+    '''name : ARCHIVO
+            | RUTA
+    '''
+    p[0]=p[1]
 
 def p_error(p):
     if p:

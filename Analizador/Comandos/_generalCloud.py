@@ -8,6 +8,7 @@ from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaInMemoryUpload
 from googleapiclient.http import MediaIoBaseDownload
 from googleapiclient.http import MediaFileUpload
+import Analizador.Comandos._general as gG
 
 def servicioCloud():
     scopes = [
@@ -15,7 +16,7 @@ def servicioCloud():
         'https://www.googleapis.com/auth/drive'  # carpeta
     ]
     creds = None
-    print("path TF", os.path.exists('token.json'))
+    #print("path TF", os.path.exists('token.json'))
     if os.path.exists('token.json'):  # crea un archivo, si no existe con las credenciales
         creds = Credentials.from_authorized_user_file(
             'token.json', scopes)  # leer archivos
@@ -55,7 +56,7 @@ def existeNombreC(service,idFolderRaiz:str,nombre:str)->dict:# saber si existe u
             
         return {'existe': "false", "id": idFolderRaiz}
 
-def tipo(nombre:str)->str:
+def tipo(nombre:str)->str:#devuelve el tipo que es, folder o archivo
     arr = nombre.split(".")
     if len(arr) == 1:
         return "folder"
@@ -98,6 +99,7 @@ def navegacionCarpetasC(service,arrayCarpetas:List[str],idFolderRaiz:str)->list[
             elif quetipo=="txt":#llegue al final de la url, solo queda txt [txt.txt], con nombre igual
                 arrayCarpetas.pop(0)
                 json={"Tipo":"txt","Same":"True","id":json["id"]}
+                #json={"Tipo":"txt","Same":"True","id":json["id"]}
                 return [arrayCarpetas,json]
             else:
                 print()
@@ -114,8 +116,8 @@ def navegacionCarpetasC(service,arrayCarpetas:List[str],idFolderRaiz:str)->list[
     json = {"Tipo": "folder", "Same": "", "id": idFolderRaiz}
     return [arrayCarpetas, json]
 
-def creRenameC(service,idFolderRaiz:str,nombre:str)->str:  # crea el nombre carpeta|archivo que se quiere crear
-    resutado=existeNombreC(service, idFolderRaiz, nombre)#FIXME: para no reahacerlo se puede poner otro parametro par unirlo con navacion carpetas
+def creRenameC(service,idFolderRaiz:str,nombre:str)->str:  # crea el nombre carpeta|archivo que se quiere crear, si existe el nombre repetido
+    resutado=existeNombreC(service, idFolderRaiz, nombre)#FIXME: para no reahacerlo se puede poner otro parametro par unirlo con navacion carpetas, se puede optimizar
     if resutado["existe"]=="true":#existe nombre
         array=nombre.split(".")
         if len(array)==1:#para folder
@@ -123,7 +125,7 @@ def creRenameC(service,idFolderRaiz:str,nombre:str)->str:  # crea el nombre carp
         else:#para extension
             nombre=array[0]+'(1).'+array[1]#
         return creRenameC(service, idFolderRaiz,nombre)
-    else:#no existe nombre, retorno el nuevo nombre
+    else:#no existe nombre, retorno el nombre
         return nombre
 
 def creacionCarpetaIteraC(service, array: list[str], idFolder: str) -> str:
@@ -136,7 +138,91 @@ def creacionCarpetaIteraC(service, array: list[str], idFolder: str) -> str:
 
 def eliminarCloud(service, idDelete:str,tipo):
     service.files().delete(fileId=idDelete).execute()
-    if tipo=="txt":
+    if tipo == "text/plain":
         print(f"Archivo borrado totalmente.")
-    elif tipo=="folder":
+    elif tipo == "application/vnd.google-apps.folder":
         print(f"Folder borrado totalmente.")
+
+def renameCloud(service,idAcces:str,nombreNuevo:str):#renombrea el archivo|folder
+    folder_metadata = {
+        'name': nombreNuevo
+    }
+    updateNombre = service.files().update(
+        fileId=idAcces,
+        body=folder_metadata,
+        fields='name'
+    ).execute()
+    print('Renombrado a', updateNombre['name'])
+
+def copiarCloud(service,idA:str,idDe:str,tipo:str)->str:#copia archivo|folder
+    if tipo=="text/plain":
+        file = service.files().copy(
+            fileId=idDe,
+            body={
+                'parents': [idA]
+            }
+        ).execute()
+        print(f"Archivo copiado: {file['name']}")
+        return file['id']
+    elif tipo == "application/vnd.google-apps.folder":#crear un folder y copiar los archivos
+        response = service.files().get(
+            fileId=idDe, fields='name, mimeType').execute()#DOBLEX2
+        nuevoIdC=crearCloud(service, response["name"], tipo, idA, '')
+        resultadoNuevaC = listadoCloud(service, idDe)
+        for file in resultadoNuevaC:
+            copiarCloud(service, nuevoIdC, file["id"], file["mimeType"])#recursivdiad de otros archivos a copiar
+        print(f"Carpeta copiada: {response['name']}")
+        return nuevoIdC
+
+def tranferCloud(service,idA:str,idDe:str)->str:
+    file = service.files().get(fileId=idDe, fields='parents').execute()
+    previous_parents = ",".join(file.get('parents'))
+    file = service.files().update(fileId=idDe,
+                                  addParents=idA,
+                                  removeParents=previous_parents,
+                                  fields='id, parents').execute()
+    print(f"Directorio movido")
+    
+def auxDeParaC(rutaA:str,rutaDE:str)->list[str,str]:#es aux para no copiar mismo codigo de copy.py y tranfer.py
+
+    arrayRuta = gG.arrayRuta(rutaA)
+    servicio = servicioCloud()
+    resultado = navegacionCarpetasC(
+        servicio, arrayRuta, '1JrC25YFAk-DL_nsSSQt6vZzt1zKruXYm')  # navego lo maximo posible
+
+    if len(resultado[0]) != 0:  # llegue al final de las carpetas/de
+        print(f"La ruta especificada {rutaA}, esta mal")
+        return ["", ""]
+    idA=resultado[1]["id"]#id rutaA
+
+    arrayRuta = gG.arrayRuta(rutaDE)
+    resultado = navegacionCarpetasC(
+        servicio, arrayRuta, '1JrC25YFAk-DL_nsSSQt6vZzt1zKruXYm')
+
+    if len(resultado[0]) != 0:  # llegue al final de las carpetas/de
+        print(f"La ruta especificada {rutaDE}, esta mal")
+        return ["",""]
+    idDe = resultado[1]["id"]  # ida rutaDE
+      
+    return [idA,idDe]
+
+def escribirCloud(service,idFile,contenidoNeuvo,addMod):
+    if addMod=="add":
+        contenidoExistente = service.files().get_media(fileId=idFile).execute()#obtengo el contenido nuevo
+        # Append new content to the existing content
+        contenidoNeuvo = contenidoExistente.decode(
+            'utf-8', errors='ignore') + contenidoNeuvo
+    media = MediaInMemoryUpload(
+        contenidoNeuvo.encode(),
+        mimetype='text/plain',
+        resumable=True
+    )
+    service.files().update(
+        fileId=idFile,
+        media_body=media,
+        fields='id, name, mimeType, modifiedTime'
+    ).execute()
+    if addMod == "add":
+        print('se agrego al archivo')
+    else:
+        print('reescrito el archivo')

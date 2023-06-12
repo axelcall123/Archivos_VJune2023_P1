@@ -1,2 +1,2 @@
 Configure -type->local -encrypt_log->false -encrypt_read->false
-Copy  -to->/uno/dos/ -from->/carp1/carp2/carp3/nombre2.txt
+add -path->/uno/dos/nombre2.txt -body->"\n mas contenido peggon"
