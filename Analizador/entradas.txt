@@ -1,2 +1,2 @@
 Configure -type->local -encrypt_log->false -encrypt_read->false
-transfer -from->/carp1/carp2/carfinal/nombre1.txt -to->/uno/dos/ -mode->local
+backup

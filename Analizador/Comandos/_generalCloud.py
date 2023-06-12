@@ -55,6 +55,7 @@ def existeNombreC(service,idFolderRaiz:str,nombre:str)->dict:# saber si existe u
                 return {'existe': "true", "id": file['id']}
             
         return {'existe': "false", "id": idFolderRaiz}
+    
 
 def tipo(nombre:str)->str:#devuelve el tipo que es, folder o archivo
     arr = nombre.split(".")
@@ -126,6 +127,20 @@ def creRenameC(service,idFolderRaiz:str,nombre:str)->str:  # crea el nombre carp
             nombre=array[0]+'(1).'+array[1]#
         return creRenameC(service, idFolderRaiz,nombre)
     else:#no existe nombre, retorno el nombre
+        return nombre
+
+
+# crea el nombre carpeta|archivo que se quiere crear, si existe el nombre repetido
+def creRenameL(idFolderRaiz: str, nombre: str) -> str:
+    # FIXME: para no reahacerlo se puede poner otro parametro par unirlo con navacion carpetas, se puede optimizar
+    if os.path.exists(idFolderRaiz+'/'+nombre):  # existe nombre
+        array = nombre.split(".")
+        if len(array) == 1:  # para folder
+            nombre = nombre+'(1)'
+        else:  # para extension
+            nombre = array[0]+'(1).'+array[1]
+        return creRenameL(idFolderRaiz, nombre)
+    else:  # no existe nombre, retorno el nombre
         return nombre
 
 def creacionCarpetaIteraC(service, array: list[str], idFolder: str) -> str:
@@ -227,3 +242,55 @@ def escribirCloud(service,idFile,contenidoNeuvo,addMod):
         print('se agrego al archivo')
     else:
         print('reescrito el archivo')
+
+def upLoading(service,folderLocal,folderCloud):#
+    files = os.listdir(folderLocal)#listado del folder
+    for file_name in files:
+        file_path = os.path.join(folderLocal, file_name)
+        if tipo(file_name)=="txt":# subir solo archivos
+            #os.path.isfile(file_path)
+            resultado=existeNombreC(service,folderCloud,file_name)
+            if resultado["existe"]=="true":#si existe nombre, creo nuevo nombre
+                file_name=creRenameC(service,folderCloud,file_name)#nuevo nombre
+            file_metadata = {
+                'name': file_name,
+                'parents': [folderCloud]
+                             }
+            media = MediaFileUpload(file_path)
+            service.files().create(
+                body=file_metadata,
+                media_body=media,
+                fields='id'
+            ).execute()
+            print(f"subiendo archivo {file_name}")
+        elif tipo(file_name)=="folder":# crear folder
+            resultado = existeNombreC(service, folderCloud, file_name)#existe folder
+            if resultado["existe"] == "true":  # si existe nombre, navego en el
+                upLoading(service, file_path,resultado["id"])
+            else:#si no existe creo nueva carpeta, FIXME: puedo optimzar esta funcion para cuando cree el folder ya no de un listado por que es nueva carpeta
+                idFolder=crearCloud(service, file_name,
+                           'application/vnd.google-apps.folder',folderCloud,'')
+                upLoading(service, file_path, idFolder)
+
+
+def downLoading(service,folderLocal,folderCloud):
+    items = listadoCloud(service,folderCloud)#listado
+    for item in items:
+        if item['mimeType'] == 'text/plain':  # es un archivo,descargar archivo
+            file_name = item['name']
+            
+            if os.path.exists(folderLocal+'/'+file_name):  # si existe nombre, creo nuevo nombre
+                file_name = creRenameL(folderLocal, file_name)  # nuevo nombre
+            request = service.files().get_media(fileId=item['id'])
+            with open(folderLocal+'/'+file_name, 'wb') as f:
+                f.write(request.execute())
+                f.close()
+        else:#es un folder,
+            #resultado=existeNombreL(folderLocal,item['name'])
+            subfolder_path = os.path.join(folderLocal, item['name'])
+            os.makedirs(subfolder_path, exist_ok=True)#creo por si no existe
+            downLoading(service, subfolder_path, item['id'])
+            print(f"Downloaded: {item['name']}")
+
+    print("Download complete!")
+    print()

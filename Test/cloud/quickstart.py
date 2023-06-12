@@ -169,7 +169,7 @@ def downlaod(service):#arbol para descargar carpetas
     
     print("File downloaded successfully.")
 #->LOCAL->CLOUD
-def moverLC(service):
+def moverLCA(service):
     file_path = 'D:/AXEL/DOCUMENTOS/U--OTROS/GITHUB/ARCHIVOS/VACAS#1_2023/Archivos_VJune2023_P1/Test/cloud/file/local.txt'
     folder_id = '1Cc9Vp0d8EsT2xsWCFMC8Je1rkpFd5TE_'
     file_metadata = {
@@ -179,6 +179,26 @@ def moverLC(service):
     media = MediaFileUpload(file_path, mimetype='application/octet-stream')
     file = service.files().create(body=file_metadata, media_body=media, fields='id').execute()
     print('File ID: %s' % file.get('id'))
+
+def moverLCF(service):
+    folder_path = 'D:/AXEL/DOCUMENTOS/U--OTROS/GITHUB/ARCHIVOS/VACAS#1_2023/Archivos_VJune2023_P1/Test/cloud/updown_loading'
+    # List files in the local folder
+    folder_id = '1Cc9Vp0d8EsT2xsWCFMC8Je1rkpFd5TE_'
+    files = os.listdir(folder_path)
+    for file_name in files:
+        file_path = os.path.join(folder_path, file_name)
+        if os.path.isfile(file_path):
+            # Upload file to Google Drive
+            file_metadata = {
+                'name': file_name,
+                'parents': [folder_id]
+                             }
+            media = MediaFileUpload(file_path)
+            service.files().create(
+                body=file_metadata,
+                media_body=media,
+                fields='id'
+            ).execute()
 #RENOMBRAR
 def renameC(service):
     # ID of the folder to rename
@@ -300,6 +320,8 @@ def funcDef(service):
     #end func
     print()
 
+
+
 def Test():
     jsonT = {'A': 'a', "B": "b"}
     print(jsonT,jsonT['A'])
@@ -351,7 +373,8 @@ def main():
         #moverCC(service)
         #downlaod(service)
         #copiarA(service)
-        #moverLC(service)
+        #moverLCF(service)
+        moverLCF(service)
         #renameC(service)
         #sust(service)
         #agregar(service)

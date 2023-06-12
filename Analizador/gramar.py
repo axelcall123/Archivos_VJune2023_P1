@@ -112,12 +112,18 @@ def p_lexico(p):
 
 def p_comandos(p):
     '''comandos : maincomando subcomando
+                | maincomando
     '''
-    arr = []
-    arr.append(p[1])
-    arr.append(p[2])
-    Arbol.append(arr)
-    # p[0]=arr
+    if len(p) == 3:
+        arr = []
+        arr.append(p[1])
+        arr.append(p[2])
+        Arbol.append(arr)
+        # p[0]=arr
+    else:
+        arr = []
+        arr.append(p[1])
+        Arbol.append(arr)
     
 
 def p_main_comando(p):

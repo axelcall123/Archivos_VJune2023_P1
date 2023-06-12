@@ -7,6 +7,7 @@ from Analizador.Comandos.rename import Rename
 from Analizador.Comandos.modify import Modify
 from Analizador.Comandos.transfer import Transfer
 from Analizador.Comandos.add import Add
+from Analizador.Comandos.backup import Backup
 from Analizador.cripto import encrypt_string, decrypt_string
 
 
@@ -140,4 +141,6 @@ class Leer:
                                         comandoAgregar.body(elementos2[1])
                                 #añadir
                                 #comandoAgregar.aniadir()
-                                
+                if (comando == "backup" and self.localmente):  # !Comando add
+                    comandoBackup=Backup("cloud")
+                    comandoBackup.backupA()
