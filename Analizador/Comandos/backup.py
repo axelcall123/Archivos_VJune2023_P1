@@ -7,7 +7,7 @@ class Backup:
 
     def backupA(self):
         folderLocal = './Archivo'
-        folderCloud = '1Cc9Vp0d8EsT2xsWCFMC8Je1rkpFd5TE_'
+        folderCloud = '1JrC25YFAk-DL_nsSSQt6vZzt1zKruXYm'
         servicio=gC.servicioCloud()
         if self.tipo=="local":#subo a la nuve
             gC.upLoading(servicio,folderLocal,folderCloud)
