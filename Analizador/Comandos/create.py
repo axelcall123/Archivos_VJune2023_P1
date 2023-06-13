@@ -54,4 +54,4 @@ class Create:
             rename = gC.creRenameC(servicio, resultado[1]["id"], self.nombre)
             gC.crearCloud(servicio, rename,
                           'text/plain', resultado[1]["id"],self.contenido)
-        return
+        print("se termino de crear todo")

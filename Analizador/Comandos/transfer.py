@@ -27,7 +27,7 @@ class Transfer:
 
     def transferCloud(self):
         retorno = gC.auxDeParaC(self.a, self.de)
-        if retorno[0] == " ":
+        if retorno[0] == "":
             return
         servicio = gC.servicioCloud()
         idA = retorno[0]

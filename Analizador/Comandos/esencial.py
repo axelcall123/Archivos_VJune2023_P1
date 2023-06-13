@@ -65,6 +65,7 @@ class Leer:
                                         comandoCreate.body(elementos2[1])
                                 #creando archivo
                                 #comandoCreate.creacionLocal()
+                                comandoCreate.creacionCloud()
                 if(comando=="delete" and self.localmente): #!Comando delete
                         #self.localmente=False
                         comandoDelete=Delete()
@@ -77,6 +78,7 @@ class Leer:
                                         comandoDelete.name(elementos2[1])
                                 #borrar
                                 #comandoDelete.borrar()
+                                comandoDelete.borrarCloud()
                 if(comando=="copy" and self.localmente): #!Comando delete
                         #self.localmente=False
                         comandoCopy=Copy()
@@ -117,6 +119,7 @@ class Leer:
                                         comandoRenombrar.name(elementos2[1])
                                 #renombrar
                                 #comandoRenombrar.reNombrar()
+                                comandoRenombrar.renameCloud()
                 if(comando=="modify" and self.localmente): #!Comando modify
                         #self.localmente=False
                         comandoModificar=Modify()
@@ -129,6 +132,7 @@ class Leer:
                                         comandoModificar.body(elementos2[1])
                                 #modificar
                                 #comandoModificar.modificar()}
+                                comandoModificar.modificarCloud()
                 if(comando=="add" and self.localmente): #!Comando add
                         #self.localmente=False
                         comandoAgregar=Add()
@@ -141,6 +145,7 @@ class Leer:
                                         comandoAgregar.body(elementos2[1])
                                 #añadir
                                 #comandoAgregar.aniadir()
+                                comandoAgregar.agregarCloud()
                 if (comando == "backup" and self.localmente):  # !Comando add
-                    comandoBackup=Backup("cloud")
+                    comandoBackup=Backup("local")
                     comandoBackup.backupA()

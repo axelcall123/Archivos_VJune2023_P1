@@ -39,7 +39,7 @@ class Delete:
 
         else:#url mala
             print(f"La ruta especificada {self.ruta}, esta mal")
-
+        print("termino de elminar todo")
 
 
 

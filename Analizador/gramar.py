@@ -63,18 +63,22 @@ t_FROM = r'-from->'
 t_TO = r'-to->'
 t_MODE = r'-mode->'
 
-t_LOCAL = r'("local")|local'
-t_CLOUD = r'("cloud")|cloud'
+t_LOCAL = r'local|\"local\"'
+t_CLOUD = r'cloud|\"cloud\"'
 t_TRUE=r'true'
 t_FALSE=r'false'
 
+    
+
 def t_ARCHIVO(t):
+    #r'(\w+)(.\w+)'
     r'("[\w ]+[.]\w+")|(\w+[.]\w+)'
     t.value = t.value.lower()
     return t
 
 def t_RUTA(t):
-    r'([/](\w+[/])+(\w+[.]\w+)?)|([/]["](\w?[\w ]+[/])+(\w+[.]\w+)?["][/])'
+    r'((\/\w+)+(\/|(.\w+)))|(\/\"[\w ]+(([/][\w ]+)*)((.\w+\"\/)|(\"\/)))'
+    #r'([/](\w+[/])+(\w+[.]\w+)?)|([/]["](\w?[\w ]+[/])+(\w+[.]\w+)?["][/])'
     #ant regex:([/](\w+[/])+(\w+[.]\w+)?)|(["][/](\w?[\w ]+[/])+(\w+[.]\w+)?["]|([/]["](\w?[\w ]+["][/])))
     t.value = t.value.lower()
     return t
@@ -192,14 +196,16 @@ def p_encriptado(p):
     p[0] = p[1]
 
 def p_name(p):
-    '''name : ARCHIVO
-            | RUTA
+    '''name : RUTA
+            | STRING
+            | ARCHIVO
     '''
-    p[0]=p[1]
+    p[0] = p[1]
 
 def p_error(p):
     if p:
-        print(f"Error sintactico en el token '{p.value}'")
+        print(f"Error sintactico en el token '{p.value}', {p.lexer.lineno}")
+        print(type(p))
     else:
         print("Error sintactico EOF")
 

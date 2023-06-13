@@ -26,8 +26,15 @@ class Rename:
         resultado = gC.navegacionCarpetasC(
             servicio, arrayRuta, '1JrC25YFAk-DL_nsSSQt6vZzt1zKruXYm')  # navego lo maximo posible
         if len(resultado[0]) == 0:#existe la ruta
-            gC.renameCloud(servicio, resultado[1]["id"],self.nombre.replace("/",""))
-            print(f"Se renombro ")
+            file_name = self.nombre.replace("/", "")
+            response = servicio.files().list(
+                q=f"name = '{file_name}'").execute()
+            files = response.get('files', [])
+            if files:
+                print(f"nombre ya existe")
+            else:
+                gC.renameCloud(servicio, resultado[1]["id"],file_name)
+                print(f"Se renombro ")
         else:
             print(f"La ruta especificada {self.ruta}, esta mal")
 
