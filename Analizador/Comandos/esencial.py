@@ -162,9 +162,9 @@ class Leer:
                             #comandoAgregar.agregarCloud()
                             self.exceString = comandoEjecutar.ejecutarArchivo()
                             return self.exceString
-                    if (comando == "backup" and self.localmente):  # !Comando add
-                        comandoBackup = Backup("local")
-                        comandoBackup.backupA()
+                if (comando == "backup" and self.localmente):  # !Comando add
+                    comandoBackup = Backup("local")
+                    comandoBackup.backupA()
                    
 
 
