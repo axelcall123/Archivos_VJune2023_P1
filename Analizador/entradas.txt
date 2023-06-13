@@ -18,7 +18,7 @@ transfer -from->/carpeta1/prueba1.txt -to->/carpeta2/ -mode->"local"
 
 transfer -from->/carpeta2/ -to->/carpeta1/ -mode->"cloud"
 
-rename -path->/carpeta1/prueba1.txt -name->b1.txt
+rename -path->/carpeta1/prueba1.txt -name->/venom/
 
 rename -path->/carpeta1/prueba1.txt -name->b1.txt
 

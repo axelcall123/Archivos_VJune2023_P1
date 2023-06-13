@@ -10,7 +10,8 @@ from FrontEnd.ComandosForm.FormExec import Exec
 from FrontEnd.ComandosForm.FormModify import Modify
 from FrontEnd.ComandosForm.FormRename import Rename
 from FrontEnd.ComandosForm.FormTransfer import Transfer
-
+from Analizador.gramar import gramarMain
+from Analizador.Comandos.esencial import Leer
 class MainWindow:
     def __init__(self, root):
         #setting title
@@ -48,15 +49,15 @@ class MainWindow:
         bttnCerrar.place(x=470,y=420,width=115,height=41)
         bttnCerrar["command"] = self.bttnCerrar_command
 
-        inputConsole=tk.Entry(self.root)
-        inputConsole["borderwidth"] = "1px"
-        inputConsole["cursor"] = "arrow"
+        self.inputConsole=tk.Entry(self.root)
+        self.inputConsole["borderwidth"] = "1px"
+        self.inputConsole["cursor"] = "arrow"
         ft = tkFont.Font(family='Times',size=10)
-        inputConsole["font"] = ft
-        inputConsole["fg"] = "#333333"
-        inputConsole["justify"] = "center"
-        inputConsole["text"] = "Entry"
-        inputConsole.place(x=20,y=100,width=285,height=369)
+        self.inputConsole["font"] = ft
+        self.inputConsole["fg"] = "#333333"
+        self.inputConsole["justify"] = "center"
+        self.inputConsole["text"] = "Entry"
+        self.inputConsole.place(x=20,y=100,width=285,height=369)
 
         bttnBackUp=tk.Button(self.root)
         bttnBackUp["bg"] = "#1e90ff"
@@ -169,54 +170,45 @@ class MainWindow:
         bttnEjecComando.place(x=330,y=420,width=115,height=41)
         bttnEjecComando["command"] = self.bttnEjecComando_command
 
+
     def bttnCerrar_command(self):
         self.root.destroy()
-
 
     def bttnBackUp_command(self):
         root = tk.Tk()
         ventana=BackUp(root)
 
-
     def bttnCopy_command(self):
         root = tk.Tk()
         ventana=Copy(root)
-
 
     def bttnDelete_command(self):
         root = tk.Tk()
         ventana=Delete(root)
 
-
     def bttnCreate_command(self):
         root = tk.Tk()
         ventana=Create(root)
-
 
     def bttnConfigure_command(self):
         root = tk.Tk()
         ventana=Configure(root)
 
-
     def bttnExec_command(self):
         root = tk.Tk()
         ventana=Exec(root)
-
 
     def bttnAdd_command(self):
         root = tk.Tk()
         ventana=Add(root)
 
-
     def bttnModify_command(self):
         root = tk.Tk()
         ventana=Modify(root)
 
-
     def bttnRename_command(self):
         root = tk.Tk()
         ventana=Rename(root)
-
 
     def bttnTransfer_command(self):
         root = tk.Tk()
@@ -225,7 +217,11 @@ class MainWindow:
 
     def bttnEjecComando_command(self):
         #ejecutar el texto en el imput
-        print("command")
+        texto=texto+self.inputConsole.get()
+        if texto!='':
+            resultado = gramarMain("txt",texto)#solo para el texto, para las subVentanas ya esta concatenado
+            analizar = Leer()
+            analizar.comando(resultado)
 
 # if __name__ == "__main__":
 #     root = tk.Tk()

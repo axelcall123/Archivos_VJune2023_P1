@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.font as tkFont
-
+#from Analizador.Comandos.esencial import Leer
 class Modify:
     def __init__(self, root):
         #setting title
@@ -65,9 +65,15 @@ class Modify:
         self.inputpath.place(x=170,y=230,width=338,height=30)
 
     def GButton_364_command(self):
-        print(self.inputBody.get())
-        print(self.inputpath.get())
-
+        comando = []
+        comando.append('modify')
+        subcomando = []
+        subcomando.append(['-path->', self.inputpath.get()])
+        subcomando.append(['-body-', self.inputBody.get()])
+        comando.append(subcomando)
+        print(comando)
+        #analizar = Leer()
+        #analizar.comando(comando)
 if __name__ == "__main__":
     root = tk.Tk()
     Modify = Modify(root)

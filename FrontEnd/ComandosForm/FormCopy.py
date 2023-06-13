@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.font as tkFont
-
+#from Analizador.Comandos.esencial import Leer
 class Copy:
     def __init__(self, root):
         #setting title
@@ -65,8 +65,15 @@ class Copy:
         self.inputTo.place(x=170,y=220,width=338,height=30)
 
     def GButton_364_command(self):
-        print( self.inputTo.get())
-        print( self.inputFrom.get())
+        comando=[]
+        comando.append('copy')
+        subcomando=[]
+        subcomando.append(['-from->',self.inputFrom.get()])
+        subcomando.append(['-to->',self.inputTo.get()])
+        comando.append(subcomando)
+        print(comando)
+        #analizar = Leer()
+        #analizar.comando(comando)
 
 if __name__ == "__main__":
     root = tk.Tk()

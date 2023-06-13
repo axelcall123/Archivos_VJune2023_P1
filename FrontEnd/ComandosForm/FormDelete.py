@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.font as tkFont
-
+#from Analizador.Comandos.esencial import Leer
 class Delete:
     def __init__(self, root):
         #setting title
@@ -65,9 +65,15 @@ class Delete:
         self.inputPath.place(x=170,y=220,width=338,height=30)
 
     def GButton_364_command(self):
-        print(self.inputName.get())
-        print(self.inputPath.get())
-        
+        comando = []
+        comando.append('delete')
+        subcomando = []
+        subcomando.append(['-path->', self.inputPath.get()])
+        subcomando.append(['-name->', self.inputName.get()])
+        comando.append(subcomando)
+        print(comando)
+        #analizar = Leer()
+        #analizar.comando(comando)
 
 if __name__ == "__main__":
     root = tk.Tk()

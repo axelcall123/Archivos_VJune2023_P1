@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.font as tkFont
-
+#from Analizador.Comandos.esencial import Leer
 class Rename:
     def __init__(self, root):
         #setting title
@@ -65,8 +65,15 @@ class Rename:
         self.inputName.place(x=170,y=230,width=338,height=30)
 
     def GButton_364_command(self):
-        print(self.inputPath.get())
-        print(self.inputName.get())
+        comando = []
+        comando.append('rename')
+        subcomando = []
+        subcomando.append(['-path->', self.inputPath.get()])
+        subcomando.append(['-name->', self.inputName.get()])
+        comando.append(subcomando)
+        print(comando)
+        #analizar = Leer()
+        #analizar.comando(comando)
 
 if __name__ == "__main__":
     root = tk.Tk()

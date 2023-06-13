@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.font as tkFont
-
+#from Analizador.Comandos.esencial import Leer
 class Create:
     def __init__(self, root):
         #setting title
@@ -56,21 +56,21 @@ class Create:
         GLabel_824["text"] = "Path"
         GLabel_824.place(x=30,y=240,width=141,height=46)
 
-        self.inputName=tk.Entry(root)
-        self.inputName["borderwidth"] = "1px"
-        ft = tkFont.Font(family='Times',size=10)
-        self.inputName["font"] = ft
-        self.inputName["fg"] = "#333333"
-        self.inputName["justify"] = "center"
-        self.inputName.place(x=170,y=200,width=337,height=30)
-
         self.inputBody=tk.Entry(root)
         self.inputBody["borderwidth"] = "1px"
         ft = tkFont.Font(family='Times',size=10)
         self.inputBody["font"] = ft
         self.inputBody["fg"] = "#333333"
         self.inputBody["justify"] = "center"
-        self.inputBody.place(x=170,y=150,width=337,height=30)
+        self.inputBody.place(x=170,y=200,width=337,height=30)
+
+        self.inputName=tk.Entry(root)
+        self.inputName["borderwidth"] = "1px"
+        ft = tkFont.Font(family='Times',size=10)
+        self.inputName["font"] = ft
+        self.inputName["fg"] = "#333333"
+        self.inputName["justify"] = "center"
+        self.inputName.place(x=170,y=150,width=337,height=30)
 
         self.inputPath=tk.Entry(root)
         self.inputPath["borderwidth"] = "1px"
@@ -81,9 +81,16 @@ class Create:
         self.inputPath.place(x=170,y=250,width=338,height=30)
 
     def GButton_364_command(self):
-        print(self.inputName.get())
-        print(self.inputBody.get())
-        print(self.inputPath.get())
+        comando = []
+        comando.append('create')
+        subcomando = []
+        subcomando.append(['-name->', self.inputName.get()])
+        subcomando.append(['-path->', self.inputPath.get()])
+        subcomando.append(['-body->', self.inputBody.get()])
+        comando.append(subcomando)
+        print(comando)
+        #analizar = Leer()
+        #analizar.comando(comando)
 
 if __name__ == "__main__":
     root = tk.Tk()

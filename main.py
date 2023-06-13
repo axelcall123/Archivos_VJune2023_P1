@@ -1,17 +1,18 @@
 from Analizador.gramar import gramarMain
 from Analizador.Comandos.esencial import Leer
-# resultado = gramarMain()
-# analizar = Leer()
-# for res in resultado:
-#     print(res)
-# analizar.comando(resultado)
-
-
-
 from Analizador.cripto import decrypt_string
 from FrontEnd.SingIn import Login
 import tkinter as tk
 import tkinter.font as tkFont
+
+
+def test():
+    resultado = gramarMain("documento", "./Analizador/entradas.txt")
+    analizar = Leer()
+    for res in resultado:
+        print(res)
+    analizar.comando(resultado)
+
 def main():
     file_path ='./docs/archivo.txt'
     dicUsuario = []
@@ -32,3 +33,4 @@ def main():
     root.mainloop()
 
 main()
+#test()

@@ -120,10 +120,17 @@ class Configure:
     
     def bttnEjecComando_command(self):
         #INPUTS DEL FORM
-        print(self.coboGetType)
-        print(self.coboGetEncriptLog)
-        print(self.coboGetEncriptRead)
-        print(self.inputLlave.get())
+        comando = []
+        comando.append('configure')
+        subcomando = []
+        subcomando.append(['-type->', self.coboGetType])
+        subcomando.append(['-encrypt_log->', self.coboGetEncriptLog])
+        subcomando.append(['-encrypt_read->', self.coboGetEncriptRead])
+        subcomando.append(['-llave->', self.inputLlave.get()])
+        comando.append(subcomando)
+        print(comando)
+        #analizar = Leer()
+        #analizar.comando(comando)
         
         
     

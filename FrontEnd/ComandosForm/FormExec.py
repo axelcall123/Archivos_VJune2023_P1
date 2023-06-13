@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.font as tkFont
-
+#from Analizador.Comandos.esencial import Leer
 class Exec:
     def __init__(self, root):
         #setting title
@@ -49,7 +49,14 @@ class Exec:
         self.inputpath.place(x=160,y=150,width=321,height=31)
 
     def GButton_364_command(self):
-        print(self.inputpath.get())
+        comando = []
+        comando.append('exec')
+        subcomando = []
+        subcomando.append(['-path->', self.inputpath.get()])
+        comando.append(subcomando)
+        print(comando)
+        #analizar = Leer()
+        #analizar.comando(comando)
 
 if __name__ == "__main__":
     root = tk.Tk()

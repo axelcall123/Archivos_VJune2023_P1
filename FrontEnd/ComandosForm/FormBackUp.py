@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import *
 import tkinter.font as tkFont
+#from Analizador.Comandos.esencial import Leer
 
 class BackUp:
     def __init__(self, root):
@@ -35,6 +36,8 @@ class BackUp:
         GButton_364["text"] = "Ejec. Comando"
         GButton_364.place(x=250,y=400,width=115,height=41)
         GButton_364["command"] = self.GButton_364_command
+        rest=self.GButton_364_command
+        print(rest,type(rest))
 
         GLabel_819=tk.Label(root)
         ft = tkFont.Font(family='Times',size=18)
@@ -53,7 +56,11 @@ class BackUp:
         comboBoxmode.place(x=170,y=150,width=337,height=30)
 
     def GButton_364_command(self):
-        print(self.comboGetmode)
+        if self.comboGetmode.lower()!='':
+            comando = ['backup']
+            print(comando)
+            #analizar = Leer()
+            #analizar.comando(comando)
 
 if __name__ == "__main__":
     root = tk.Tk()

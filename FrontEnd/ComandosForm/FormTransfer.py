@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.font as tkFont
-
+#from Analizador.Comandos.esencial import Leer
 class Transfer:
     def __init__(self, root):
         #setting title
@@ -81,10 +81,16 @@ class Transfer:
         self.inputMode.place(x=170,y=250,width=327,height=30)
 
     def GButton_364_command(self):
-        print(self.inputFrom.get())
-        print(self.inputTo.get())
-        print(self.inputMode.get())
-
+        comando = []
+        comando.append('transfer')
+        subcomando = []
+        subcomando.append(['-from->', self.inputFrom.get()])
+        subcomando.append(['-to->', self.inputTo.get()])
+        subcomando.append(['-mode->', self.inputMode.get()])
+        comando.append(subcomando)
+        print(comando)
+        #analizar = Leer()
+        #analizar.comando(comando)
 if __name__ == "__main__":
     root = tk.Tk()
     Transfer = Transfer(root)

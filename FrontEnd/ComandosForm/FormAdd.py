@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.font as tkFont
-
+#from Analizador.Comandos.esencial import Leer
 class Add:
     def __init__(self, root):
         #setting title
@@ -66,8 +66,17 @@ class Add:
 
 
     def bttnEjecComando_command(self):
-        print(self.inputPath.get())
-        print(self.inputBody.get())
+        print()
+        print()
+        comando = []
+        comando.append('add')
+        subcomando = []
+        subcomando.append(['-path->', self.inputPath.get()])
+        subcomando.append(['-body->', self.inputBody.get()])
+        comando.append(subcomando)
+        print(comando)
+        #analizar = Leer()
+        #analizar.comando(comando)
 
 if __name__ == "__main__":
     root = tk.Tk()

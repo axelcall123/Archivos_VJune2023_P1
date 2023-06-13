@@ -209,16 +209,12 @@ def p_error(p):
     else:
         print("Error sintactico EOF")
 
-def gramarMain():
+def gramarMain(tipo,textoUrl):
     parser = yacc.yacc()
-    f = open("./Analizador/entradas.txt", "r")
-    input = f.read()
-    #print(input)
-    resultado=parser.parse(input.lower())
-    #print(resultado,'\n')
-    #lectura=Leer()
-    #lectura.comando(resultado)
-    #print(resultado)
-    return resultado
-    #analizar=Leer()
-    #analizar.comando(resultado)
+    if tipo=="documento":
+        # "./Analizador/entradas.txt"
+        f = open(textoUrl, "r")
+        input = f.read()
+        return parser.parse(input.lower())
+    elif tipo=="txt":
+        return parser.parse(textoUrl.lower())
