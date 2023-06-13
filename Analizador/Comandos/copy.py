@@ -17,7 +17,7 @@ class Copy:
 
     def to(self, a):
         if ('"' in a):
-            self.a = a.split("\"")[1]
+            self.a = a.split("\"")[1]  # FIXME:/"ruta"/->ruta
         else:
             self.a = a
 
@@ -37,7 +37,7 @@ class Copy:
                 #existe la ruta
                 print("--------------")
                 #!--------------------------------------------
-                shutil.copytree(pathArchivofrom, pathArchivoto)
+                shutil.copytree(pathArchivofrom, pathArchivoto)#FIXME: ahorrar de archivo existente
                 print("******LA CARPETA FUE COPIADA CON EXITO******")
             else:
                 #si no existe nada

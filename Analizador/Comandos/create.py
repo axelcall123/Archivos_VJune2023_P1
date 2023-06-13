@@ -26,7 +26,7 @@ class Create:
     def path(self, ruta):
         #posibles cambios necesario ala ruta
         if ('"' in ruta):
-            self.ruta = ruta.split("\"")[1]
+            self.ruta = ruta.split("\"")[1]  # FIXME:/"ruta"/->ruta
         else:
             self.ruta = ruta
 
