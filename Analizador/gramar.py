@@ -41,21 +41,21 @@ tokens = (
     'STRING'
 )
 
-t_CONFIGURE = r'configure'
-t_CREATE = r'create'
-t_DELETE = r'delete'
-t_COPY = r'copy'
-t_TRANSFER = r'transfer'
-t_RENAME = r'rename'
-t_MODIFY = r'modify'
-t_ADD = r'add'
-t_BACKUP = r'backup'
-t_EXEC = r'exec'
+t_CONFIGURE=r'configure'
+t_CREATE=r'create'
+t_DELETE=r'delete'
+t_COPY=r'copy'
+t_TRANSFER=r'transfer'
+t_RENAME=r'rename'
+t_MODIFY=r'modify'
+t_ADD=r'add'
+t_BACKUP=r'backup'
+t_EXEC=r'exec'
 
-t_TYPE = r'-type->'
+t_TYPE=r'-type->'
 t_ENCRYPTLOG = r'-encrypt_log->'
 t_ENCRYPTREAD = r'-encrypt_read->'
-t_LLAVE = r'-llave->'
+t_LLAVE=r'-llave->'
 t_NAME = r'-name->'
 t_BODY = r'-body->'
 t_PATH = r'-path->'
@@ -63,34 +63,32 @@ t_FROM = r'-from->'
 t_TO = r'-to->'
 t_MODE = r'-mode->'
 
-t_LOCAL = r'("local")|local'
-t_CLOUD = r'("cloud")|cloud'
-t_TRUE = r'true'
-t_FALSE = r'false'
+t_LOCAL = r'local|\"local\"'
+t_CLOUD = r'cloud|\"cloud\"'
+t_TRUE=r'true'
+t_FALSE=r'false'
 
+    
 
 def t_ARCHIVO(t):
+    #r'(\w+)(.\w+)'
     r'("[\w ]+[.]\w+")|(\w+[.]\w+)'
     t.value = t.value.lower()
     return t
 
-
 def t_RUTA(t):
-    r'([/]?(\w+[/])+(\w+[.]\w+)?)|(["][/](\w?[\w ]+[/])+(\w+[.]\w+)?["]|([/]?["]([\w ]+["][/])))'
+    r'((\/\w+)+(\/|(.\w+)))|(\/\"[\w ]+(([/][\w ]+)*)((.\w+\"\/)|(\"\/)))'
+    #r'([/](\w+[/])+(\w+[.]\w+)?)|([/]["](\w?[\w ]+[/])+(\w+[.]\w+)?["][/])'
     #ant regex:([/](\w+[/])+(\w+[.]\w+)?)|(["][/](\w?[\w ]+[/])+(\w+[.]\w+)?["]|([/]["](\w?[\w ]+["][/])))
-    #ant2 regex([/](\w+[/])+(\w+[.]\w+)?)|([/]["](\w?[\w ]+[/])+(\w+[.]\w+)?["][/])
     t.value = t.value.lower()
     return t
-
 
 def t_STRING(t):
     r'"[^"]+"'
     t.value = t.value.lower()
     return t
 
-
 t_ignore = ' \t\n'
-
 
 def t_error(t):
     print(f"Caracter Invalido: '{t.value[0]}'")
@@ -100,14 +98,11 @@ def t_error(t):
 lexer = lex.lex()
 
 # Parser
-Arbol = []
-
-
+Arbol=[]
 def p_inicio(p):
     '''inicio : lexico
     '''
-    p[0] = Arbol
-
+    p[0]=Arbol
 
 def p_lexico(p):
     '''lexico : lexico comandos
@@ -119,16 +114,21 @@ def p_lexico(p):
     # else:
     #     p[0] = [p[1]]
 
-
 def p_comandos(p):
     '''comandos : maincomando subcomando
+                | maincomando
     '''
-    arr = []
-    arr.append(p[1])
-    arr.append(p[2])
-    Arbol.append(arr)
-    # p[0]=arr
-
+    if len(p) == 3:
+        arr = []
+        arr.append(p[1])
+        arr.append(p[2])
+        Arbol.append(arr)
+        # p[0]=arr
+    else:
+        arr = []
+        arr.append(p[1])
+        Arbol.append(arr)
+    
 
 def p_main_comando(p):
     '''maincomando : CONFIGURE 
@@ -142,7 +142,7 @@ def p_main_comando(p):
                 | BACKUP
                 | EXEC
     '''
-    p[0] = p[1]
+    p[0] = p[1] 
 
 
 def p_subcomando(p):
@@ -153,12 +153,12 @@ def p_subcomando(p):
     #print("ppppp",type(p),p,p[0],p[1])#object, none, none|array
     #print("---")
     if len(p) == 3:
-        arr = p[1]
+        arr=p[1]
         #arr.append("subcomando")
         arr.append(p[2])
-        p[0] = arr
+        p[0]=arr
     elif len(p) == 2:
-        arr = []
+        arr = [] 
         #arr.append("subcomando")
         arr.append(p[1])
         p[0] = arr
@@ -169,18 +169,18 @@ def p_sub(p):
                     | ENCRYPTLOG encriptado
                     | ENCRYPTREAD encriptado
                     | LLAVE STRING
-                    | NAME ARCHIVO
+                    | NAME name
                     | BODY STRING
                     | PATH RUTA
                     | FROM RUTA
                     | TO RUTA
                     | MODE tipo
     '''
-    arr = []
+    arr=[]
     #arr.append("sub")
     arr.append(p[1])
     arr.append(p[2])
-    p[0] = arr
+    p[0]=arr
 
 
 def p_tipo(p):
@@ -189,28 +189,32 @@ def p_tipo(p):
     '''
     p[0] = p[1]
 
-
 def p_encriptado(p):
     '''encriptado : TRUE
             | FALSE
     '''
     p[0] = p[1]
 
+def p_name(p):
+    '''name : RUTA
+            | STRING
+            | ARCHIVO
+    '''
+    p[0] = p[1]
 
 def p_error(p):
     if p:
-        print(f"Error sintactico en el token '{p.value}'")
+        print(f"Error sintactico en el token '{p.value}', {p.lexer.lineno}")
+        print(type(p))
     else:
         print("Error sintactico EOF")
-
-
 
 def gramarMain():
     parser = yacc.yacc()
     f = open("./Analizador/entradas.txt", "r")
     input = f.read()
     #print(input)
-    resultado = parser.parse(input.lower())
+    resultado=parser.parse(input.lower())
     #print(resultado,'\n')
     #lectura=Leer()
     #lectura.comando(resultado)

@@ -8,6 +8,7 @@ from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaInMemoryUpload
 from googleapiclient.http import MediaIoBaseDownload
 from googleapiclient.http import MediaFileUpload
+import Analizador.Comandos._general as gG
 
 def servicioCloud():
     scopes = [
@@ -15,7 +16,7 @@ def servicioCloud():
         'https://www.googleapis.com/auth/drive'  # carpeta
     ]
     creds = None
-    print("path TF", os.path.exists('token.json'))
+    #print("path TF", os.path.exists('token.json'))
     if os.path.exists('token.json'):  # crea un archivo, si no existe con las credenciales
         creds = Credentials.from_authorized_user_file(
             'token.json', scopes)  # leer archivos
@@ -54,8 +55,9 @@ def existeNombreC(service,idFolderRaiz:str,nombre:str)->dict:# saber si existe u
                 return {'existe': "true", "id": file['id']}
             
         return {'existe': "false", "id": idFolderRaiz}
+    
 
-def tipo(nombre:str)->str:
+def tipo(nombre:str)->str:#devuelve el tipo que es, folder o archivo
     arr = nombre.split(".")
     if len(arr) == 1:
         return "folder"
@@ -98,6 +100,7 @@ def navegacionCarpetasC(service,arrayCarpetas:List[str],idFolderRaiz:str)->list[
             elif quetipo=="txt":#llegue al final de la url, solo queda txt [txt.txt], con nombre igual
                 arrayCarpetas.pop(0)
                 json={"Tipo":"txt","Same":"True","id":json["id"]}
+                #json={"Tipo":"txt","Same":"True","id":json["id"]}
                 return [arrayCarpetas,json]
             else:
                 print()
@@ -114,8 +117,8 @@ def navegacionCarpetasC(service,arrayCarpetas:List[str],idFolderRaiz:str)->list[
     json = {"Tipo": "folder", "Same": "", "id": idFolderRaiz}
     return [arrayCarpetas, json]
 
-def creRenameC(service,idFolderRaiz:str,nombre:str)->str:  # crea el nombre carpeta|archivo que se quiere crear
-    resutado=existeNombreC(service, idFolderRaiz, nombre)#FIXME: para no reahacerlo se puede poner otro parametro par unirlo con navacion carpetas
+def creRenameC(service,idFolderRaiz:str,nombre:str)->str:  # crea el nombre carpeta|archivo que se quiere crear, si existe el nombre repetido
+    resutado=existeNombreC(service, idFolderRaiz, nombre)#FIXME: para no reahacerlo se puede poner otro parametro par unirlo con navacion carpetas, se puede optimizar
     if resutado["existe"]=="true":#existe nombre
         array=nombre.split(".")
         if len(array)==1:#para folder
@@ -123,7 +126,21 @@ def creRenameC(service,idFolderRaiz:str,nombre:str)->str:  # crea el nombre carp
         else:#para extension
             nombre=array[0]+'(1).'+array[1]#
         return creRenameC(service, idFolderRaiz,nombre)
-    else:#no existe nombre, retorno el nuevo nombre
+    else:#no existe nombre, retorno el nombre
+        return nombre
+
+
+# crea el nombre carpeta|archivo que se quiere crear, si existe el nombre repetido
+def creRenameL(idFolderRaiz: str, nombre: str) -> str:
+    # FIXME: para no reahacerlo se puede poner otro parametro par unirlo con navacion carpetas, se puede optimizar
+    if os.path.exists(idFolderRaiz+'/'+nombre):  # existe nombre
+        array = nombre.split(".")
+        if len(array) == 1:  # para folder
+            nombre = nombre+'(1)'
+        else:  # para extension
+            nombre = array[0]+'(1).'+array[1]
+        return creRenameL(idFolderRaiz, nombre)
+    else:  # no existe nombre, retorno el nombre
         return nombre
 
 def creacionCarpetaIteraC(service, array: list[str], idFolder: str) -> str:
@@ -136,7 +153,144 @@ def creacionCarpetaIteraC(service, array: list[str], idFolder: str) -> str:
 
 def eliminarCloud(service, idDelete:str,tipo):
     service.files().delete(fileId=idDelete).execute()
-    if tipo=="txt":
+    if tipo == "text/plain":
         print(f"Archivo borrado totalmente.")
-    elif tipo=="folder":
+    elif tipo == "application/vnd.google-apps.folder":
         print(f"Folder borrado totalmente.")
+
+def renameCloud(service,idAcces:str,nombreNuevo:str):#renombrea el archivo|folder
+    folder_metadata = {
+        'name': nombreNuevo
+    }
+    updateNombre = service.files().update(
+        fileId=idAcces,
+        body=folder_metadata,
+        fields='name'
+    ).execute()
+    print('Renombrado a', updateNombre['name'])
+
+def copiarCloud(service,idA:str,idDe:str,tipo:str)->str:#copia archivo|folder
+    if tipo=="text/plain":
+        file = service.files().copy(
+            fileId=idDe,
+            body={
+                'parents': [idA]
+            }
+        ).execute()
+        print(f"Archivo copiado: {file['name']}")
+        return file['id']
+    elif tipo == "application/vnd.google-apps.folder":#crear un folder y copiar los archivos
+        response = service.files().get(
+            fileId=idDe, fields='name, mimeType').execute()#DOBLEX2
+        nuevoIdC=crearCloud(service, response["name"], tipo, idA, '')
+        resultadoNuevaC = listadoCloud(service, idDe)
+        for file in resultadoNuevaC:
+            copiarCloud(service, nuevoIdC, file["id"], file["mimeType"])#recursivdiad de otros archivos a copiar
+        print(f"Carpeta copiada: {response['name']}")
+        return nuevoIdC
+
+def tranferCloud(service,idA:str,idDe:str)->str:
+    file = service.files().get(fileId=idDe, fields='parents').execute()
+    previous_parents = ",".join(file.get('parents'))
+    file = service.files().update(fileId=idDe,
+                                  addParents=idA,
+                                  removeParents=previous_parents,
+                                  fields='id, parents').execute()
+    print(f"Directorio movido")
+    return file['id']
+    
+def auxDeParaC(rutaA:str,rutaDE:str)->list[str,str]:#es aux para no copiar mismo codigo de copy.py y tranfer.py
+
+    arrayRuta = gG.arrayRuta(rutaA)
+    servicio = servicioCloud()
+    resultado = navegacionCarpetasC(
+        servicio, arrayRuta, '1JrC25YFAk-DL_nsSSQt6vZzt1zKruXYm')  # navego lo maximo posible
+
+    if len(resultado[0]) != 0:  # llegue al final de las carpetas/de
+        print(f"La ruta especificada {rutaA}, esta mal")
+        return ["", ""]
+    idA=resultado[1]["id"]#id rutaA
+
+    arrayRuta = gG.arrayRuta(rutaDE)
+    resultado = navegacionCarpetasC(
+        servicio, arrayRuta, '1JrC25YFAk-DL_nsSSQt6vZzt1zKruXYm')
+
+    if len(resultado[0]) != 0:  # llegue al final de las carpetas/de
+        print(f"La ruta especificada {rutaDE}, esta mal")
+        return ["",""]
+    idDe = resultado[1]["id"]  # ida rutaDE
+      
+    return [idA,idDe]
+
+def escribirCloud(service,idFile,contenidoNeuvo,addMod):
+    if addMod=="add":
+        contenidoExistente = service.files().get_media(fileId=idFile).execute()#obtengo el contenido nuevo
+        # Append new content to the existing content
+        contenidoNeuvo = contenidoExistente.decode(
+            'utf-8', errors='ignore') + contenidoNeuvo
+    media = MediaInMemoryUpload(
+        contenidoNeuvo.encode(),
+        mimetype='text/plain',
+        resumable=True
+    )
+    service.files().update(
+        fileId=idFile,
+        media_body=media,
+        fields='id, name, mimeType, modifiedTime'
+    ).execute()
+    if addMod == "add":
+        print('se agrego al archivo')
+    else:
+        print('reescrito el archivo')
+
+def upLoading(service,folderLocal,folderCloud):#
+    files = os.listdir(folderLocal)#listado del folder
+    for file_name in files:
+        file_path = os.path.join(folderLocal, file_name)
+        if tipo(file_name)=="txt":# subir solo archivos
+            response = service.files().list(
+                q=f"name = '{file_name}'").execute()
+            files = response.get('files', [])
+            if files:#si existe nombre, creo nuevo nombre
+                file_name=creRenameC(service,folderCloud,file_name)#nuevo nombre
+            file_metadata = {
+                'name': file_name,
+                'parents': [folderCloud]
+                             }
+            media = MediaFileUpload(file_path)
+            service.files().create(
+                body=file_metadata,
+                media_body=media,
+                fields='id'
+            ).execute()
+            print(f"subiendo archivo {file_name}")
+        elif tipo(file_name)=="folder":# crear folder
+            resultado = existeNombreC(service, folderCloud, file_name)#existe folder
+            if resultado["existe"] == "true":  # si existe nombre, navego en el
+                upLoading(service, file_path,resultado["id"])
+            else:#si no existe creo nueva carpeta, FIXME: puedo optimzar esta funcion para cuando cree el folder ya no de un listado por que es nueva carpeta
+                idFolder=crearCloud(service, file_name,
+                           'application/vnd.google-apps.folder',folderCloud,'')
+                upLoading(service, file_path, idFolder)
+
+
+def downLoading(service,folderLocal,folderCloud):
+    items = listadoCloud(service,folderCloud)#listado
+    for item in items:
+        if item['mimeType'] == 'text/plain':  # es un archivo,descargar archivo
+            file_name = item['name']
+            if os.path.exists(folderLocal+'/'+file_name):  # si existe nombre, creo nuevo nombre
+                file_name = creRenameL(folderLocal, file_name)  # nuevo nombre
+            request = service.files().get_media(fileId=item['id'])
+            with open(folderLocal+'/'+file_name, 'wb') as f:
+                f.write(request.execute())
+                f.close()
+        else:#es un folder,
+            #resultado=existeNombreL(folderLocal,item['name'])
+            subfolder_path = os.path.join(folderLocal, item['name'])
+            os.makedirs(subfolder_path, exist_ok=True)#creo por si no existe
+            downLoading(service, subfolder_path, item['id'])
+            print(f"Downloaded: {item['name']}")
+
+    print("Download complete!")
+    print()

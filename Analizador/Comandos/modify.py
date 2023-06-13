@@ -1,43 +1,39 @@
 import os
+import Analizador.Comandos._generalCloud as gC  # alias
+import Analizador.Comandos._general as gG
 class Modify:
-    def __init__ (self,):
-        self.contenido=""
-        self.ruta=""
+    def __init__(self,):
+        self.contenido = ""
+        self.ruta = ""
 
-    def body (self,contenido):
-        if('"' in contenido):
-            self.contenido=contenido.split("\"")[1]
+    def body(self, contenido):
+        if ('"' in contenido):
+            self.contenido = contenido.split("\"")[1]
         else:
-            self.contenido=contenido
-            
+            self.contenido = contenido
 
-    def path(self,ruta):
-        if('"' in ruta):
-            self.ruta=ruta.split("\"")[1]
+    def path(self, ruta):
+        if ('"' in ruta):
+            self.ruta = ruta.split("\"")[1]
         else:
-            self.ruta=ruta
+            self.ruta = ruta
 
     def modificar(self):
-        pathArchivo= "./archivos"+self.ruta
+        pathArchivo = "./archivos"+self.ruta
         print(pathArchivo)
-        
-        if(os.path.exists(pathArchivo)):
-            f = open(pathArchivo, "w") #abriendo y creando
+
+        if (os.path.exists(pathArchivo)):
+            f = open(pathArchivo, "w")  # abriendo y creando
             f.write(self.contenido)
-            f.close() # siempre cerrar
+            f.close()  # siempre cerrar
             print("******EL ARCHIVO FUE MODIFICADO CON EXITO******")
-            
+
         else:
-             print("******ERROR NO SE ENCONTRO LA DIRECCION******")
-        
+            print("******ERROR NO SE ENCONTRO LA DIRECCION******")
 
-
-
-
-        
-            
-
-        
-        
-    
-
+    def modificarCloud(self):
+        arrayRuta = gG.arrayRuta(self.ruta)
+        servicio = gC.servicioCloud()
+        resultado = gC.navegacionCarpetasC(
+            servicio, arrayRuta, '1JrC25YFAk-DL_nsSSQt6vZzt1zKruXYm')  # navego lo maximo posible
+        gC.escribirCloud(servicio, resultado[1]["id"], self.contenido, "")

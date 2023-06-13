@@ -1,3 +1,4 @@
-Configure -type->local -encrypt_log->faLse -encrypt_read->false 
+Configure -type->local -encrypt_log->false -encrypt_read->false
 
-exec -path->/archivos/calificacion.mia
+
+backup

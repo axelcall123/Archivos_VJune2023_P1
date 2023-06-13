@@ -13,13 +13,13 @@ from Crypto.Util.Padding import pad, unpad
 # print("->", ciphertext.hex())
 # nonce = cipher.nonce
 
-#Decryption
+# #Decryption
 # cipher = AES.new(stringK, AES.MODE_EAX, nonce)#se cambia los modos AES.MODE_EAX
 # data = cipher.decrypt_and_verify(ciphertext, tag)
 
 # my_text = '𝘈Ḇ𝖢𝕯٤ḞԍНǏ'
 # my_binary_data = my_text.encode('utf-8')
-# 👇️ set errors to ignore
+# # 👇️ set errors to ignore
 # my_text_again = my_binary_data.decode('utf-8', errors='ignore')
 # byte_string = b'\xff\xfes\x00p\x00a\x00r\x00k\x00b\x00y\x00e\x00x\x00a\x00m\x00p\x00l\x00e\x00s\x00'
 # string = byte_string.decode('utf-16')
