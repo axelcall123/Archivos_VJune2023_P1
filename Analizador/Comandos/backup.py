@@ -6,7 +6,7 @@ class Backup:
         self.tipo=tipo
 
     def backupA(self):
-        folderLocal = './Archivo'
+        folderLocal = './archivos'
         folderCloud = '1JrC25YFAk-DL_nsSSQt6vZzt1zKruXYm'
         servicio=gC.servicioCloud()
         if self.tipo=="local":#subo a la nuve
