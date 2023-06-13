@@ -1,2 +1,7 @@
 
 Analizador/entradaslocal.txt
+FrontEnd/__pycache__
+FrontEnd/ComandosForm/__pycache__
+Analizador/__pycache__
+Analizador/Comandos/ply/__pycache__/
+Analizador/Comandos/__pycache__/
