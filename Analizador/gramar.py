@@ -76,8 +76,9 @@ def t_ARCHIVO(t):
 
 
 def t_RUTA(t):
-    r'([/](\w+[/])+(\w+[.]\w+)?)|([/]["](\w?[\w ]+[/])+(\w+[.]\w+)?["][/])'
+    r'([/]?(\w+[/])+(\w+[.]\w+)?)|(["][/](\w?[\w ]+[/])+(\w+[.]\w+)?["]|([/]?["]([\w ]+["][/])))'
     #ant regex:([/](\w+[/])+(\w+[.]\w+)?)|(["][/](\w?[\w ]+[/])+(\w+[.]\w+)?["]|([/]["](\w?[\w ]+["][/])))
+    #ant2 regex([/](\w+[/])+(\w+[.]\w+)?)|([/]["](\w?[\w ]+[/])+(\w+[.]\w+)?["][/])
     t.value = t.value.lower()
     return t
 
@@ -203,26 +204,6 @@ def p_error(p):
         print("Error sintactico EOF")
 
 
-parser = yacc.yacc()
-
-f = open("./entradas.txt", "r")
-input = f.read()
-#print(input)
-resultado=parser.parse(input.lower())
-#print(resultado,'\n')
-#lectura=Leer()
-#lectura.comando(resultado)
-print(resultado)
-
-
-
-
-analizar=Leer()
-analizar.comando(resultado)
-if(analizar.exceString!=""):
-    resultado2=parser.parse(analizar.exceString.lower()) 
-    print(resultado2)
-    analizar.comando(resultado2)
 
 def gramarMain():
     parser = yacc.yacc()

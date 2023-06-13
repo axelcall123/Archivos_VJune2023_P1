@@ -20,8 +20,8 @@ class Copy:
             self.a=a
 
     def copiar(self):
-        pathArchivofrom= "../Archivo"+self.de
-        pathArchivoto="../Archivo"+self.a
+        pathArchivofrom= "./archivos"+self.de
+        pathArchivoto="./archivos"+self.a
         #print(pathArchivofrom)
         #print(pathArchivoto)
         

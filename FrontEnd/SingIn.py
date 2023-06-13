@@ -1,7 +1,7 @@
 import tkinter as tk
 import tkinter.font as tkFont
 
-class App:
+class Login:
     def __init__(self, root):
         #setting title
         root.title("undefined")
@@ -84,5 +84,5 @@ class App:
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = App(root)
+    app = Login(root)
     root.mainloop()
