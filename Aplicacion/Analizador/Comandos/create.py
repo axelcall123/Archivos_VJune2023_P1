@@ -66,12 +66,6 @@ class Create:
                 else:
                     print("RUTA YA CREADA")
                     
-
-
-                
-
-
-   
     def creacionCloud(self):
         #print('ver')
         #print(self.nombre, self.contenido, self.ruta)
@@ -89,12 +83,4 @@ class Create:
             rename = gC.creRenameC(servicio, resultado[1]["id"], self.nombre)
             gC.crearCloud(servicio, rename,
                           'text/plain', resultado[1]["id"], self.contenido)
-        return
-
-
-        
-            
-
-        
-        
-    
+        print("se termino de crear todo")

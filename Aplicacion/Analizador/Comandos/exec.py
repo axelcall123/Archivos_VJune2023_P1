@@ -19,13 +19,3 @@ class Exec:
         input = f.read()
         print("RETORNANDO CONTENIDO ARCHIVO.MIA")
         return input
-   
-
-
-
-        
-            
-
-        
-        
-    

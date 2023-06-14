@@ -41,7 +41,31 @@ class Copy:
                 #si no existe nada
                  print("******ERROR NO SE ENCONTRO LA DIRECCION******")
        
-            
+    def copiarCloud(self):
+        retorno = gC.auxDeParaC(self.a, self.de)
+        if retorno[0] == "":
+            return
+        servicio = gC.servicioCloud()
+        idA = retorno[0]
+        idDe = retorno[1]
+
+        listadoDe = gC.listadoCloud(servicio, idDe)  # contiene de
+        response = servicio.files().get(
+            fileId=idDe, fields='name, mimeType').execute()  # DOBLEX2
+        # si es txt, no obtendre diccionario, agrego solo un diccionario
+        if response['mimeType'] == "text/plain":
+            listadoDe.append(
+                {'mimeType': 'text/plain', 'id': idDe, 'name': response['name']})
+
+        for file in listadoDe:  # listado de archivos que copiar, ver si existe el mismo nombre
+            reNombre = gC.creRenameC(servicio, idA, file["name"])
+            if reNombre == file["name"]:  # nombre es igual solo copiar
+                self.copiarAux(servicio, idA, file["id"], file["name"])
+            else:  # otro nombre diferente
+                idN = self.copiarAux(
+                    servicio, idA, file["id"], file["name"])  # copio
+                gC.renameCloud(servicio, idN, reNombre)  # renombre el copiado
+        print(f"se copiaron todos los archivos")
 
 
 

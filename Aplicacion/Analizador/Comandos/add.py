@@ -1,4 +1,6 @@
 import os
+import Aplicacion.Analizador.Comandos._generalCloud as gC  # alias
+import Aplicacion.Analizador.Comandos._general as gG
 class Add:
     def __init__ (self,):
         self.contenido=""
@@ -29,7 +31,12 @@ class Add:
         else:
              print("******ERROR NO SE ENCONTRO LA DIRECCION ******")
         
-
+    def agregarCloud(self):
+        arrayRuta = gG.arrayRuta(self.ruta)
+        servicio = gC.servicioCloud()
+        resultado = gC.navegacionCarpetasC(
+            servicio, arrayRuta, '1JrC25YFAk-DL_nsSSQt6vZzt1zKruXYm')  # navego lo maximo posible
+        gC.escribirCloud(servicio, resultado[1]["id"], self.contenido, "add")
 
 
 
