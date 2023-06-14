@@ -60,8 +60,12 @@ class Main():
         #Ejecutando login
         self.login()
         
-
-        
+    def test():
+        resultado = gramarMain()
+        analizar = Leer()
+        # for res in resultado:
+        #     print(res)
+        analizar.comando(resultado)
 
     #Obteniendo String del archivo de usuarios
     def leerUsuarios (self):
