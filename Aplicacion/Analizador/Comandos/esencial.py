@@ -58,7 +58,7 @@ class Leer:
                                         elementos2[1])
                             #print configure
                             #comandoConfigure.printConfiguracion()
-                if (comando == "create" and self.localmente):  # !Comando Create y self.local es True
+                if (comando == "create"):  # !Comando Create y self.local es True
                     #self.localmente=False
                     comandoCreate = Create()
                     for parametros in element:
@@ -75,7 +75,7 @@ class Leer:
                                 comandoCreate.creacionLocal()
                             else:
                                 comandoCreate.creacionCloud()
-                if (comando == "delete" and self.localmente):  # !Comando delete
+                if (comando == "delete"):  # !Comando delete
                     #self.localmente=False
                     comandoDelete = Delete()
                     for parametros in element:
@@ -85,12 +85,12 @@ class Leer:
                                     comandoDelete.path(elementos2[1])
                                 elif (elementos2[0] == "-name->"):
                                     comandoDelete.name(elementos2[1])
-                            #borrar
+                            #! Dependiento del configure
                             if self.localmente == True:
                                 comandoDelete.borrar()
                             else:
                                 comandoDelete.borrarCloud()
-                if (comando == "copy" and self.localmente):  # !Comando delete
+                if (comando == "copy"):  # !Comando delete
                     #self.localmente=False
                     comandoCopy = Copy()
                     for parametros in element:
@@ -100,12 +100,12 @@ class Leer:
                                     comandoCopy.desde(elementos2[1])
                                 elif (elementos2[0] == "-to->"):
                                     comandoCopy.to(elementos2[1])
-                            #copiar
+                            #! Dependiento del configure
                             if self.localmente == True:
                                 comandoCopy.copiar()
                             else:
                                 comandoCopy.copiarCloud()
-                if (comando == "transfer" and self.localmente):  # !Comando trasnfer
+                if (comando == "transfer"):  # !Comando trasnfer
                     #self.localmente=False
                     comandoTransfer = Transfer()
                     for parametros in element:
@@ -117,12 +117,12 @@ class Leer:
                                     comandoTransfer.to(elementos2[1])
                                 elif (elementos2[0] == "-mode->"):
                                     comandoTransfer.mode(elementos2[1])
-                            #transferir
+                            #! Dependiento del configure
                             if self.localmente == True:
                                 comandoTransfer.transferir()
                             else:
                                 comandoTransfer.transferCloud()
-                if (comando == "rename" and self.localmente):  # !Comando rename
+                if (comando == "rename"):  # !Comando rename
                     #self.localmente=False
                     comandoRenombrar = Rename()
                     for parametros in element:
@@ -132,12 +132,12 @@ class Leer:
                                     comandoRenombrar.path(elementos2[1])
                                 elif (elementos2[0] == "-name->"):
                                     comandoRenombrar.name(elementos2[1])
-                            #renombrar
+                            #! Dependiento del configure
                             if self.localmente == True:
                                 comandoRenombrar.reNombrar()
                             else:
                                 comandoRenombrar.renameCloud()
-                if (comando == "modify" and self.localmente):  # !Comando modify
+                if (comando == "modify"):  # !Comando modify
                     #self.localmente=False
                     comandoModificar = Modify()
                     for parametros in element:
@@ -147,12 +147,12 @@ class Leer:
                                     comandoModificar.path(elementos2[1])
                                 elif (elementos2[0] == "-body->"):
                                     comandoModificar.body(elementos2[1])
-                            #modificar
+                            #! Dependiento del configure
                             if self.localmente == True:
                                 comandoModificar.modificar()
                             else:
                                 comandoModificar.modificarCloud()
-                if (comando == "add" and self.localmente):  # !Comando add
+                if (comando == "add"):  # !Comando add
                     #self.localmente=False
                     comandoAgregar = Add()
                     for parametros in element:
@@ -167,7 +167,7 @@ class Leer:
                                 comandoAgregar.aniadir()
                             else:
                                 comandoAgregar.agregarCloud()
-                if (comando == "exec" and self.localmente):  # !Comando add
+                if (comando == "exec"):  # !Comando add
                     #self.localmente=False
 
                     comandoEjecutar = Exec()
@@ -178,8 +178,9 @@ class Leer:
                                     comandoEjecutar.path(elementos2[1])
                             self.exceString = comandoEjecutar.ejecutarArchivo()
                             return self.exceString
-                if (comando == "backup" and self.localmente):  # !Comando add
+                if (comando == "backup"):  # !Comando add
                     comandoBackup = None
+                    #! Dependiento del configure 
                     if self.localmente == True:
                         comandoBackup = Backup("local")
                     else:
