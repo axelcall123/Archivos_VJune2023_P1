@@ -1,6 +1,7 @@
 import Aplicacion.Analizador.ply.lex as lex
 import Aplicacion.Analizador.ply.yacc as yacc
 from Aplicacion.Analizador.Comandos.esencial import Leer
+import re
 resultado = None
 #LEXICO
 tokens = (
@@ -115,7 +116,7 @@ def t_error(t):
     t.lexer.skip(1)
 
 
-lexer = lex.lex()
+lexer = lex.lex(reflags=re.IGNORECASE)
 
 # Parser
 Arbol = []
