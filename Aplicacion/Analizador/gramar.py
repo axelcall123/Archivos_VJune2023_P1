@@ -1,9 +1,7 @@
-import ply.lex as lex
-import ply.yacc as yacc
+import Aplicacion.Analizador.ply.lex as lex
+import Aplicacion.Analizador.ply.yacc as yacc
 from Aplicacion.Analizador.Comandos.esencial import Leer
-
 resultado = None
-
 #LEXICO
 tokens = (
     'CONFIGURE',
@@ -63,22 +61,42 @@ t_FROM = r'-from->'
 t_TO = r'-to->'
 t_MODE = r'-mode->'
 
-t_LOCAL = r'("local")|local'
-t_CLOUD = r'("cloud")|cloud'
-t_TRUE = r'true'
-t_FALSE = r'false'
 
+def t_TRUE(t):
+    r'true|\"true\"'
+    t.value = t.value.lower()
+    return t
+
+
+def t_FALSE(t):
+    r'false|\"false\"'
+    t.value = t.value.lower()
+    return t
+
+
+def t_LOCAL(t):
+    r'local|\"local\"'
+    t.value = t.value.lower()
+    return t
+
+
+def t_CLOUD(t):
+    r'cloud|\"cloud\"'
+    t.value = t.value.lower()
+    return t
 
 def t_ARCHIVO(t):
-    r'("[\w ]+[.]\w+")|(\w+[.]\w+)'
+    #r'(\"[\w ]+.\w+\")|(\w+.\w+)'
+    r'(\"[\w ]+\.\w+\")|(\w+\.\w+)'
     t.value = t.value.lower()
     return t
 
 
 def t_RUTA(t):
-    r'([/]?(\w+[/])+(\w+[.]\w+)?)|(["][/](\w?[\w ]+[/])+(\w+[.]\w+)?["]|([/]?["]([\w ]+["][/])))'
-    #ant regex:([/](\w+[/])+(\w+[.]\w+)?)|(["][/](\w?[\w ]+[/])+(\w+[.]\w+)?["]|([/]["](\w?[\w ]+["][/])))
-    #ant2 regex([/](\w+[/])+(\w+[.]\w+)?)|([/]["](\w?[\w ]+[/])+(\w+[.]\w+)?["][/])
+    #r'(\/(\w+|\"[\w ]+[\.\w+]?\")+)+\/?'
+    #r'(\/(\w+|\"[\w ]+\"))((\/(\w+|\"[\w ]+\"))+|\/)(\/\"[\w ]+[.]\w+\"|[.]\w+)?'
+    r'(\/((\w+(\.\w+)?)|(\"(\w|\s)+(\.\w+)?\")))+\/?'
+    #r'((\/\w+)+(\/|(.\w+)))|(\/\"[\w ]+(([/][\w ]+)*)((.\w+\"\/)|(\"\/)))'
     t.value = t.value.lower()
     return t
 
