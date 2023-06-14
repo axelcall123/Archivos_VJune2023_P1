@@ -1,5 +1,6 @@
 import Analizador.ply.lex as lex
 import Analizador.ply.yacc as yacc
+import re
 #from Comandos.esencial import Leer
 
 resultado = None
@@ -63,23 +64,45 @@ t_FROM = r'-from->'
 t_TO = r'-to->'
 t_MODE = r'-mode->'
 
-t_LOCAL = r'local|\"local\"'
-t_CLOUD = r'cloud|\"cloud\"'
-t_TRUE=r'true'
-t_FALSE=r'false'
+#t_LOCAL = r'local|\"local\"'
+#t_CLOUD = r'cloud|\"cloud\"'
+#t_TRUE = r'true'
+#t_FALSE=r'false'
 
-    
+
+def t_TRUE(t):
+    r'true|\"true\"'
+    t.value = t.value.lower()
+    return t
+
+
+def t_FALSE(t):
+    r'false|\"false\"'
+    t.value = t.value.lower()
+    return t
+
+def t_LOCAL(t):
+    r'local|\"local\"'
+    t.value = t.value.lower()
+    return t
+
+
+def t_CLOUD(t):
+    r'cloud|\"cloud\"'
+    t.value = t.value.lower()
+    return t
 
 def t_ARCHIVO(t):
-    #r'(\w+)(.\w+)'
-    r'("[\w ]+[.]\w+")|(\w+[.]\w+)'
+    #r'(\"[\w ]+.\w+\")|(\w+.\w+)'
+    r'(\"[\w ]+\.\w+\")|(\w+\.\w+)'
     t.value = t.value.lower()
     return t
 
 def t_RUTA(t):
-    r'((\/\w+)+(\/|(.\w+)))|(\/\"[\w ]+(([/][\w ]+)*)((.\w+\"\/)|(\"\/)))'
-    #r'([/](\w+[/])+(\w+[.]\w+)?)|([/]["](\w?[\w ]+[/])+(\w+[.]\w+)?["][/])'
-    #ant regex:([/](\w+[/])+(\w+[.]\w+)?)|(["][/](\w?[\w ]+[/])+(\w+[.]\w+)?["]|([/]["](\w?[\w ]+["][/])))
+    #r'(\/(\w+|\"[\w ]+[\.\w+]?\")+)+\/?'
+    #r'(\/(\w+|\"[\w ]+\"))((\/(\w+|\"[\w ]+\"))+|\/)(\/\"[\w ]+[.]\w+\"|[.]\w+)?'
+    r'(\/((\w+(\.\w+)?)|(\"(\w|\s)+(\.\w+)?\")))+\/?'
+    #r'((\/\w+)+(\/|(.\w+)))|(\/\"[\w ]+(([/][\w ]+)*)((.\w+\"\/)|(\"\/)))'
     t.value = t.value.lower()
     return t
 
@@ -91,11 +114,11 @@ def t_STRING(t):
 t_ignore = ' \t\n'
 
 def t_error(t):
-    print(f"Caracter Invalido: '{t.value[0]}'")
+    print(f"Caracter Invalido: '{t.value[0]} ,{t}'")
     t.lexer.skip(1)
 
 
-lexer = lex.lex()
+lexer = lex.lex(reflags=re.IGNORECASE)
 
 # Parser
 Arbol=[]
@@ -196,9 +219,7 @@ def p_encriptado(p):
     p[0] = p[1]
 
 def p_name(p):
-    '''name : RUTA
-            | STRING
-            | ARCHIVO
+    '''name : ARCHIVO
     '''
     p[0] = p[1]
 
@@ -215,6 +236,6 @@ def gramarMain(tipo,textoUrl):
         # "./Analizador/entradas.txt"
         f = open(textoUrl, "r")
         input = f.read()
-        return parser.parse(input.lower())
+        return parser.parse(input)
     elif tipo=="txt":
-        return parser.parse(textoUrl.lower())
+        return parser.parse(textoUrl)

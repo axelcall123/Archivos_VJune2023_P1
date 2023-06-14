@@ -32,5 +32,5 @@ def main():
     app = Login(root,dicUsuario)
     root.mainloop()
 
-main()
-#test()
+#main()
+test()
