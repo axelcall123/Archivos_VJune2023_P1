@@ -48,13 +48,13 @@ def existeNombreC(service,idFolderRaiz:str,nombre:str)->dict:# saber si existe u
     files=listadoCloud(service,idFolderRaiz)
     #EXISTE nombre:
     if not files:
-        return {'existe': "false", "id": idFolderRaiz}
+        return {'existe': "false", "id": idFolderRaiz,"name":nombre}
     else:
         for file in files:
             if file['name'] == nombre: 
-                return {'existe': "true", "id": file['id']}
+                return {'existe': "true", "id": file['id'], "name": file["name"]}
             
-        return {'existe': "false", "id": idFolderRaiz}
+        return {'existe': "false", "id": idFolderRaiz, "name": nombre}
     
 
 def tipo(nombre:str)->str:#devuelve el tipo que es, folder o archivo
@@ -99,7 +99,7 @@ def navegacionCarpetasC(service,arrayCarpetas:List[str],idFolderRaiz:str)->list[
                 return navegacionCarpetasC(service, arrayCarpetas,json["id"])
             elif quetipo=="txt":#llegue al final de la url, solo queda txt [txt.txt], con nombre igual
                 arrayCarpetas.pop(0)
-                json={"Tipo":"txt","Same":"True","id":json["id"]}
+                json={"Tipo":"txt","Same":"True","id":json["id"],"name":json["name"]}
                 #json={"Tipo":"txt","Same":"True","id":json["id"]}
                 return [arrayCarpetas,json]
             else:
@@ -107,14 +107,18 @@ def navegacionCarpetasC(service,arrayCarpetas:List[str],idFolderRaiz:str)->list[
         else:#no existe carpeta o archivo
             quetipo = tipo(arrayCarpetas[0])
             if quetipo == "folder":  #llegue al final de mi navegacion en carpetas, [carn,..,txt.txt]|
-                json = {"Tipo":"folder","Same": "", "id": json["id"]}
+                json = {"Tipo": "folder", "Same": "",
+                        "id": json["id"], "name": json["name"]}
                 return [arrayCarpetas, json]
             elif quetipo=="txt":# llegue al final del txt [txt.txt], sin nombre igual
-                json = {"Tipo":"txt","Same": "False", "id": json["id"]}
+                json = {"Tipo": "txt", "Same": "False",
+                        "id": json["id"], "name": json["name"]}
                 return [arrayCarpetas, json]
             else:
                 print()
-    json = {"Tipo": "folder", "Same": "", "id": idFolderRaiz}
+    folder = service.files().get(fileId=idFolderRaiz, fields='name').execute()#obtengo el nombre del >
+    json = {"Tipo": "folder", "Same": "",
+            "id": idFolderRaiz, "name": folder["name"]}
     return [arrayCarpetas, json]
 
 def creRenameC(service,idFolderRaiz:str,nombre:str)->str:  # crea el nombre carpeta|archivo que se quiere crear, si existe el nombre repetido
@@ -248,10 +252,13 @@ def upLoading(service,folderLocal,folderCloud):#
     for file_name in files:
         file_path = os.path.join(folderLocal, file_name)
         if tipo(file_name)=="txt":# subir solo archivos
-            response = service.files().list(
-                q=f"name = '{file_name}'").execute()
-            files = response.get('files', [])
-            if files:#si existe nombre, creo nuevo nombre
+            # response = service.files().list(
+            #    q=f"'{folderCloud}' in parents and name='{file_name}'").execute()
+            #f"'{parent_folder_id}' in parents and name='{file_name}'"
+            #f"name = '{file_name}'"
+            # files = response.get('files', [])
+            files=existeNombreC(service,folderCloud,file_name)
+            if files["existe"]=="true":#si existe nombre, creo nuevo nombre
                 file_name=creRenameC(service,folderCloud,file_name)#nuevo nombre
             file_metadata = {
                 'name': file_name,
