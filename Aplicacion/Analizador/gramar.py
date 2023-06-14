@@ -86,6 +86,7 @@ def t_CLOUD(t):
     t.value = t.value.lower()
     return t
 
+
 def t_ARCHIVO(t):
     #r'(\"[\w ]+.\w+\")|(\w+.\w+)'
     r'(\"[\w ]+\.\w+\")|(\w+\.\w+)'
@@ -119,26 +120,24 @@ def t_error(t):
 lexer = lex.lex(reflags=re.IGNORECASE)
 
 # Parser
-
-
-
+Arbol = []
 
 
 def p_inicio(p):
     '''inicio : lexico
     '''
-    p[0] = p[1]
+    p[0] = Arbol
 
 
 def p_lexico(p):
     '''lexico : lexico comandos
                 | comandos
     '''
-    if len(p)==3:
-         p[0] = p[1]
-         p[0].append(p[2])
-    else:
-         p[0] = [p[1]]
+    # if len(p)==3:
+    #     p[0] = p[1]
+    #     p[0].append(p[2])
+    # else:
+    #     p[0] = [p[1]]
 
 
 def p_comandos(p):
@@ -147,7 +146,8 @@ def p_comandos(p):
     arr = []
     arr.append(p[1])
     arr.append(p[2])
-    p[0]=arr
+    Arbol.append(arr)
+    # p[0]=arr
 
 
 def p_main_comando(p):
@@ -224,13 +224,16 @@ def p_error(p):
         print("Error sintactico EOF")
 
 # Lee los inputs que vienen del tkinter
+
+
 def grammarInput(input):
     print(input)
     parser = yacc.yacc()
     resultado = parser.parse(input.lower())
-    analizar=Leer()
+    analizar = Leer()
     analizar.comando(resultado)
-    
+
+
 def gramarMain():
 
     parser = yacc.yacc()

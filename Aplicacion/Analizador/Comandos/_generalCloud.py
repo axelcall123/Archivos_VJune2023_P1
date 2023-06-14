@@ -8,7 +8,7 @@ from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaInMemoryUpload
 from googleapiclient.http import MediaIoBaseDownload
 from googleapiclient.http import MediaFileUpload
-import Aplicacion.Analizador.Comandos._general as gG
+import Analizador.Comandos._general as gG
 
 def servicioCloud():
     scopes = [
