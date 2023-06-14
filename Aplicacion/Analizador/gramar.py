@@ -2,7 +2,10 @@ import Aplicacion.Analizador.ply.lex as lex
 import Aplicacion.Analizador.ply.yacc as yacc
 from Aplicacion.Analizador.Comandos.esencial import Leer
 import re
+#from Comandos.esencial import Leer
+
 resultado = None
+
 #LEXICO
 tokens = (
     'CONFIGURE',
@@ -62,6 +65,11 @@ t_FROM = r'-from->'
 t_TO = r'-to->'
 t_MODE = r'-mode->'
 
+#t_LOCAL = r'local|\"local\"'
+#t_CLOUD = r'cloud|\"cloud\"'
+#t_TRUE = r'true'
+#t_FALSE=r'false'
+
 
 def t_TRUE(t):
     r'true|\"true\"'
@@ -85,6 +93,7 @@ def t_CLOUD(t):
     r'cloud|\"cloud\"'
     t.value = t.value.lower()
     return t
+
 
 def t_ARCHIVO(t):
     #r'(\"[\w ]+.\w+\")|(\w+.\w+)'
@@ -112,16 +121,13 @@ t_ignore = ' \t\n'
 
 
 def t_error(t):
-    print(f"Caracter Invalido: '{t.value[0]}'")
+    print(f"Caracter Invalido: '{t.value[0]} ,{t}'")
     t.lexer.skip(1)
 
 
 lexer = lex.lex(reflags=re.IGNORECASE)
 
 # Parser
-
-
-
 
 
 def p_inicio(p):
@@ -135,19 +141,27 @@ def p_lexico(p):
                 | comandos
     '''
     if len(p)==3:
-         p[0] = p[1]
-         p[0].append(p[2])
+        p[0] = p[1]
+        p[0].append(p[2])
     else:
-         p[0] = [p[1]]
+        p[0] = [p[1]]
 
 
 def p_comandos(p):
     '''comandos : maincomando subcomando
+                | maincomando
     '''
-    arr = []
-    arr.append(p[1])
-    arr.append(p[2])
-    p[0]=arr
+    if len(p) == 3:
+        arr = []
+        arr.append(p[1])
+        arr.append(p[2])
+        #Arbol.append(arr)
+        p[0]=arr
+    else:
+        arr = []
+        arr.append(p[1])
+        #Arbol.append(arr)
+        p[0] = arr
 
 
 def p_main_comando(p):
@@ -189,7 +203,7 @@ def p_sub(p):
                     | ENCRYPTLOG encriptado
                     | ENCRYPTREAD encriptado
                     | LLAVE STRING
-                    | NAME ARCHIVO
+                    | NAME name
                     | BODY STRING
                     | PATH RUTA
                     | FROM RUTA
@@ -217,20 +231,30 @@ def p_encriptado(p):
     p[0] = p[1]
 
 
+def p_name(p):
+    '''name : ARCHIVO
+    '''
+    p[0] = p[1]
+
+
 def p_error(p):
     if p:
-        print(f"Error sintactico en el token '{p.value}'")
+        print(f"Error sintactico en el token '{p.value}', {p.lexer.lineno}")
+        print(type(p))
     else:
         print("Error sintactico EOF")
 
 # Lee los inputs que vienen del tkinter
+
+
 def grammarInput(input):
     print(input)
     parser = yacc.yacc()
     resultado = parser.parse(input.lower())
-    analizar=Leer()
+    analizar = Leer()
     analizar.comando(resultado)
-    
+
+
 def gramarMain():
 
     parser = yacc.yacc()

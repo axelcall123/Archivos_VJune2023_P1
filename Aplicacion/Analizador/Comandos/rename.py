@@ -45,15 +45,34 @@ class Rename:
 
     def renameCloud(self):
         arrayRuta = gG.arrayRuta(self.ruta)
+        arrayRutaAux = arrayRuta[0:-1]  # solo tomo parte de sin el file.txt
+
         servicio = gC.servicioCloud()
+
         resultado = gC.navegacionCarpetasC(
-            servicio, arrayRuta, '1JrC25YFAk-DL_nsSSQt6vZzt1zKruXYm')  # navego lo maximo posible
+            servicio, arrayRutaAux, '1JrC25YFAk-DL_nsSSQt6vZzt1zKruXYm')  # navego lo maximo posible, obtengo id de la carpeta
+        idCarpetaCloud = resultado[1]["id"]
+
+        if len(arrayRuta) > 1:  # por si es la rama principal no subcarpetas
+            resultado = gC.navegacionCarpetasC(
+                servicio, [arrayRuta[-1]], idCarpetaCloud)  # navego lo maximo posible, con respuesta file.txt
+        else:
+            idCarpetaCloud = '1JrC25YFAk-DL_nsSSQt6vZzt1zKruXYm'
+
         if len(resultado[0]) == 0:  # existe la ruta
             file_name = self.nombre.replace("/", "")
-            response = servicio.files().list(
-                q=f"name = '{file_name}'").execute()
-            files = response.get('files', [])
-            if files:
+
+            # para que no se repita
+            gC.renameCloud(
+                servicio, resultado[1]["id"], '_'+resultado[1]["name"])
+
+            # responseExist = servicio.files().list(
+            #     q=f"'{idCarpetaCloud}' in parents and name='{file_name}'").execute()
+            files = gC.existeNombreC(servicio, idCarpetaCloud, file_name)
+
+            if files["existe"] == "true":
+                gC.renameCloud(
+                    servicio, resultado[1]["id"], resultado[1]["name"])
                 print(f"nombre ya existe")
             else:
                 gC.renameCloud(servicio, resultado[1]["id"], file_name)

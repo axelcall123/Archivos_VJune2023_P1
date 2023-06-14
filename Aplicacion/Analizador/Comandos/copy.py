@@ -40,7 +40,14 @@ class Copy:
             else:
                 #si no existe nada
                  print("******ERROR NO SE ENCONTRO LA DIRECCION******")
-       
+
+    def copiarAux(self, servicio, idA, idDe, nombre) -> str:  # para retulizar los if elif
+        if gC.tipo(nombre) == "folder":  # tipo folder
+            return gC.copiarCloud(servicio, idA, idDe,
+                                  "application/vnd.google-apps.folder")
+        elif gC.tipo(nombre) == "txt":  # tipo texto
+            return gC.copiarCloud(servicio, idA, idDe,
+                                  "text/plain")  # tipo txt
     def copiarCloud(self):
         retorno = gC.auxDeParaC(self.a, self.de)
         if retorno[0] == "":
