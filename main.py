@@ -45,7 +45,7 @@ class Main():
             #identificando Usuario contraseña
             elif(contador%2==1):
                 #desencriptando contraseñas
-                password=decrypt_hex_string(b"miaproyecto12345",element)
+                password = decrypt_hex_string(b"miaproyecto12345", bytearray.fromhex(element))
                 usuarios= {
                     "UserName": usuario,
                     "Password": password
