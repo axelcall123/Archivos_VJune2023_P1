@@ -128,7 +128,6 @@ def t_error(t):
 lexer = lex.lex(reflags=re.IGNORECASE)
 
 # Parser
-Arbol = []
 
 
 def p_inicio(p):
@@ -156,11 +155,13 @@ def p_comandos(p):
         arr = []
         arr.append(p[1])
         arr.append(p[2])
-
+        #Arbol.append(arr)
+        p[0]=arr
     else:
         arr = []
         arr.append(p[1])
-        Arbol.append(arr)
+        #Arbol.append(arr)
+        p[0] = arr
 
 
 def p_main_comando(p):
