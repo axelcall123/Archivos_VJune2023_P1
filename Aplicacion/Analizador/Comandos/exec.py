@@ -9,7 +9,7 @@ class Exec:
     def path (self,ruta):
         #posibles cambios necesario ala ruta
         if('"' in ruta):
-            self.ruta=ruta.split("\"")[1]
+            self.ruta=ruta.replace("\"", "" )
         else:
             self.ruta=ruta
 

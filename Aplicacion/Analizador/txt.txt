@@ -21,11 +21,9 @@ transfer -from->/carpeta1/ -to->/"Carpeta Ejemplo"/ -mode->"local"
 
 
 configure -type->local -encrypt_log->false -encrypt_read->false
-create -name->prueba1.txt  -path->/"Carpeta Ejemplo"/ -body->"Un sistema de archivos es una estructura de directorios completa, que incluye un directorio raíz y cualquier subdirectorio y archivos por debajo suyo"
-create -name->prueba4.txt  -path->/carpeta1/ejemplo/ -body->"Este es el contenido del archivo4"
-create -name->prueba5.txt  -path->/carpeta1/ejemplo/ -body->"Este es el contenido del archivo5"
-create -name->prueba6.txt  -path->/carpeta1/ejemplo/ -body->"Este es el contenido del archivo6"
-transfer -from->/carpeta1/ -to->/"Carpeta Ejemplo"/ -mode->local
+create -name->nuevo_nombre1.txt  -path->/"Carpeta Ejemplo"/ -body->"Un sistema de archivos es una estructura de directorios completa, que incluye un directorio raíz y cualquier subdirectorio y archivos por debajo suyo"
+
+modify -path->/"Carpeta Ejemplo"/nuevo_nombre1.txt -body->"Se trata de habilitar uno o varios discos duros en una red local, de forma que los datos que allí se almacenen permanezcan accesibles a todos los dispositivos que quieran utilizarlos"
 
 
 

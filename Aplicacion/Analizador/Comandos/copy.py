@@ -9,14 +9,14 @@ class Copy:
 
     def desde (self,de):
         if('"' in de):
-            self.de=de.split("\"")[1]
+            self.de=de.replace("\"", "" )
         else:
             self.de=de
 
     def to(self,a):
         
         if('"' in a):
-            self.a="/"+a.split("\"")[1]+"/"
+            self.a=a.replace("\"", "" )
         else:
             self.a=a
 

@@ -11,7 +11,7 @@ class Create:
     def name (self,nombre):
         #posibles cambios necesario al nombre
         if('"' in nombre):
-            self.nombre=nombre.split("\"")[1]
+            self.nombre=nombre.replace("\"", "" )
         else:
             self.nombre=nombre
         
@@ -19,7 +19,7 @@ class Create:
 
     def body (self,contenido):
         if('"' in contenido):
-            self.contenido=contenido.split("\"")[1]
+            self.contenido=contenido.replace("\"", "" )
         else:
             self.contenido=contenido
 
@@ -27,7 +27,7 @@ class Create:
     def path (self,ruta):
         #posibles cambios necesario ala ruta
         if('"' in ruta):
-            self.ruta=ruta.split("\"")[1]
+            self.ruta=ruta.replace("\"", "" )
         else:
             self.ruta=ruta
 

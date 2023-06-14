@@ -29,8 +29,8 @@ class Transfer:
     def transferir(self):
         pathArchivofrom= "./archivos"+self.de
         pathArchivoto="./archivos"+self.a
-        #print(pathArchivoto)
-        #print(pathArchivofrom)
+        print(pathArchivoto)
+        print(pathArchivofrom)
         #print(os.path.exists(pathArchivofrom)&('.' in self.de))
         #pasando archivo
         if(os.path.exists(pathArchivofrom)&('.' in self.de)):
@@ -45,8 +45,12 @@ class Transfer:
                 #pasar todos los elementos de carpeta
                 contenido = os.listdir(pathArchivofrom)
                 for element in contenido:
-                    #print(pathArchivofrom+element)
-                    shutil.move(pathArchivofrom+element,pathArchivoto)
+                    if((not(os.path.exists(pathArchivoto+element)))):
+                        #print(pathArchivofrom+element)
+                        #print(pathArchivoto)
+                        shutil.move(pathArchivofrom+element,pathArchivoto)
+                    else:
+                        print("*****YA EXISTE*******")
                 #shutil.copytree(pathArchivofrom,pathArchivoto)
                 print("******LA CARPETA FUE TRASFERIDA CON EXITO******")
             else:

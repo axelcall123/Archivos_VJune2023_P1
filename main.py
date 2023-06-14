@@ -11,9 +11,9 @@ import tkinter as tk
 import json
 
 #pruebas
-#resultado = gramarMain()
-#analizar = Leer()
-#analizar.comando(resultado)
+resultado = gramarMain()
+analizar = Leer()
+analizar.comando(resultado)
 
 
 
@@ -73,8 +73,8 @@ class Main():
         input = f.read()
         self.listaUsuariosFuction(input)
 
-a=Main()
-a.leerUsuarios()
+#a=Main()
+#a.leerUsuarios()
 
 
 

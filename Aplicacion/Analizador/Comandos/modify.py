@@ -15,14 +15,12 @@ class Modify:
 
     def path(self,ruta):
         if('"' in ruta):
-            self.ruta="/"+ruta.split("\"")[1]+"/"
+            self.ruta=ruta.replace("\"", "" )
         else:
             self.ruta=ruta
 
     def modificar(self):
         pathArchivo= "./archivos"+self.ruta
-        print(pathArchivo)
-        
         if(os.path.exists(pathArchivo)):
             print(pathArchivo)
             f = open(pathArchivo, "w") #abriendo y creando

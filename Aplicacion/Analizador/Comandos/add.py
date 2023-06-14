@@ -15,7 +15,7 @@ class Add:
 
     def path(self,ruta):
         if('"' in ruta):
-            self.ruta="/"+ruta.split("\"")[1]+"/"
+            self.ruta=ruta.replace("\"", "" )
         else:
             self.ruta=ruta
 

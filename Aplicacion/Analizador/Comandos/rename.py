@@ -9,14 +9,14 @@ class Rename:
     def path (self,ruta):
         
         if('"' in ruta):
-            self.ruta=ruta.split("\"")[1]
+            self.ruta=ruta.replace("\"", "" )
         else:
             self.ruta=ruta
             
 
     def name(self,nombre):
         if('"' in nombre):
-            self.nombre=nombre.split("\"")[1]
+            self.nombre=nombre.replace("\"", "" )
         else:
             self.nombre=nombre
 
