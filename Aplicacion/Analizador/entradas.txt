@@ -1,0 +1,5 @@
+configure -type->local -encrypt_log->false -encrypt_read->false
+
+transfer -from->/carpeta1/ -to->/"Carpeta Ejemplo"/ -mode->local
+
+

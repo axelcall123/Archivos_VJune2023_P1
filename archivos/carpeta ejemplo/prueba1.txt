@@ -1,0 +1,1 @@
+un sistema de archivos es una estructura de directorios completa, que incluye un directorio raã­z y cualquier subdirectorio y archivos por debajo suyo
