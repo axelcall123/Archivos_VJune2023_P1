@@ -40,12 +40,15 @@ class Main():
         password=""
         for element in leer:
             #identificando Usuario
+            
             if(contador%2==0):
                 usuario=element
+                
             #identificando Usuario contraseña
             elif(contador%2==1):
                 #desencriptando contraseñas
-                password = decrypt_hex_string(b"miaproyecto12345", bytearray.fromhex(element))
+                #password = decrypt_hex_string(b"miaproyecto12345", bytearray.fromhex(element))
+                password = decrypt_hex_string(b"miaproyecto12345",element)
                 usuarios= {
                     "UserName": usuario,
                     "Password": password

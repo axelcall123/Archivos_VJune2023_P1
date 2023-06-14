@@ -1,6 +1,6 @@
 
-import Analizador.Comandos._generalCloud as gC  # alias
-import Analizador.Comandos._general as gG
+import Aplicacion.Analizador.Comandos._generalCloud as gC  # alias
+import Aplicacion.Analizador.Comandos._general as gG
 class Backup:
     def __init__ (self,tipo):
         self.tipo=tipo
