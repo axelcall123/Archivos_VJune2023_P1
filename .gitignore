@@ -1,5 +1,6 @@
-
-
 Analizador/entradaslocal.txt
-
-
+Analizador/__pycache__
+Aplicacion/__pycache__
+Aplicacion/Analizador/__pycache__
+Aplicacion/Analizador/Comandos/__pycache__
+Aplicacion/Analizador/ply/__pycache__
