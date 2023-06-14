@@ -2,10 +2,11 @@ import tkinter as tk
 import tkinter.font as tkFont
 #from Analizador.Comandos.esencial import Leer
 class Transfer:
-    def __init__(self, root):
+    def __init__(self, root,Leer):
         #setting title
         root.title("undefined")
         #setting window size
+        self.analizar = Leer
         width=600
         height=500
         screenwidth = root.winfo_screenwidth()
@@ -91,7 +92,7 @@ class Transfer:
         print(comando)
         #analizar = Leer()
         #analizar.comando(comando)
-if __name__ == "__main__":
-    root = tk.Tk()
-    Transfer = Transfer(root)
-    root.mainloop()
+# if __name__ == "__main__":
+#     root = tk.Tk()
+#     Transfer = Transfer(root)
+#     root.mainloop()

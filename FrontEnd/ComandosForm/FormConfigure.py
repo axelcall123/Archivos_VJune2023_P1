@@ -4,12 +4,12 @@ from tkinter import *
 import tkinter.font as tkFont
 
 class Configure:
-    def __init__(self, root):
+    def __init__(self, root,Leer):
         self.coboGetType=""
         self.coboGetEncriptLog=""
         self.coboGetEncriptRead=""
         self.llave=""
-
+        self.analizar = Leer
         #setting title
         root.title("undefined")
         #setting window size
@@ -129,13 +129,12 @@ class Configure:
         subcomando.append(['-llave->', self.inputLlave.get()])
         comando.append(subcomando)
         print(comando)
-        #analizar = Leer()
-        #analizar.comando(comando)
+        self.analizar.comando(comando)
         
         
     
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    Configure = Configure(root)
-    root.mainloop()
+# if __name__ == "__main__":
+#     root = tk.Tk()
+#     Configure = Configure(root)
+#     root.mainloop()

@@ -17,6 +17,8 @@ class MainWindow:
         #setting title
         self.root = root
         self.root.title("undefined")
+        self.miaTexto=''
+        self.analizar = Leer()
         #setting window size
         width=600
         height=500
@@ -176,43 +178,44 @@ class MainWindow:
 
     def bttnBackUp_command(self):
         root = tk.Tk()
-        ventana=BackUp(root)
+        ventana=BackUp(root,self.analizar)
 
     def bttnCopy_command(self):
         root = tk.Tk()
-        ventana=Copy(root)
+        ventana = Copy(root, self.analizar)
 
     def bttnDelete_command(self):
         root = tk.Tk()
-        ventana=Delete(root)
+        ventana = Delete(root, self.analizar)
 
     def bttnCreate_command(self):
         root = tk.Tk()
-        ventana=Create(root)
+        ventana = Create(root, self.analizar)
 
     def bttnConfigure_command(self):
         root = tk.Tk()
-        ventana=Configure(root)
+        ventana = Configure(root, self.analizar)
 
     def bttnExec_command(self):
         root = tk.Tk()
-        ventana=Exec(root)
+        ventana = Exec(root, self.analizar)
+        self.miaTexto=ventana.miaTexto
 
     def bttnAdd_command(self):
         root = tk.Tk()
-        ventana=Add(root)
+        ventana = Add(root, self.analizar)
 
     def bttnModify_command(self):
         root = tk.Tk()
-        ventana=Modify(root)
+        ventana = Modify(root, self.analizar)
 
     def bttnRename_command(self):
         root = tk.Tk()
-        ventana=Rename(root)
+        ventana = Rename(root, self.analizar)
 
     def bttnTransfer_command(self):
         root = tk.Tk()
-        ventana=Transfer(root)
+        ventana = Transfer(root, self.analizar)
 
 
     def bttnEjecComando_command(self):
@@ -220,8 +223,7 @@ class MainWindow:
         texto=texto+self.inputConsole.get()
         if texto!='':
             resultado = gramarMain("txt",texto)#solo para el texto, para las subVentanas ya esta concatenado
-            analizar = Leer()
-            analizar.comando(resultado)
+            self.analizar.comando(resultado)
 
 # if __name__ == "__main__":
 #     root = tk.Tk()

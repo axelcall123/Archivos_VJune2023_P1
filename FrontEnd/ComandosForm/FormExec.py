@@ -1,11 +1,15 @@
 import tkinter as tk
 import tkinter.font as tkFont
-#from Analizador.Comandos.esencial import Leer
+from Analizador.Comandos.esencial import Leer
+from Analizador.gramar import gramarMain
+from Analizador.cripto import decrypt_string
 class Exec:
-    def __init__(self, root):
+    def __init__(self, root,Leer):
         #setting title
         root.title("undefined")
+        self.miaTexto=''
         #setting window size
+        self.analizar = Leer
         width=600
         height=500
         screenwidth = root.winfo_screenwidth()
@@ -54,11 +58,19 @@ class Exec:
         subcomando = []
         subcomando.append(['-path->', self.inputpath.get()])
         comando.append(subcomando)
-        print(comando)
-        #analizar = Leer()
-        #analizar.comando(comando)
+        #print(comando)
+        self.miaTexto=self.analizar.comando(comando)#retorna el txt
+        arrayText = self.miaTexto.split('\n')#connfigure..../demas
+        resultado = gramarMain("txt", arrayText[0])
+        self.analizar.comando(resultado)
+        if self.analizar.comando.llave!="":#desencriptar 
+            decrypt_string(bytes(self.analizar.comando.llave,
+                           'utf-8'), bytearray.fromhex(arrayText[1]))
+        else:#encriptado
+            resultado = gramarMain("txt", self.miaTexto)
+            self.analizar.comando(resultado)
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    Exec = Exec(root)
-    root.mainloop()
+# if __name__ == "__main__":
+#     root = tk.Tk()
+#     Exec = Exec(root)
+#     root.mainloop()

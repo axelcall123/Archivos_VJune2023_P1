@@ -45,7 +45,7 @@ class Configure:
         print(self.readBool)
         print(self.key)
 
-
+    
 
 
         

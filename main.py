@@ -9,8 +9,8 @@ import tkinter.font as tkFont
 def test():
     resultado = gramarMain("documento", "./Analizador/entradas.txt")
     analizar = Leer()
-    for res in resultado:
-        print(res)
+    # for res in resultado:
+    #     print(res)
     analizar.comando(resultado)
 
 def main():
@@ -32,5 +32,5 @@ def main():
     app = Login(root,dicUsuario)
     root.mainloop()
 
-#main()
-test()
+main()
+#test()

@@ -2,9 +2,10 @@ import tkinter as tk
 import tkinter.font as tkFont
 #from Analizador.Comandos.esencial import Leer
 class Copy:
-    def __init__(self, root):
+    def __init__(self, root,Leer):
         #setting title
         root.title("undefined")
+        self.analizar = Leer
         #setting window size
         width=600
         height=500
@@ -75,7 +76,7 @@ class Copy:
         #analizar = Leer()
         #analizar.comando(comando)
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    Copy = Copy(root)
-    root.mainloop()
+# if __name__ == "__main__":
+#     root = tk.Tk()
+#     Copy = Copy(root)
+#     root.mainloop()

@@ -15,7 +15,8 @@ class Exec:
 
     def ejecutarArchivo(self):
         ruta="."+self.ruta
-        f = open("./archivos/calificacion.mia", "r")
+        #f = open("./archivos/calificacion.mia", "r")
+        f = open(ruta, "r")
         input = f.read()
         print("RETORNANDO CONTENIDO ARCHIVO.MIA")
         return input

@@ -68,8 +68,10 @@ class Leer:
                                 elif (elementos2[0] == "-body->"):
                                     comandoCreate.body(elementos2[1])
                             #creando archivo
-                            comandoCreate.creacionLocal()
-                            comandoCreate.creacionCloud()
+                            if self.localmente==True:
+                                comandoCreate.creacionLocal()
+                            else:
+                                comandoCreate.creacionCloud()
                 if (comando == "delete" and self.localmente):  # !Comando delete
                     #self.localmente=False
                     comandoDelete = Delete()
@@ -81,8 +83,10 @@ class Leer:
                                 elif (elementos2[0] == "-name->"):
                                     comandoDelete.name(elementos2[1])
                             #borrar
-                            comandoDelete.borrar()
-                            comandoDelete.borrarCloud()
+                            if self.localmente == True:
+                                comandoDelete.borrar()
+                            else:
+                                comandoDelete.borrarCloud()
                 if (comando == "copy" and self.localmente):  # !Comando delete
                     #self.localmente=False
                     comandoCopy = Copy()
@@ -94,8 +98,10 @@ class Leer:
                                 elif (elementos2[0] == "-to->"):
                                     comandoCopy.to(elementos2[1])
                             #copiar
-                            #comandoCopy.copiar()
-                            comandoCopy.copiarCloud()
+                            if self.localmente == True:
+                                comandoCopy.copiar()
+                            else:
+                                comandoCopy.copiarCloud()
                 if (comando == "transfer" and self.localmente):  # !Comando trasnfer
                     #self.localmente=False
                     comandoTransfer = Transfer()
@@ -109,8 +115,10 @@ class Leer:
                                 elif (elementos2[0] == "-mode->"):
                                     comandoTransfer.mode(elementos2[1])
                             #transferir
-                            comandoTransfer.transferir()
-                            comandoTransfer.transferCloud()
+                            if self.localmente == True:
+                                comandoTransfer.transferir()
+                            else:
+                                comandoTransfer.transferCloud()
                 if (comando == "rename" and self.localmente):  # !Comando rename
                     #self.localmente=False
                     comandoRenombrar = Rename()
@@ -122,8 +130,10 @@ class Leer:
                                 elif (elementos2[0] == "-name->"):
                                     comandoRenombrar.name(elementos2[1])
                             #renombrar
-                            comandoRenombrar.reNombrar()
-                            comandoRenombrar.renameCloud()
+                            if self.localmente == True:
+                                comandoRenombrar.reNombrar()
+                            else:
+                                comandoRenombrar.renameCloud()
                 if (comando == "modify" and self.localmente):  # !Comando modify
                     #self.localmente=False
                     comandoModificar = Modify()
@@ -135,8 +145,10 @@ class Leer:
                                 elif (elementos2[0] == "-body->"):
                                     comandoModificar.body(elementos2[1])
                             #modificar
-                            comandoModificar.modificar()
-                            comandoModificar.modificarCloud()
+                            if self.localmente == True:
+                                comandoModificar.modificar()
+                            else:
+                                comandoModificar.modificarCloud()
                 if (comando == "add" and self.localmente):  # !Comando add
                     #self.localmente=False
                     comandoAgregar = Add()
@@ -148,8 +160,10 @@ class Leer:
                                 elif (elementos2[0] == "-body->"):
                                     comandoAgregar.body(elementos2[1])
                             #añadir
-                            comandoAgregar.aniadir()
-                            comandoAgregar.agregarCloud()
+                            if self.localmente == True:
+                                comandoAgregar.aniadir()
+                            else:
+                                comandoAgregar.agregarCloud()
                 if (comando == "exec" and self.localmente):  # !Comando add
                     #self.localmente=False
 
@@ -162,8 +176,10 @@ class Leer:
                             self.exceString = comandoEjecutar.ejecutarArchivo()
                             return self.exceString
                 if (comando == "backup" and self.localmente):  # !Comando add
-                    comandoBackup = Backup("local")
+                    comandoBackup=None
+                    if self.localmente == True:
+                        comandoBackup = Backup("local")
+                    else:
+                        comandoBackup = Backup("cloud")
                     comandoBackup.backupA()
-                   
-
-
+    

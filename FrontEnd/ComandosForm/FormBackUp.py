@@ -5,12 +5,13 @@ import tkinter.font as tkFont
 #from Analizador.Comandos.esencial import Leer
 
 class BackUp:
-    def __init__(self, root):
+    def __init__(self, root,Leer):
         self.comboGetmode=""
 
         #setting title
         root.title("undefined")
         #setting window size
+        self.analizar = Leer
         width=600
         height=500
         screenwidth = root.winfo_screenwidth()
@@ -36,8 +37,6 @@ class BackUp:
         GButton_364["text"] = "Ejec. Comando"
         GButton_364.place(x=250,y=400,width=115,height=41)
         GButton_364["command"] = self.GButton_364_command
-        rest=self.GButton_364_command
-        print(rest,type(rest))
 
         GLabel_819=tk.Label(root)
         ft = tkFont.Font(family='Times',size=18)
@@ -62,7 +61,7 @@ class BackUp:
             #analizar = Leer()
             #analizar.comando(comando)
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = BackUp(root)
-    root.mainloop()
+# if __name__ == "__main__":
+#     root = tk.Tk()
+#     app = BackUp(root)
+#     root.mainloop()
