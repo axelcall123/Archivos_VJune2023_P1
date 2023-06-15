@@ -2,7 +2,7 @@ import os
 import Aplicacion.Analizador.Comandos._generalCloud as gC  # alias
 import Aplicacion.Analizador.Comandos._general as gG
 import tempfile
-from Aplicacion.variablesGlobales import temporalFile
+#from Aplicacion.variablesGlobales import temporalFile
 class Delete:
     def __init__ (self,):
         self.ruta=""
@@ -25,9 +25,8 @@ class Delete:
 
     def borrar(self):
         #bitacora<<<<>>>>>
-        global temporalFile
-        temporalFile = tempfile.TemporaryFile()
-        temporalFile.write(gG.bitacora('input', 'delete', f'path:{self.ruta} name:{self.nombre} | local'))
+        gG.escribirTemp(
+            'input', 'delete', f'path:{self.ruta} name:{self.nombre} | local')
         pathArchivo= "./archivos"+self.ruta
         #print(pathArchivo+self.nombre)
         
@@ -36,8 +35,8 @@ class Delete:
         if(os.path.exists(pathArchivo+self.nombre)&(self.nombre!="")):
             os.remove(pathArchivo+self.nombre)
             #bitacora<<<<>>>>>
-            temporalFile = tempfile.TemporaryFile()
-            temporalFile.write(gG.bitacora('output', 'delete','el archivo fue borrado'))
+            gG.escribirTemp(
+                'output', 'delete', 'el archivo fue borrado')
             print("******EL ARCHIVO FUE BORRADO CON EXITO******")
         else:
             #existe solo path
@@ -50,14 +49,14 @@ class Delete:
                     x=x+1
                 os.rmdir(pathArchivo)
                 #bitacora<<<<>>>>>
-                temporalFile = tempfile.TemporaryFile()
-                temporalFile.write(gG.bitacora('output', 'delete', 'la carpeta fue borrada'))
+                gG.escribirTemp(
+                    'output', 'delete', 'la carpeta fue borrada')
                 print("******LA CARPETA FUE BORRADO CON EXITO******")
             else:
                 #si no existe nada
                 #bitacora<<<<>>>>>
-                temporalFile = tempfile.TemporaryFile()
-                temporalFile.write(gG.bitacora('output', 'delete', 'no se encontro la direccion'))
+                gG.escribirTemp(
+                    'output', 'delete', 'no se encontro la direccion')
                 print("******ERROR NO SE ENCONTRO LA DIRECCION******")
         
     def elementosDirectorio(self,path):
@@ -85,9 +84,8 @@ class Delete:
 
     def borrarCloud(self):
         #bitacora<<<<>>>>>
-        global temporalFile
-        temporalFile = tempfile.TemporaryFile()
-        temporalFile.write(gG.bitacora('input', 'delete',f'path:{self.ruta} name:{self.nombre} | cloud'))
+        gG.escribirTemp(
+            'input', 'delete', f'path:{self.ruta} name:{self.nombre} | cloud')
         arrayRuta = gG.arrayRuta(self.ruta)
         servicio = gC.servicioCloud()
         resultado = gC.navegacionCarpetasC(
@@ -102,21 +100,21 @@ class Delete:
                 if res["existe"] == "true":  # existe archivo que elminar
                     gC.eliminarCloud(servicio, res["id"], 'text/plain')
                     #bitacora<<<<>>>>>
-                    temporalFile = tempfile.TemporaryFile()
-                    temporalFile.write(gG.bitacora('output', 'delete', 'se elimino todo'))
+                    gG.escribirTemp(
+                        'output', 'delete', 'se elimino todo')
                     print("termino de elminar todo")
                     return
                 else:
                     #bitacora<<<<>>>>>
-                    temporalFile = tempfile.TemporaryFile()
-                    temporalFile.write(gG.bitacora('output', 'delete', 'indico mal el nombre'))
+                    gG.escribirTemp(
+                        'output', 'delete', 'indico mal el nombre')
                     print("Indico mal el nombre del archivo vuelva a intentarlo")
                     return
 
         else:  # url mala
             #bitacora<<<<>>>>>
-            temporalFile = tempfile.TemporaryFile()
-            temporalFile.write(gG.bitacora('output', 'delete', 'no se encontro la direccion'))
+            gG.escribirTemp(
+                'output', 'delete', 'no se encontro la direccion')
             print(f"La ruta especificada {self.ruta}, esta mal")
             return
         

@@ -2,7 +2,7 @@ import os
 import Aplicacion.Analizador.Comandos._generalCloud as gC  # alias
 import Aplicacion.Analizador.Comandos._general as gG
 import tempfile
-from Aplicacion.variablesGlobales import temporalFile
+#from Aplicacion.variablesGlobales import temporalFile
 class Modify:
     def __init__ (self,):
         self.contenido=""
@@ -23,9 +23,8 @@ class Modify:
 
     def modificar(self):
         #bitacora<<<<>>>>>
-        global temporalFile
-        temporalFile = tempfile.TemporaryFile()
-        temporalFile.write(gG.bitacora('input', 'modify', f'path:{self.ruta}'))
+        gG.escribirTemp(
+            'input', 'modify', f'path:{self.ruta}')
         pathArchivo= "./archivos"+self.ruta
         if(os.path.exists(pathArchivo)):
             print(pathArchivo)
@@ -33,21 +32,20 @@ class Modify:
             f.write(self.contenido)
             f.close() # siempre cerrar
             #bitacora<<<<>>>>>
-            temporalFile = tempfile.TemporaryFile()
-            temporalFile.write(gG.bitacora('output', 'modify', 'el archivo fue modificado con exito'))
+            gG.escribirTemp(
+                'output', 'modify', 'el archivo fue modificado con exito')
             print("******EL ARCHIVO FUE MODIFICADO CON EXITO******")
             
         else:
             #bitacora<<<<>>>>>
-            temporalFile = tempfile.TemporaryFile()
-            temporalFile.write(gG.bitacora('output', 'modify', 'no se econtro la direccion'))
+            gG.escribirTemp(
+                'output', 'modify', 'no se econtro la direccion')
             print("******ERROR NO SE ENCONTRO LA DIRECCION******")
         
     def modificarCloud(self):
         #bitacora<<<<>>>>>
-        global temporalFile
-        temporalFile = tempfile.TemporaryFile()
-        temporalFile.write(gG.bitacora('input', 'modify', f'path:{self.ruta}'))
+        gG.escribirTemp(
+            'input', 'modify', f'path:{self.ruta}')
         arrayRuta = gG.arrayRuta(self.ruta)
         servicio = gC.servicioCloud()
         resultado = gC.navegacionCarpetasC(
@@ -55,11 +53,11 @@ class Modify:
         if len(resultado[0]) != 0:  # llegue al final de las carpetas/de
             gC.escribirCloud(servicio, resultado[1]["id"], self.contenido, "")
             #bitacora<<<<>>>>>
-            temporalFile = tempfile.TemporaryFile()
-            temporalFile.write(gG.bitacora('output', 'modify', 'el archivo fue modificado con exito'))
+            gG.escribirTemp(
+                'output', 'modify', 'el archivo fue modificado con exito')
             print("el archivo fue modificado")
         else:
             #bitacora<<<<>>>>>
-            temporalFile = tempfile.TemporaryFile()
-            temporalFile.write(gG.bitacora('output', 'modify', 'no se econtro la direccion'))
+            gG.escribirTemp(
+                'output', 'modify', 'no se econtro la direccion')
             print("ruta mala")

@@ -3,7 +3,7 @@ import shutil
 import Aplicacion.Analizador.Comandos._generalCloud as gC  # alias
 import Aplicacion.Analizador.Comandos._general as gG
 import tempfile
-from Aplicacion.variablesGlobales import temporalFile
+#from Aplicacion.variablesGlobales import temporalFile
 class Transfer:
     def __init__ (self,):
         self.de=""
@@ -30,9 +30,8 @@ class Transfer:
 
     def transferir(self):#FIXME: es por self.mode
         #bitacora<<<<>>>>>
-        global temporalFile
-        temporalFile = tempfile.TemporaryFile()
-        temporalFile.write(gG.bitacora('input', 'transfer', f'from: {self.desde} to: {self.a} | {self.mode}'))
+        gG.escribirTemp(
+            'input', 'transfer', f'from: {self.desde} to: {self.a} | {self.mode}')
         pathArchivofrom= "./archivos"+self.de
         pathArchivoto="./archivos"+self.a
         print(pathArchivoto)
@@ -45,16 +44,17 @@ class Transfer:
                 if(os.path.exists(pathArchivoto+element)):#buscar si ya existe
                     to=element.replace(".","(1).")
                     shutil.copy(pathArchivofrom,pathArchivoto+to)
-                    temporalFile = tempfile.TemporaryFile()
-                    temporalFile.write(gG.bitacora('output', 'transfer', 'el archivo fue transferido y renombrado con exito'))
+                    #bitacora<<<<>>>>>
+                    gG.escribirTemp(
+                        'output', 'transfer', 'el archivo fue transferido y renombrado con exito')
                     print("******EL ARCHIVO CON NOMBRE REPETIDO FUE COPIADO CON EXITO******")
                     return
             #mover archivo
             print("-----------------------------")
             shutil.move(pathArchivofrom,pathArchivoto)
             #bitacora<<<<>>>>>
-            temporalFile = tempfile.TemporaryFile()
-            temporalFile.write(gG.bitacora('output', 'transfer','el archivo fue trasnferido con exito'))
+            gG.escribirTemp(
+                'output', 'transfer', 'el archivo fue trasnferido con exito')
             print("******EL ARCHIVO FUE TRASFERIDO CON EXITO******")
         #pasando carpeta o error
         else:
@@ -69,35 +69,33 @@ class Transfer:
                         print(pathArchivoto+to)
                         shutil.move(pathArchivofrom,pathArchivoto+to)
                         #bitacora<<<<>>>>>
-                        temporalFile = tempfile.TemporaryFile()
-                        temporalFile.write(gG.bitacora('output', 'transfer', 'la carpeta fue transferida y renombrada con exito'))
+                        gG.escribirTemp(
+                            'output', 'transfer', 'la carpeta fue transferida y renombrada con exito')
                         print("******LA CARPETA FUE TRASFERIDA CON EXITO******")
                         return                
                 
                 shutil.move(pathArchivofrom,pathArchivoto+nameModule)
                 #bitacora<<<<>>>>>
-                temporalFile = tempfile.TemporaryFile()
-                temporalFile.write(gG.bitacora('output', 'transfer', 'la carpeta fue transferida con exito'))
+                gG.escribirTemp(
+                    'output', 'transfer', 'la carpeta fue transferida con exito')
                 print("******LA CARPETA FUE TRASFERIDA CON EXITO******")
 
             #error
             else:               
                     #bitacora<<<<>>>>>
-                    temporalFile = tempfile.TemporaryFile()
-                    temporalFile.write(gG.bitacora(
-                        'output', 'transfer', 'no se encontro la direccion'))
+                    gG.escribirTemp(
+                        'output', 'transfer', 'no se encontro la direccion')
                     print("******ERROR NO SE ENCONTRO LA DIRECCION******")
                 
     def transferCloud(self):
         #bitacora<<<<>>>>>
-        global temporalFile
-        temporalFile = tempfile.TemporaryFile()
-        temporalFile.write(gG.bitacora('input', 'transfer',f'from: {self.desde} to: {self.a} | {self.mode}'))
+        gG.escribirTemp(
+            'input', 'transfer', f'from: {self.desde} to: {self.a} | {self.mode}')
         retorno = gC.auxDeParaC(self.a, self.de)
         if retorno[0] == "":
             #bitacora<<<<>>>>>
-            temporalFile = tempfile.TemporaryFile()
-            temporalFile.write(gG.bitacora('output', 'transfer', 'no se encontro la direccion'))
+            gG.escribirTemp(
+                'output', 'transfer', 'no se encontro la direccion')
             print("error en la direc")
             return
         servicio = gC.servicioCloud()
@@ -114,7 +112,6 @@ class Transfer:
         if response["name"] != reName:  # nuevo nombre, para renombrar
             gC.renameCloud(servicio, idDe, reName)
         #bitacora<<<<>>>>>
-        temporalFile = tempfile.TemporaryFile()
-        temporalFile.write(gG.bitacora(
-                'output', 'transfer', 'los archivos fueron transferidos con exito'))
+        gG.escribirTemp(
+                'output', 'transfer', 'los archivos fueron transferidos con exito')
         print(f"se tranfirieron todos los archivos")

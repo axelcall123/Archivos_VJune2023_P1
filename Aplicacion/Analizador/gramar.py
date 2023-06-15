@@ -134,7 +134,8 @@ lexer = lex.lex(reflags=re.IGNORECASE)
 def p_inicio(p):
     '''inicio : lexico
     '''
-    p[0] = p[1]
+    if p[1] == None:p[0] = ["error"]
+    else:p[0] = p[1]
 
 
 def p_lexico(p):

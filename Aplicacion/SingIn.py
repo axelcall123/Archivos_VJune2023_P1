@@ -2,7 +2,7 @@ import tkinter.font as tkFont
 from tkinter import messagebox as MessageBox
 import tkinter as tk
 import tkinter.font as tkFont
-from Aplicacion.variablesGlobales import listaUsuarios, temporalFile
+from Aplicacion.variablesGlobales import listaUsuarios#, temporalFile
 from Aplicacion.mainWindow import MainWindow
 import tempfile
 import Aplicacion.Analizador.Comandos._general as _G
@@ -13,6 +13,7 @@ class Login:
         #setting title
         self.root.title("undefined")
         _G.closeTempFile()
+
         #setting window size
         width = 452
         height = 411
@@ -120,10 +121,7 @@ class Login:
         global listaUsuarios
         contador=0
         #bitacora<<<<>>>>>
-        global temporalFile
-        temporalFile = tempfile.TemporaryFile()
-        temporalFile.write(_G.bitacora(
-            'input', 'inicio cesion', f'Usuario:{loginUser}'))
+        _G.escribirTemp('input', 'inicio cesion', f'Usuario:{loginUser.get("UserName")}')
         for element in listaUsuarios:
             if((element.get("UserName")==loginUser.get("UserName"))):
                 if((element.get("Password")==loginUser.get("Password"))):
@@ -135,23 +133,23 @@ class Login:
                     }
                     MessageBox.showinfo("", "Usuario logeado con exito")
                     #bitacora<<<<>>>>>
-                    temporalFile.write(_G.bitacora(
-                        'output', 'inicio cesion', 'incio de cesion exitoso'))
+                    _G.escribirTemp(
+                        'output', 'inicio cesion', 'incio de cesion exitoso')
                     self.root=tk.Tk()
                     MainWindow(self.root)
                     self.root.mainloop()
                     break
                 else:
                     #bitacora<<<<>>>>>
-                    temporalFile.write(_G.bitacora(
-                        'output', 'inicio cesion', 'incio de cesion sin exito'))
+                    _G.escribirTemp(
+                        'output', 'inicio cesion', 'incio de cesion sin exito')
                     MessageBox.showinfo("Error!", "Contraseña incorrecta")
                     break
             contador=contador+1
             if(len(listaUsuarios)==contador):
                 #bitacora<<<<>>>>>
-                temporalFile.write(_G.bitacora(
-                    'output', 'inicio cesion', 'incio de cesion sin exito'))
+                _G.escribirTemp(
+                    'output', 'inicio cesion', 'incio de cesion sin exito')
                 MessageBox.showerror("Error!", "No se encontro ese nombre de usuario")
 
                 

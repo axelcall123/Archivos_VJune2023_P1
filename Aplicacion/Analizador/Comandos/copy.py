@@ -3,7 +3,7 @@ import shutil
 import Aplicacion.Analizador.Comandos._generalCloud as gC  # alias
 import Aplicacion.Analizador.Comandos._general as gG
 import tempfile
-from Aplicacion.variablesGlobales import temporalFile
+#from Aplicacion.variablesGlobales import temporalFile
 class Copy:
     def __init__ (self,):
         self.de=""
@@ -24,9 +24,8 @@ class Copy:
 
     def copiar(self):
         #bitacora<<<<>>>>>
-        global temporalFile
-        temporalFile = tempfile.TemporaryFile()
-        temporalFile.write(gG.bitacora('input', 'copy', f'from:{self.de} to:{self.a} | local'))
+        gG.escribirTemp(
+            'input', 'copy', f'from:{self.de} to:{self.a} | local')
         pathArchivofrom= "./archivos"+self.de
         pathArchivoto="./archivos"+self.a
         print(pathArchivofrom)
@@ -39,15 +38,15 @@ class Copy:
                 if(os.path.exists(pathArchivoto+element)):#buscar si ya existe
                     to=element.replace(".","(1).")
                     shutil.copy(pathArchivofrom,pathArchivoto+to)
-                    temporalFile = tempfile.TemporaryFile()
-                    temporalFile.write(gG.bitacora('output', 'copy', 'el archivo fue copiado y renombrado con exito'))
+                    #bitacora<<<<>>>>>
+                    gG.escribirTemp('output', 'copy', 'el archivo fue copiado y renombrado con exito')
                     print("******EL ARCHIVO CON NOMBRE REPETIDO FUE COPIADO CON EXITO******")
                     return
             print("-------------")
             shutil.copy(pathArchivofrom,pathArchivoto)
             #bitacora<<<<>>>>>
-            temporalFile = tempfile.TemporaryFile()
-            temporalFile.write(gG.bitacora('output', 'copy', 'el archivo fue copiado con exito'))
+            gG.escribirTemp(
+                'output', 'copy', 'el archivo fue copiado con exito')
             print("******EL ARCHIVO FUE COPIADO CON EXITO******")
         else:
             if(os.path.exists(pathArchivofrom)):
@@ -58,14 +57,14 @@ class Copy:
                 nameModule=pathArchivofrom.split("/")[x-2]#obteniendo el nombre del modulo a copiar
                 shutil.copytree(pathArchivofrom,pathArchivoto+nameModule)
                 #bitacora<<<<>>>>>
-                temporalFile = tempfile.TemporaryFile()
-                temporalFile.write(gG.bitacora('output', 'copy', 'la carpeta fue copiado con exito'))
+                gG.escribirTemp(
+                    'output', 'copy', 'la carpeta fue copiado con exito')
                 print("******LA CARPETA FUE COPIADA CON EXITO******")
             else:
                 #si no existe nada
                 #bitacora<<<<>>>>>
-                temporalFile = tempfile.TemporaryFile()
-                temporalFile.write(gG.bitacora('output', 'copy', 'no se encontro la direccion'))
+                gG.escribirTemp(
+                    'output', 'copy', 'no se encontro la direccion')
                 print("******ERROR NO SE ENCONTRO LA DIRECCION******")
 
     def copiarAux(self, servicio, idA, idDe, nombre) -> str:  # para retulizar los if elif
@@ -77,14 +76,13 @@ class Copy:
                                   "text/plain")  # tipo txt
     def copiarCloud(self):
         #bitacora<<<<>>>>>
-        global temporalFile
-        temporalFile = tempfile.TemporaryFile()
-        temporalFile.write(gG.bitacora('input', 'copy', f'from:{self.de} to:{self.a} | cloud'))
+        gG.escribirTemp(
+            'input', 'copy', f'from:{self.de} to:{self.a} | cloud')
         retorno = gC.auxDeParaC(self.a, self.de)
         if retorno[0] == "":
             #bitacora<<<<>>>>>
-            temporalFile = tempfile.TemporaryFile()
-            temporalFile.write(gG.bitacora('output', 'copy', 'no se encontro la direccion'))
+            gG.escribirTemp(
+                'output', 'copy', 'no se encontro la direccion')
             print("no se encontro con la direccion")
             return
         servicio = gC.servicioCloud()
@@ -109,6 +107,6 @@ class Copy:
                 gC.renameCloud(servicio, idN, reNombre)  # renombre el copiado
         
         #bitacora<<<<>>>>>
-        temporalFile = tempfile.TemporaryFile()
-        temporalFile.write(gG.bitacora('output', 'copy', 'se copiaron todos los archivos'))
+        gG.escribirTemp(
+            'output', 'copy', 'se copiaron todos los archivos')
         print(f"se copiaron todos los archivos")

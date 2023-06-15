@@ -64,9 +64,8 @@ class Leer:
                                     llaveEncript = self.llave
                             #print configure
                             #bitacora<<<<>>>>>
-                            global temporalFile
-                            temporalFile = tempfile.TemporaryFile()
-                            temporalFile.write(gG.bitacora('input', 'configure', comandoConfigure.printConfiguracion()))
+                            gG.escribirTemp(
+                                'input', 'configure', comandoConfigure.printConfiguracion())
                 if (comando == "create"):  # !Comando Create y self.local es True
                     #self.localmente=False
                     comandoCreate = Create()
@@ -195,3 +194,5 @@ class Leer:
                     else:
                         comandoBackup = Backup("cloud")
                     comandoBackup.backupA()
+                if (comando == "error"):  # !Comando add
+                    print("ERROR GRAMATICA")

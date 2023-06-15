@@ -14,7 +14,7 @@ def bitacora(iO:str,com:str,res:str)->bytes:#input/ouput
     now = datetime.now()
     # tiempo 01/01/01 1: 1: 1
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-    strBitacora = f"{dt_string} - {iO} - {com} - Usuario:{res}\n"
+    strBitacora = f"{dt_string} - {iO} - {com} - {res}\n"
     return bytes(strBitacora, 'utf-8')
 
 def existeLogName(path:str,date:str,numero:str)->str:
@@ -28,8 +28,11 @@ def closeTempFile():
     global temporalFile
     if temporalFile == None:  # no se creo el archivo, genero uno por si acaso
         temporalFile = tempfile.TemporaryFile()
-    # print("efisima", os.path.exists(temporalFile.name), '\n',temporalFile.read().decode("utf-8"))  # existe file temporal
-    if temporalFile.read()!=b'':#si existe algo en el archivo creo la carpeta y el log
+    temporalFile.seek(0)
+    print("temporal console", os.path.exists(temporalFile.name), '\n',
+          temporalFile.read().decode("utf-8"))  # existe file temporal
+    temporalFile.seek(0)
+    if temporalFile.read().decode("utf-8")!='':  # si existe algo en el archivo creo la carpeta y el log
         path = './archivos/$logs$'
         os.makedirs(path, exist_ok=True)  # creo por si no existe, logs
         now = datetime.now()
@@ -37,7 +40,7 @@ def closeTempFile():
         path=path+'/'+dt_string
         os.makedirs(path, exist_ok=True)  # creo la subcarpeta log del dia
         nameFile=existeLogName(path,dt_string,'1')
-        with open(f'{path}/{nameFile}', 'wb') as f:
+        with open(f'{path}/{nameFile}.txt', 'wb') as f:
             temporalFile.seek(0)  # para leer
             global encriptado, llaveEncript
             if encriptado==True and llaveEncript!="":#encriptar
@@ -46,7 +49,20 @@ def closeTempFile():
                 f.write(encriptado.hex())
                 f.close()
             else:#no encriptar
-                f.write(temporalFile.read().decode("utf-8"))
+                f.write(str)
                 f.close()
     temporalFile.close()
+    temporalFile=None
+    temporalFile = tempfile.TemporaryFile()
     #  print("cerrado->", os.path.exists(temporalFile.name))
+
+
+def escribirTemp(iO: str, com: str, res: str):
+    global temporalFile
+    temporalFile.seek(0)
+    print("leer temp<O>\n", temporalFile.read().decode('utf-8'))
+    #temporalFile = tempfile.TemporaryFile()
+    temporalFile.write(bitacora(iO,com,res))
+    temporalFile.seek(0)
+    print("leer temp<N>\n", temporalFile.read().decode('utf-8'))
+    
