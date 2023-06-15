@@ -10,9 +10,9 @@ import tkinter as tk
 import json
 
 #pruebas
-resultado = gramarMain()
-analizar = Leer()
-analizar.comando(resultado)
+#resultado = gramarMain()
+#analizar = Leer()
+#analizar.comando(resultado)
 
 
 #archivo=input()
@@ -38,10 +38,8 @@ class Main():
         password = ""
         for element in leer:
             #identificando Usuario
-
             if (contador % 2 == 0):
                 usuario = element
-
             #identificando Usuario contraseña
             elif (contador % 2 == 1):
                 #desencriptando contraseñas
@@ -71,12 +69,12 @@ class Main():
         input = f.read()
         self.listaUsuariosFuction(input)
 
-#a=Main()
-#a.leerUsuarios()
+a=Main()
+a.leerUsuarios()
 
 
 
 
-a = Main()
-#a.leerUsuarios()
-a.test()
+#a = Main()
+##a.leerUsuarios()
+#a.test()

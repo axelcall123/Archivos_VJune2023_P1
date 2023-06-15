@@ -11,7 +11,7 @@ from Aplicacion.formModify import Modify
 from Aplicacion.formRename import Rename
 from Aplicacion.formTransfer import Transfer
 
-from Aplicacion.Analizador.gramar import grammarInput
+from Aplicacion.Analizador.gramar import grammarInput,grammarInputCodificado
 from Aplicacion.Analizador.Comandos.esencial import Leer
 from Aplicacion.variablesGlobales import localmente
 
@@ -226,7 +226,13 @@ class MainWindow:
         # ESTE ES EL IMPUT DE LA CONSOLA
         #obteniendo input
         stringInput=self.inputConsole.get("1.0", "end-1c")
-        grammarInput(stringInput)
+        #identificar si es codificado
+        #Tamaño de un entrada es codificada es de 2, hexadecimal no lleva "-", los comandos si excepto para backup
+        posibleCodificado=stringInput.split("\n")[1]# Obteniendo el posible codificado 
+        if(("-" in posibleCodificado)|(posibleCodificado.lower()=="backup")):
+            grammarInput(stringInput)
+        else:
+            grammarInputCodificado(stringInput)
         self.inputConsole.delete("1.0","end")
 
 

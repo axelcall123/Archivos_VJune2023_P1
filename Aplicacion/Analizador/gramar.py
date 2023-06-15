@@ -1,6 +1,7 @@
 import Aplicacion.Analizador.ply.lex as lex
 import Aplicacion.Analizador.ply.yacc as yacc
 from Aplicacion.Analizador.Comandos.esencial import Leer
+from Aplicacion.Analizador.cripto import decrypt_hex_string
 import re
 #from Comandos.esencial import Leer
 
@@ -246,13 +247,72 @@ def p_error(p):
 
 # Lee los inputs que vienen del tkinter
 
-
+# si el comando no esta codificado
 def grammarInput(input):
-    print(input)
     parser = yacc.yacc()
     resultado = parser.parse(input.lower())
     analizar = Leer()
-    analizar.comando(resultado)
+    posibleEntrada=analizar.comando(resultado)
+    #exec retorna otra contenido input desde def comando
+
+    print(type(posibleEntrada)==str)
+    if(type(posibleEntrada)==str):
+        #Otra entrada volver a identificar si es codificado o no
+        execInput(posibleEntrada)
+
+def grammarInputCodificado(input):
+    # si el input esta codificado solo son 2 saltos de lieas (\n)
+    #el primero siempre sera configure
+    lista=input.split("\n")
+    contador=0
+    analizar = Leer()
+    llave=""
+    for element in lista:
+        print(element)
+        #comando configure
+        if (contador % 2 == 0):
+            configure = element
+            parser = yacc.yacc()
+            resultado = parser.parse(configure.lower())
+            #analizar tomara las validaciones
+            analizar.comando(resultado)
+        #comandos encriptados
+        elif (contador % 2 == 1):
+            #decodifica
+            #si decodificacion es activa
+            if(analizar.encryptRead):
+                #eliminando comillas en llave
+                if('"' in analizar.llave):
+                    llave=analizar.llave.replace("\"", "" )
+                else:
+                    llave=analizar.llave
+                #desencriptando
+                byte_string = llave.encode("utf-8")
+                comando=decrypt_hex_string(byte_string,element)
+                parser = yacc.yacc()
+                resultado = parser.parse(comando.lower())
+                #analizar tomara las validaciones
+                posibleEntrada=analizar.comando(resultado)
+                #exec retorna otra contenido input desde def comando
+                if(type(posibleEntrada)==str):
+                    #Otra entrada volver a identificar si es codificado o no
+                    execInput(posibleEntrada)
+            else:
+                print("error codificacion no es True")
+        contador=contador+1
+
+
+def execInput(inputExec):
+    #mismo caso para main Window(otra entrada)
+    posibleCodificado=inputExec.split("\n")[1]# Obteniendo el posible codificado 
+    if("-" in posibleCodificado)|(posibleCodificado.lower()=="backup"):
+        
+        grammarInput(inputExec)
+    else:
+        grammarInputCodificado(inputExec)
+
+
+
 
 
 def gramarMain():
@@ -260,11 +320,12 @@ def gramarMain():
     parser = yacc.yacc()
     f = open("Aplicacion/Analizador/entradas.txt", "r")
     input = f.read()
-    #print(input)
+    #print(len(input.split("\n")))
     resultado = parser.parse(input.lower())
+    #grammarInputCodificado(input)
     #print(resultado,'\n')
-    #lectura=Leer()
-    #lectura.comando(resultado)
+    lectura=Leer()
+    lectura.comando(resultado)
     #print(resultado)
     return resultado
     #analizar=Leer()

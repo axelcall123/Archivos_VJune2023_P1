@@ -1,6 +1,7 @@
 import os
 import sys
 
+
 class Exec:
     def __init__ (self,):
         self.ruta=""
@@ -14,8 +15,7 @@ class Exec:
             self.ruta=ruta
 
     def ejecutarArchivo(self):
-        ruta="."+self.ruta
-        f = open("./archivos/calificacion.mia", "r")
+        pathArchivo= "."+self.ruta
+        f = open(pathArchivo, "r")
         input = f.read()
-        print("RETORNANDO CONTENIDO ARCHIVO.MIA")
         return input
