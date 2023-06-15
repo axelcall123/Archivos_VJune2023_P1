@@ -3,10 +3,10 @@ from Aplicacion.Analizador.Comandos.esencial import Leer
 from Aplicacion.SingIn import Login
 from Aplicacion.Analizador.cripto import decrypt_hex_string
 
-from Aplicacion.variablesGlobales import listaUsuarios
-
+from Aplicacion.variablesGlobales import listaUsuarios, temporalFile
+import tempfile
 import tkinter as tk
-
+import os
 import json
 
 #pruebas
@@ -19,7 +19,19 @@ import json
 archivo = "usuarios.txt"
 
 #contiene todos los usuarios con sus respectivas contraseñas
+root = tk.Tk()
 
+
+def callback():  # para guardar lo ultimo por si acaso, temporal
+    global temporalFile
+    if temporalFile == None:  # no creo un error
+        temporalFile = tempfile.TemporaryFile()
+    temporalFile
+    print("efisima", os.path.exists(temporalFile.name), '\n',
+          temporalFile.read().decode("utf-8"))  # existe file temporal
+    temporalFile.close()
+    print("cerrado->", os.path.exists(temporalFile.name))
+    root.destroy()
 
 class Main():
     def __init__(self,):
@@ -71,10 +83,4 @@ class Main():
 
 a=Main()
 a.leerUsuarios()
-
-
-
-
-#a = Main()
-##a.leerUsuarios()
 #a.test()
