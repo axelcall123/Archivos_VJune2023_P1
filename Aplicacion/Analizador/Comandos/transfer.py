@@ -40,7 +40,17 @@ class Transfer:
         print(os.path.exists(pathArchivofrom)&('.' in self.de))
         #pasando archivo
         if(os.path.exists(pathArchivofrom)&('.' in self.de)):
+            contenido = os.listdir(pathArchivoto) # si ya existe
+            for element in contenido:
+                if(os.path.exists(pathArchivoto+element)):#buscar si ya existe
+                    to=element.replace(".","(1).")
+                    shutil.copy(pathArchivofrom,pathArchivoto+to)
+                    temporalFile = tempfile.TemporaryFile()
+                    temporalFile.write(gG.bitacora('output', 'transfer', 'el archivo fue transferido y renombrado con exito'))
+                    print("******EL ARCHIVO CON NOMBRE REPETIDO FUE COPIADO CON EXITO******")
+                    return
             #mover archivo
+            print("-----------------------------")
             shutil.move(pathArchivofrom,pathArchivoto)
             #bitacora<<<<>>>>>
             temporalFile = tempfile.TemporaryFile()
@@ -62,8 +72,12 @@ class Transfer:
                         #bitacora<<<<>>>>>
                         temporalFile = tempfile.TemporaryFile()
                         temporalFile.write(gG.bitacora('output', 'transfer', 'ya exite'))
+                        
+                        to=element.replace(".","(1).")
+                        #print(pathArchivoto+to)
+                        shutil.move(pathArchivofrom+element,pathArchivoto+to)
                         print("*****YA EXISTE*******")
-                #shutil.copytree(pathArchivofrom,pathArchivoto)
+                        
                 #bitacora<<<<>>>>>
                 temporalFile = tempfile.TemporaryFile()
                 temporalFile.write(gG.bitacora('output', 'transfer', 'la carpeta fue transferida con exito'))

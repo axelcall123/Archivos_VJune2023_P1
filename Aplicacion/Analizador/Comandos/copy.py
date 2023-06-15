@@ -39,8 +39,11 @@ class Copy:
                 if(os.path.exists(pathArchivoto+element)):#buscar si ya existe
                     to=element.replace(".","(1).")
                     shutil.copy(pathArchivofrom,pathArchivoto+to)
+                    temporalFile = tempfile.TemporaryFile()
+                    temporalFile.write(gG.bitacora('output', 'copy', 'el archivo fue copiado y renombrado con exito'))
                     print("******EL ARCHIVO CON NOMBRE REPETIDO FUE COPIADO CON EXITO******")
-                    break
+                    return
+            print("-------------")
             shutil.copy(pathArchivofrom,pathArchivoto)
             #bitacora<<<<>>>>>
             temporalFile = tempfile.TemporaryFile()

@@ -6,9 +6,9 @@ from Aplicacion.variablesGlobales import listaUsuarios
 import tkinter as tk
 import Aplicacion.Analizador.Comandos._general as _G
 #pruebas
-#resultado = gramarMain()
-#analizar = Leer()
-#analizar.comando(resultado)
+resultado = gramarMain()
+analizar = Leer()
+analizar.comando(resultado)
 #archivo=input()
 archivo = "usuarios.txt"
 #contiene todos los usuarios con sus respectivas contraseñas
@@ -65,6 +65,6 @@ class Main():
         input = f.read()
         self.listaUsuariosFuction(input)
 
-a=Main()
-a.leerUsuarios()
+#a=Main()
+#a.leerUsuarios()
 #a.test()
