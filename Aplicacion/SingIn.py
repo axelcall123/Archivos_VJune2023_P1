@@ -6,21 +6,13 @@ from Aplicacion.variablesGlobales import listaUsuarios, temporalFile
 from Aplicacion.mainWindow import MainWindow
 import tempfile
 import Aplicacion.Analizador.Comandos._general as _G
-import os
+
 class Login:
     def __init__(self, root):
         self.root=root
         #setting title
         self.root.title("undefined")
-        global temporalFile
-        if temporalFile == None:  # no creo un error
-            temporalFile = tempfile.TemporaryFile()
-        temporalFile.seek(0)
-        print("efisima", os.path.exists(temporalFile.name),'\n',
-            temporalFile.read().decode("utf-8"))  # existe file temporal
-        temporalFile.close()
-        print("cerrado->", os.path.exists(temporalFile.name))
-
+        _G.closeTempFile()
         #setting window size
         width = 452
         height = 411

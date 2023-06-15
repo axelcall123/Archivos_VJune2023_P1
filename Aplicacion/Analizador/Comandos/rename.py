@@ -26,7 +26,7 @@ class Rename:
         #bitacora<<<<>>>>>
         global temporalFile
         temporalFile = tempfile.TemporaryFile()
-        temporalFile.write(gG.bitacora('input', 'rename', f'path:{self.path} | local'))
+        temporalFile.write(gG.bitacora('input', 'rename', f'path:{self.path} name:{self.nombre} | local'))
         pathArchivo= "./archivos"+self.ruta
         print(pathArchivo)
         #obtener ruta para el nuevo nombre
@@ -59,7 +59,7 @@ class Rename:
         #bitacora<<<<>>>>>
         global temporalFile
         temporalFile = tempfile.TemporaryFile()
-        temporalFile.write(gG.bitacora('input', 'rename', f'path:{self.path} | cloud'))
+        temporalFile.write(gG.bitacora('input', 'rename', f'path:{self.path} name:{self.nombre} | cloud'))
         arrayRuta = gG.arrayRuta(self.ruta)
         arrayRutaAux = arrayRuta[0:-1]  # solo tomo parte de sin el file.txt
 

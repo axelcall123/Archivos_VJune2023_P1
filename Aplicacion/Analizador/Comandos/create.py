@@ -2,6 +2,8 @@ import os
 import sys
 import Aplicacion.Analizador.Comandos._generalCloud as gC  # alias
 import Aplicacion.Analizador.Comandos._general as gG
+import tempfile
+from Aplicacion.variablesGlobales import temporalFile
 class Create:
     def __init__ (self,):
         self.nombre=""
@@ -32,12 +34,20 @@ class Create:
             self.ruta=ruta
 
     def creacionLocal(self):
+        #bitacora<<<<>>>>>
+        global temporalFile
+        temporalFile = tempfile.TemporaryFile()
+        temporalFile.write(gG.bitacora('input', 'create', f'path:{self.ruta} name:{self.nombre} | local'))
         #print(self.nombre)
         #print(self.contenido)
         #print(self.ruta)
         pathArchivo= "./archivos/"+self.ruta
         #verificando Ya exista ruta y archivo
         if(os.path.exists(pathArchivo+"/"+self.nombre)):
+
+            #bitacora<<<<>>>>>
+            temporalFile = tempfile.TemporaryFile()
+            temporalFile.write(gG.bitacora('output', 'create', 'archivo ya existe'))
             print("Archivo ya existente")
         #si hay ruta pero no archivo
         else:
@@ -54,6 +64,9 @@ class Create:
                 f.write(self.contenido)
                 f.close() # siempre cerrar
                 print("ARCHIVO CREADO")
+            #bitacora<<<<>>>>>
+            temporalFile = tempfile.TemporaryFile()
+            temporalFile.write(gG.bitacora('output', 'create', 'fueron los archivos creados'))
 
     def directoriosAnidados(self,path):
         split=path.split("/")
@@ -67,6 +80,10 @@ class Create:
                     print("RUTA YA CREADA")
                     
     def creacionCloud(self):
+        #bitacora<<<<>>>>>
+        global temporalFile
+        temporalFile = tempfile.TemporaryFile()
+        temporalFile.write(gG.bitacora('input', 'create',f'path:{self.ruta} name:{self.nombre} | cloud'))
         #print('ver')
         #print(self.nombre, self.contenido, self.ruta)
         arrayRuta = gG.arrayRuta(self.ruta)
@@ -83,4 +100,7 @@ class Create:
             rename = gC.creRenameC(servicio, resultado[1]["id"], self.nombre)
             gC.crearCloud(servicio, rename,
                           'text/plain', resultado[1]["id"], self.contenido)
+        #bitacora<<<<>>>>>
+        temporalFile = tempfile.TemporaryFile()
+        temporalFile.write(gG.bitacora('output', 'create', 'fueron los archivos creados'))
         print("se termino de crear todo")

@@ -5,8 +5,8 @@ localmente=False
 #archivo temporal bitacora
 temporalFile = None
 #si esta encriptado si o no
-encriptado=False
+encriptado:bool=False
 #llave del encriptado
-llaveEncript=""
+llaveEncript:str=""
 #archivos totales procesados
 numeroArchivoPr=0

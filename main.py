@@ -2,11 +2,9 @@ from Aplicacion.Analizador.gramar import gramarMain
 from Aplicacion.Analizador.Comandos.esencial import Leer
 from Aplicacion.SingIn import Login
 from Aplicacion.Analizador.cripto import decrypt_hex_string
-from Aplicacion.variablesGlobales import listaUsuarios, temporalFile
-import tempfile
+from Aplicacion.variablesGlobales import listaUsuarios
 import tkinter as tk
-import os
-import json
+import Aplicacion.Analizador.Comandos._general as _G
 #pruebas
 #resultado = gramarMain()
 #analizar = Leer()
@@ -16,14 +14,7 @@ archivo = "usuarios.txt"
 #contiene todos los usuarios con sus respectivas contraseñas
 root = tk.Tk()
 def callback():  # para guardar lo ultimo por si acaso, temporal
-    global temporalFile
-    if temporalFile == None:  # no creo un error
-        temporalFile = tempfile.TemporaryFile()
-    temporalFile
-    print("efisima", os.path.exists(temporalFile.name), '\n',
-          temporalFile.read().decode("utf-8"))  # existe file temporal
-    temporalFile.close()
-    print("cerrado->", os.path.exists(temporalFile.name))
+    _G.closeTempFile()
     root.destroy()
 
 class Main():
