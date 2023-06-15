@@ -31,7 +31,7 @@ class Transfer:
         pathArchivoto="./archivos"+self.a
         print(pathArchivoto)
         print(pathArchivofrom)
-        #print(os.path.exists(pathArchivofrom)&('.' in self.de))
+        print(os.path.exists(pathArchivofrom)&('.' in self.de))
         #pasando archivo
         if(os.path.exists(pathArchivofrom)&('.' in self.de)):
             #mover archivo
@@ -50,9 +50,11 @@ class Transfer:
                         #print(pathArchivoto)
                         shutil.move(pathArchivofrom+element,pathArchivoto)
                     else:
-                        print("*****YA EXISTE*******")
+                        to=element.replace(".","(1).")
+                        shutil.move(pathArchivofrom+element,pathArchivoto+to)
+                        print("*****TRASFIRIENDO ELEMENTOS EXISTENTE *******")
                 #shutil.copytree(pathArchivofrom,pathArchivoto)
-                print("******LA CARPETA FUE TRASFERIDA CON EXITO******")
+                #print("******LA CARPETA FUE TRASFERIDA CON EXITO******")
             else:
                 if(os.path.exists(pathArchivoto)):print("******ERROR LA DIRECCION YA EXISTE******")
                 else:print("******ERROR NO SE ENCONTRO LA DIRECCION******")

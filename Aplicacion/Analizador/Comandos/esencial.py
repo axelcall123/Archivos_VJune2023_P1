@@ -167,9 +167,8 @@ class Leer:
                                 comandoAgregar.aniadir()
                             else:
                                 comandoAgregar.agregarCloud()
-                if (comando == "exec"):  # !Comando add
+                if (comando == "exec"):  # !Comando exec
                     #self.localmente=False
-
                     comandoEjecutar = Exec()
                     for parametros in element:
                         if (parametros != "exec"):
@@ -177,8 +176,9 @@ class Leer:
                                 if (elementos2[0] == "-path->"):
                                     comandoEjecutar.path(elementos2[1])
                             self.exceString = comandoEjecutar.ejecutarArchivo()
+                            #print(self.exceString)
                             return self.exceString
-                if (comando == "backup"):  # !Comando add
+                if (comando == "backup"):  # !Comando 
                     comandoBackup = None
                     #! Dependiento del configure 
                     if self.localmente == True:

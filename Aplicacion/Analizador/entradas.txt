@@ -1,2 +1,2 @@
-configure -type->local -encrypt_log->true -encrypt_read->false 
-exec -path->/archivos/calificacion.mia
+configure -type->local -encrypt_log->false -encrypt_read->false
+Transfer -from->/carpeta1/-to->/"Carpeta Ejemplo"/ -mode->"local"

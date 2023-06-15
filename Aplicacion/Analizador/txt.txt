@@ -41,3 +41,6 @@ create -name->prueba6.txt  -path->/carpeta1/ejemplo/ -body->"Este es el contenid
 transfer -from->/carpeta1/ -to->/"Carpeta Ejemplo"/ -mode->"local"
 
 
+
+Transfer -from->/carpeta1/carpeta1/nuevo_nombre1.txt -to->/"Carpeta Ejemplo"/ -mode->"local"
+

@@ -249,6 +249,7 @@ def p_error(p):
 
 # si el comando no esta codificado
 def grammarInput(input):
+    print("grammarInput")
     parser = yacc.yacc()
     resultado = parser.parse(input.lower())
     analizar = Leer()
@@ -261,6 +262,7 @@ def grammarInput(input):
         execInput(posibleEntrada)
 
 def grammarInputCodificado(input):
+    print("grammarInputCodificado")
     # si el input esta codificado solo son 2 saltos de lieas (\n)
     #el primero siempre sera configure
     lista=input.split("\n")
@@ -306,7 +308,6 @@ def execInput(inputExec):
     #mismo caso para main Window(otra entrada)
     posibleCodificado=inputExec.split("\n")[1]# Obteniendo el posible codificado 
     if("-" in posibleCodificado)|(posibleCodificado.lower()=="backup"):
-        
         grammarInput(inputExec)
     else:
         grammarInputCodificado(inputExec)
@@ -316,7 +317,6 @@ def execInput(inputExec):
 
 
 def gramarMain():
-
     parser = yacc.yacc()
     f = open("Aplicacion/Analizador/entradas.txt", "r")
     input = f.read()
@@ -324,8 +324,8 @@ def gramarMain():
     resultado = parser.parse(input.lower())
     #grammarInputCodificado(input)
     #print(resultado,'\n')
-    lectura=Leer()
-    lectura.comando(resultado)
+    #lectura=Leer()
+    #lectura.comando(resultado)
     #print(resultado)
     return resultado
     #analizar=Leer()

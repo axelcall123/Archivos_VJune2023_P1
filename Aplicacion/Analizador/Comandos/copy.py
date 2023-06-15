@@ -26,20 +26,35 @@ class Copy:
         print(pathArchivofrom)
         print(pathArchivoto)
         print(os.path.exists(pathArchivofrom)&('.' in self.de))
-        if(os.path.exists(pathArchivofrom)&('.' in self.de)):
+        if(os.path.exists(pathArchivofrom)&('.' in self.de)):#identificando si es un archivo
             #copiar archivo
+            contenido = os.listdir(pathArchivoto) # si ya existe
+            for element in contenido:
+                if(os.path.exists(pathArchivoto+element)):#buscar si ya existe
+                    to=element.replace(".","(1).")
+                    shutil.copy(pathArchivofrom,pathArchivoto+to)
+                    print("******EL ARCHIVO CON NOMBRE REPETIDO FUE COPIADO CON EXITO******")
+                    break
             shutil.copy(pathArchivofrom,pathArchivoto)
             print("******EL ARCHIVO FUE COPIADO CON EXITO******")
         else:
             if(os.path.exists(pathArchivofrom)):
                 #existe la ruta
-                print("--------------")
-                #!--------------------------------------------
-                shutil.copytree(pathArchivofrom,pathArchivoto)
+                x=len(pathArchivofrom.split("/"))
+                nameModule=pathArchivofrom.split("/")[x-2]#obteniendo el nombre del modulo a copiar
+                shutil.copytree(pathArchivofrom,pathArchivoto+nameModule)
                 print("******LA CARPETA FUE COPIADA CON EXITO******")
             else:
                 #si no existe nada
                  print("******ERROR NO SE ENCONTRO LA DIRECCION******")
+    
+
+
+    
+
+
+
+    
 
     def copiarAux(self, servicio, idA, idDe, nombre) -> str:  # para retulizar los if elif
         if gC.tipo(nombre) == "folder":  # tipo folder
