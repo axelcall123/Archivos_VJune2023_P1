@@ -3,9 +3,10 @@
 from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
 from Crypto.Util.Padding import pad, unpad
-
+import tempfile
 import json
-
+import os
+from datetime import datetime
 
 data = b'secret data'
 header = b"header"
@@ -69,3 +70,36 @@ hex_string = "686BBE3F53BF138427FFC03A64340A0C"
 newstr = bytearray.fromhex(hex_string)
 decrypted_data = decrypt_string(stringK, newstr)
 print("Decrypted String, 1/1:", decrypted_data)
+
+
+# create a temporary file and write some data to it
+fp=None
+fp = tempfile.TemporaryFile()
+fp.write(b'Hello world!\n')
+fp.write(b'a\n')
+fp.write(b'b\n')
+# read data from file
+fp.seek(0)
+print(fp.read())
+fp.write(b'Hello world2!\n')
+fp.write(b'otro saludo')
+fp.seek(0)
+print(fp.read())
+
+print(os.path.exists(fp.name), os.path.normpath(fp.name), tempfile.gettempdir())
+print('<>',os.unlink(fp.name),type(fp.read()))
+fp.seek(0)
+print('str->', fp.flush(),fp.read().decode("utf-8"))
+
+#b'Hello world!'
+# close the file, it will be removed
+fp.close()
+#os.unlink(fp.name)
+print(os.path.exists(fp.name), os.path.normpath(fp.name))
+fp = tempfile.TemporaryFile()
+fp.write(b"0")
+fp.close()
+
+now = datetime.now()
+dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+print("date and time =", dt_string)

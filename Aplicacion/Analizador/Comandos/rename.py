@@ -1,6 +1,8 @@
 import os
 import Aplicacion.Analizador.Comandos._generalCloud as gC  # alias
 import Aplicacion.Analizador.Comandos._general as gG
+import tempfile
+from Aplicacion.variablesGlobales import temporalFile
 class Rename:
     def __init__ (self,):
         self.ruta=""
@@ -21,6 +23,10 @@ class Rename:
             self.nombre=nombre
 
     def reNombrar(self):
+        #bitacora<<<<>>>>>
+        global temporalFile
+        temporalFile = tempfile.TemporaryFile()
+        temporalFile.write(gG.bitacora('input', 'rename', f'path:{self.path} name:{self.nombre} | local'))
         pathArchivo= "./archivos"+self.ruta
         print(pathArchivo)
         #obtener ruta para el nuevo nombre
@@ -38,12 +44,22 @@ class Rename:
         
         if(os.path.exists(pathArchivo)& (not(os.path.exists(pathNuevoNombre)))):
             os.rename(pathArchivo,pathNuevoNombre)
+            #bitacora<<<<>>>>>
+            temporalFile = tempfile.TemporaryFile()
+            temporalFile.write(gG.bitacora('output', 'rename', 'fue renombrado con exito'))
             print("******EL ARCHIVO FUE RENOMBRADO CON EXITO******")
             
         else:
-             print("******ERROR NO SE ENCONTRO LA DIRECCION O YA SE ENCUENTRA UN ARCHIVO CON ESTE NOMBRE******")
+            #bitacora<<<<>>>>>
+            temporalFile = tempfile.TemporaryFile()
+            temporalFile.write(gG.bitacora('output', 'rename', 'no se encontro la direccion o ya es encuentra un archivo con ese nombre'))
+            print("******ERROR NO SE ENCONTRO LA DIRECCION O YA SE ENCUENTRA UN ARCHIVO CON ESTE NOMBRE******")
 
     def renameCloud(self):
+        #bitacora<<<<>>>>>
+        global temporalFile
+        temporalFile = tempfile.TemporaryFile()
+        temporalFile.write(gG.bitacora('input', 'rename', f'path:{self.path} name:{self.nombre} | cloud'))
         arrayRuta = gG.arrayRuta(self.ruta)
         arrayRutaAux = arrayRuta[0:-1]  # solo tomo parte de sin el file.txt
 
@@ -73,11 +89,20 @@ class Rename:
             if files["existe"] == "true":
                 gC.renameCloud(
                     servicio, resultado[1]["id"], resultado[1]["name"])
+                #bitacora<<<<>>>>>
+                temporalFile = tempfile.TemporaryFile()
+                temporalFile.write(gG.bitacora('output', 'rename', 'el nombre ya existe'))
                 print(f"nombre ya existe")
             else:
+                #bitacora<<<<>>>>>
+                temporalFile = tempfile.TemporaryFile()
+                temporalFile.write(gG.bitacora('output', 'rename', 'fue renombrado con exito'))
                 gC.renameCloud(servicio, resultado[1]["id"], file_name)
                 print(f"Se renombro ")
         else:
+            #bitacora<<<<>>>>>
+            temporalFile = tempfile.TemporaryFile()
+            temporalFile.write(gG.bitacora('output', 'rename', 'no se encontro la direccion'))
             print(f"La ruta especificada {self.ruta}, esta mal")
 
 

@@ -1,6 +1,8 @@
 import os
 import sys
-
+import Aplicacion.Analizador.Comandos._general as gG
+import tempfile
+from Aplicacion.variablesGlobales import temporalFile
 
 class Exec:
     def __init__ (self,):
@@ -18,4 +20,8 @@ class Exec:
         pathArchivo= "."+self.ruta
         f = open(pathArchivo, "r")
         input = f.read()
+        #bitacora<<<<>>>>>
+        global temporalFile
+        temporalFile = tempfile.TemporaryFile()
+        temporalFile.write(gG.bitacora('input', 'execute', f'path:{self.ruta}'))
         return input

@@ -11,7 +11,9 @@ from Aplicacion.Analizador.Comandos.add import Add
 from Aplicacion.Analizador.cripto import encrypt_string,decrypt_string
 from Aplicacion.variablesGlobales import localmente
 from Aplicacion.Analizador.Comandos.backup import Backup
-
+import tempfile
+import Aplicacion.Analizador.Comandos._general as gG
+from Aplicacion.variablesGlobales import encriptado, llaveEncript
 
         #plaintext = "sssssss!"
         #stringK = b'miaproyecto12345'
@@ -53,11 +55,18 @@ class Leer:
                                 elif (elementos2[0] == "-encrypt_read->"):
                                     self.encryptRead = comandoConfigure.encryptRead(
                                         elementos2[1])
+                                    global encriptado
+                                    encriptado = self.encryptRead
                                 elif (elementos2[0] == "-llave->"):
                                     self.llave = comandoConfigure.llave(
                                         elementos2[1])
+                                    global llaveEncript
+                                    llaveEncript = self.llave
                             #print configure
-                            #comandoConfigure.printConfiguracion()
+                            #bitacora<<<<>>>>>
+                            global temporalFile
+                            temporalFile = tempfile.TemporaryFile()
+                            temporalFile.write(gG.bitacora('input', 'configure', comandoConfigure.printConfiguracion()))
                 if (comando == "create"):  # !Comando Create y self.local es True
                     #self.localmente=False
                     comandoCreate = Create()

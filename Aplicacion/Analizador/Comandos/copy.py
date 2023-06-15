@@ -2,6 +2,8 @@ import os
 import shutil
 import Aplicacion.Analizador.Comandos._generalCloud as gC  # alias
 import Aplicacion.Analizador.Comandos._general as gG
+import tempfile
+from Aplicacion.variablesGlobales import temporalFile
 class Copy:
     def __init__ (self,):
         self.de=""
@@ -21,6 +23,10 @@ class Copy:
             self.a=a
 
     def copiar(self):
+        #bitacora<<<<>>>>>
+        global temporalFile
+        temporalFile = tempfile.TemporaryFile()
+        temporalFile.write(gG.bitacora('input', 'copy', f'from:{self.de} to:{self.a} | local'))
         pathArchivofrom= "./archivos"+self.de
         pathArchivoto="./archivos"+self.a
         print(pathArchivofrom)
@@ -36,25 +42,28 @@ class Copy:
                     print("******EL ARCHIVO CON NOMBRE REPETIDO FUE COPIADO CON EXITO******")
                     break
             shutil.copy(pathArchivofrom,pathArchivoto)
+            #bitacora<<<<>>>>>
+            temporalFile = tempfile.TemporaryFile()
+            temporalFile.write(gG.bitacora('output', 'copy', 'el archivo fue copiado con exito'))
             print("******EL ARCHIVO FUE COPIADO CON EXITO******")
         else:
             if(os.path.exists(pathArchivofrom)):
                 #existe la ruta
+                print("--------------")
+                #!--------------------------------------------
                 x=len(pathArchivofrom.split("/"))
                 nameModule=pathArchivofrom.split("/")[x-2]#obteniendo el nombre del modulo a copiar
                 shutil.copytree(pathArchivofrom,pathArchivoto+nameModule)
+                #bitacora<<<<>>>>>
+                temporalFile = tempfile.TemporaryFile()
+                temporalFile.write(gG.bitacora('output', 'copy', 'la carpeta fue copiado con exito'))
                 print("******LA CARPETA FUE COPIADA CON EXITO******")
             else:
                 #si no existe nada
-                 print("******ERROR NO SE ENCONTRO LA DIRECCION******")
-    
-
-
-    
-
-
-
-    
+                #bitacora<<<<>>>>>
+                temporalFile = tempfile.TemporaryFile()
+                temporalFile.write(gG.bitacora('output', 'copy', 'no se encontro la direccion'))
+                print("******ERROR NO SE ENCONTRO LA DIRECCION******")
 
     def copiarAux(self, servicio, idA, idDe, nombre) -> str:  # para retulizar los if elif
         if gC.tipo(nombre) == "folder":  # tipo folder
@@ -64,8 +73,16 @@ class Copy:
             return gC.copiarCloud(servicio, idA, idDe,
                                   "text/plain")  # tipo txt
     def copiarCloud(self):
+        #bitacora<<<<>>>>>
+        global temporalFile
+        temporalFile = tempfile.TemporaryFile()
+        temporalFile.write(gG.bitacora('input', 'copy', f'from:{self.de} to:{self.a} | cloud'))
         retorno = gC.auxDeParaC(self.a, self.de)
         if retorno[0] == "":
+            #bitacora<<<<>>>>>
+            temporalFile = tempfile.TemporaryFile()
+            temporalFile.write(gG.bitacora('output', 'copy', 'no se encontro la direccion'))
+            print("no se encontro con la direccion")
             return
         servicio = gC.servicioCloud()
         idA = retorno[0]
@@ -87,17 +104,8 @@ class Copy:
                 idN = self.copiarAux(
                     servicio, idA, file["id"], file["name"])  # copio
                 gC.renameCloud(servicio, idN, reNombre)  # renombre el copiado
+        
+        #bitacora<<<<>>>>>
+        temporalFile = tempfile.TemporaryFile()
+        temporalFile.write(gG.bitacora('output', 'copy', 'se copiaron todos los archivos'))
         print(f"se copiaron todos los archivos")
-
-
-
-
-
-
-        
-            
-
-        
-        
-    
-
