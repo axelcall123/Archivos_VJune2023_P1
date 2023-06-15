@@ -40,10 +40,11 @@ class Configure:
 
     def printConfiguracion(self):
         #Imprimiendo configuraciones del comando
-        print(self.local)
-        print(self.logBool)
-        print(self.readBool)
-        print(self.key)
+        # print(self.local)
+        # print(self.logBool)
+        # print(self.readBool)
+        # print(self.key)
+        return f'tipo:{self.local} bitacaora_encriptada:{self.logBool} leer_encriptado:{self.readBool}'
 
 
 

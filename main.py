@@ -2,26 +2,19 @@ from Aplicacion.Analizador.gramar import gramarMain
 from Aplicacion.Analizador.Comandos.esencial import Leer
 from Aplicacion.SingIn import Login
 from Aplicacion.Analizador.cripto import decrypt_hex_string
-
 from Aplicacion.variablesGlobales import listaUsuarios, temporalFile
 import tempfile
 import tkinter as tk
 import os
 import json
-
 #pruebas
 #resultado = gramarMain()
 #analizar = Leer()
 #analizar.comando(resultado)
-
-
 #archivo=input()
 archivo = "usuarios.txt"
-
 #contiene todos los usuarios con sus respectivas contraseñas
 root = tk.Tk()
-
-
 def callback():  # para guardar lo ultimo por si acaso, temporal
     global temporalFile
     if temporalFile == None:  # no creo un error
@@ -38,7 +31,7 @@ class Main():
         pass
 
     def login(self):
-        root = tk.Tk()
+        root.protocol("WM_DELETE_WINDOW", callback)
         app = Login(root)
         root.mainloop()
 
