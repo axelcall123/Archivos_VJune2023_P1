@@ -60,35 +60,28 @@ class Transfer:
         else:
             #pasando carpeta 
             if((os.path.exists(pathArchivofrom))&((os.path.exists(pathArchivoto)))):
-                #existe la ruta
-                #pasar todos los elementos de carpeta
-                contenido = os.listdir(pathArchivofrom)
+                x=len(pathArchivofrom.split("/"))
+                nameModule=pathArchivofrom.split("/")[x-2]#obteniendo el nombre del modulo a copiar
+                contenido = os.listdir(pathArchivoto) # si ya existe
                 for element in contenido:
-                    if((not(os.path.exists(pathArchivoto+element)))):
-                        #print(pathArchivofrom+element)
-                        #print(pathArchivoto)
-                        shutil.move(pathArchivofrom+element,pathArchivoto)
-                    else:
+                    if(os.path.exists(pathArchivoto+nameModule)):
+                        to=nameModule+"(1)"
+                        print(pathArchivoto+to)
+                        shutil.move(pathArchivofrom,pathArchivoto+to)
                         #bitacora<<<<>>>>>
                         temporalFile = tempfile.TemporaryFile()
-                        temporalFile.write(gG.bitacora('output', 'transfer', 'ya exite'))
-                        
-                        to=element.replace(".","(1).")
-                        #print(pathArchivoto+to)
-                        shutil.move(pathArchivofrom+element,pathArchivoto+to)
-                        print("*****YA EXISTE*******")
-                        
+                        temporalFile.write(gG.bitacora('output', 'transfer', 'la carpeta fue transferida y renombrada con exito'))
+                        print("******LA CARPETA FUE TRASFERIDA CON EXITO******")
+                        return                
+                
+                shutil.move(pathArchivofrom,pathArchivoto+nameModule)
                 #bitacora<<<<>>>>>
                 temporalFile = tempfile.TemporaryFile()
                 temporalFile.write(gG.bitacora('output', 'transfer', 'la carpeta fue transferida con exito'))
                 print("******LA CARPETA FUE TRASFERIDA CON EXITO******")
+
+            #error
             else:               
-                if(os.path.exists(pathArchivoto)):
-                    #bitacora<<<<>>>>>
-                    temporalFile = tempfile.TemporaryFile()
-                    temporalFile.write(gG.bitacora('output', 'transfer', 'la dierccion ya exite'))
-                    print("******ERROR LA DIRECCION YA EXISTE******")
-                else:
                     #bitacora<<<<>>>>>
                     temporalFile = tempfile.TemporaryFile()
                     temporalFile.write(gG.bitacora(

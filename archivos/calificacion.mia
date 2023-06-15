@@ -1,2 +1,0 @@
-Configure -type->local -encrypt_log->faLse -encrypt_read->false 
-create -name->"prueba2.txt" -path->/"carpeta 2"/ -body->"Este es el contenido del archivo 2"

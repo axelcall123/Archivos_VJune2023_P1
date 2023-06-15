@@ -63,12 +63,10 @@ class Delete:
     def elementosDirectorio(self,path):
         contenido = os.listdir(path)
         #print(contenido)
-        #print(path+"-------+------------------------/-")
         if(contenido==[]):
             return 
         else:
             for element in contenido:
-                print("ESTOS SONASDJKSADYHASUJIKDSAD: "+element)
                 #SI ES ARCHIVO
                 if("." in element):
                     os.remove(path+"/"+element)
@@ -76,15 +74,12 @@ class Delete:
                 #SI ES CARPETA
                 else:
                     contenido2=os.listdir(path+element)
-                    #print("-------------+----+++++++++++++++++++++++++++++++++++++++++++++")
                     print(contenido2)
                     if(contenido2==[]):
-                        #print("-------------+-----------------------------------------------")
                         print(path+element)
                         os.rmdir(path+element)
                         print("*****SE ELIMINO EL CARPETA DENTRO DE CARPETA: "+path+element)
                     else:
-                        print(path+element+"-------+------------------------/")
                         self.num=self.num+1
                         self.elementosDirectorio(path+element+"/")
 
