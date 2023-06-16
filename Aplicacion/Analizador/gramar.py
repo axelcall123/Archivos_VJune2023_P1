@@ -276,6 +276,7 @@ def grammarInputCodificado(input):
             configure = element
             parser = yacc.yacc()
             resultado = parser.parse(configure.lower())
+            print(resultado+"----------------------------")
             #analizar tomara las validaciones
             analizar.comando(resultado)
         #comandos encriptados

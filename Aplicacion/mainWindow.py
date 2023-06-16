@@ -227,14 +227,19 @@ class MainWindow:
         stringInput=self.inputConsole.get("1.0", "end-1c")
         #identificar si es codificado
         #Tamaño de un entrada es codificada es de 2, hexadecimal no lleva "-", los comandos si excepto para backup
-        posibleCodificado=stringInput.split("\n")[1]# Obteniendo el posible codificado 
-        if(("-" in posibleCodificado)|(posibleCodificado.lower()=="backup")):
-            print(stringInput)
-            grammarInput(stringInput)
+        x=len(stringInput.split("\n"))
+        if(x>=2):
+            posibleCodificado=stringInput.split("\n")[1]# Obteniendo el posible codificado 
+            if(("-" in posibleCodificado)|(posibleCodificado.lower()=="backup")):
+                print(stringInput)
+                grammarInput(stringInput)
+            else:
+                print("Codificado-------------------------------------------------------")
+                print(stringInput)
+                grammarInputCodificado(stringInput)
+            self.inputConsole.delete("1.0","end")
         else:
-            print(stringInput)
-            grammarInputCodificado(stringInput)
-        self.inputConsole.delete("1.0","end")
+            grammarInput(stringInput)
 
 
 
