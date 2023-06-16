@@ -14,7 +14,7 @@ archivo = "usuarios.txt"
 #contiene todos los usuarios con sus respectivas contraseñas
 root = tk.Tk()
 def callback():  # para guardar lo ultimo por si acaso, temporal
-    _G.closeTempFile()
+    _G.closeTempFile(True)
     root.destroy()
 
 class Main():

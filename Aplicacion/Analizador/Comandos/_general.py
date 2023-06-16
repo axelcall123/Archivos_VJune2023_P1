@@ -18,13 +18,13 @@ def bitacora(iO:str,com:str,res:str)->bytes:#input/ouput
     return bytes(strBitacora, 'utf-8')
 
 def existeLogName(path:str,date:str,numero:str)->str:
-    if os.path.exists(f'{path}/{date}#{numero}'):  # si existe nombre, creo nuevo nombre
+    if os.path.exists(f'{path}/{date}#{numero}.txt'):  # si existe nombre, creo nuevo nombre
         numeroInt=int(numero)+1
         return existeLogName(path, date, str(numeroInt))
     else:#nuevo nombre creado
         return f'{date}#{numero}'
 
-def closeTempFile():
+def closeTempFile(TF):
     global temporalFile
     if temporalFile == None:  # no se creo el archivo, genero uno por si acaso
         temporalFile = tempfile.TemporaryFile()
@@ -40,20 +40,23 @@ def closeTempFile():
         path=path+'/'+dt_string
         os.makedirs(path, exist_ok=True)  # creo la subcarpeta log del dia
         nameFile=existeLogName(path,dt_string,'1')
-        with open(f'{path}/{nameFile}.txt', 'wb') as f:
-            temporalFile.seek(0)  # para leer
-            global encriptado, llaveEncript
-            if encriptado==True and llaveEncript!="":#encriptar
-                arr = bytes(llaveEncript,'utf-8')
-                encriptado=cripto.encrypt_string(arr, temporalFile.read().decode("utf-8"))
-                f.write(encriptado.hex())
-                f.close()
-            else:#no encriptar
-                f.write(str)
-                f.close()
+        # with open(f'{path}/{nameFile}.txt', 'wb') as f: solo sirve para bytes
+        f = open(f'{path}/{nameFile}.txt', 'w')#solo sirve para str
+        temporalFile.seek(0)  # para leer
+        global encriptado, llaveEncript
+        if encriptado==True and llaveEncript!="":#encriptar
+            arr = bytes(llaveEncript.replace("\"",""),'utf-8')
+            encriptadoS=cripto.encrypt_string(arr, temporalFile.read().decode("utf-8"))
+        
+            f.write(str(encriptadoS.hex()))
+            f.close()
+        else:#no encriptar
+            f.write(temporalFile.read().decode("utf-8"))
+            f.close()
     temporalFile.close()
     temporalFile=None
-    temporalFile = tempfile.TemporaryFile()
+    if TF==False:#para cerrarlo totalmente
+        temporalFile = tempfile.TemporaryFile()
     #  print("cerrado->", os.path.exists(temporalFile.name))
 
 
@@ -66,3 +69,8 @@ def escribirTemp(iO: str, com: str, res: str):
     temporalFile.seek(0)
     print("leer temp<N>\n", temporalFile.read().decode('utf-8'))
     
+def ecriptadO(encrip,llave):
+    global encriptado
+    global llaveEncript
+    encriptado = encrip
+    llaveEncript = llave

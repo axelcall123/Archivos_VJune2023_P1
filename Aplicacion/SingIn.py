@@ -12,7 +12,7 @@ class Login:
         self.root=root
         #setting title
         self.root.title("undefined")
-        _G.closeTempFile()
+        _G.closeTempFile(False)
 
         #setting window size
         width = 452
