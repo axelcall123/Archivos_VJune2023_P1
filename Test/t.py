@@ -7,7 +7,7 @@ import tempfile
 import json
 import os
 from datetime import datetime
-
+import time
 data = b'secret data'
 header = b"header"
 #key str
@@ -71,9 +71,12 @@ newstr = bytearray.fromhex(hex_string)
 decrypted_data = decrypt_string(stringK, newstr)
 print("Decrypted String, 1/1:", decrypted_data)
 
+curr_time = round(time.time()*1000)
+
 
 # create a temporary file and write some data to it
 fp=None
+print("Milliseconds since epoch1:", int(curr_time/100000000000))
 fp = tempfile.TemporaryFile()
 fp.write(b'Hello world!\n')
 fp.write(b'a\n')
@@ -99,7 +102,5 @@ print(os.path.exists(fp.name), os.path.normpath(fp.name))
 fp = tempfile.TemporaryFile()
 fp.write(b"0")
 fp.close()
-
-now = datetime.now()
-dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-print("date and time =", dt_string)
+curr_time =curr_time+ round(time.time()*1000)
+print("Milliseconds since epoch2:", int(curr_time/100000000000))

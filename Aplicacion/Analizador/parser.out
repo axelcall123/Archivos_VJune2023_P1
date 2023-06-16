@@ -23,7 +23,7 @@ Rule 17    subcomando -> sub
 Rule 18    sub -> TYPE tipo
 Rule 19    sub -> ENCRYPTLOG encriptado
 Rule 20    sub -> ENCRYPTREAD encriptado
-Rule 21    sub -> LLAVE STRING
+Rule 21    sub -> LLAVE name
 Rule 22    sub -> NAME name
 Rule 23    sub -> BODY STRING
 Rule 24    sub -> PATH RUTA
@@ -35,6 +35,7 @@ Rule 29    tipo -> CLOUD
 Rule 30    encriptado -> TRUE
 Rule 31    encriptado -> FALSE
 Rule 32    name -> ARCHIVO
+Rule 33    name -> STRING
 
 Terminals, with rules where they appear
 
@@ -60,7 +61,7 @@ NAME                 : 22
 PATH                 : 24
 RENAME               : 11
 RUTA                 : 24 25 26
-STRING               : 21 23
+STRING               : 23 33
 TO                   : 26
 TRANSFER             : 10
 TRUE                 : 30
@@ -74,7 +75,7 @@ encriptado           : 19 20
 inicio               : 0
 lexico               : 1 2
 maincomando          : 4 5
-name                 : 22
+name                 : 21 22
 sub                  : 16 17
 subcomando           : 4 16
 tipo                 : 18 27
@@ -180,7 +181,7 @@ state 4
     (18) sub -> . TYPE tipo
     (19) sub -> . ENCRYPTLOG encriptado
     (20) sub -> . ENCRYPTREAD encriptado
-    (21) sub -> . LLAVE STRING
+    (21) sub -> . LLAVE name
     (22) sub -> . NAME name
     (23) sub -> . BODY STRING
     (24) sub -> . PATH RUTA
@@ -507,7 +508,7 @@ state 16
     (18) sub -> . TYPE tipo
     (19) sub -> . ENCRYPTLOG encriptado
     (20) sub -> . ENCRYPTREAD encriptado
-    (21) sub -> . LLAVE STRING
+    (21) sub -> . LLAVE name
     (22) sub -> . NAME name
     (23) sub -> . BODY STRING
     (24) sub -> . PATH RUTA
@@ -601,46 +602,52 @@ state 20
 
 state 21
 
-    (21) sub -> LLAVE . STRING
+    (21) sub -> LLAVE . name
+    (32) name -> . ARCHIVO
+    (33) name -> . STRING
 
-    STRING          shift and go to state 36
+    ARCHIVO         shift and go to state 37
+    STRING          shift and go to state 38
 
+    name                           shift and go to state 36
 
 state 22
 
     (22) sub -> NAME . name
     (32) name -> . ARCHIVO
+    (33) name -> . STRING
 
-    ARCHIVO         shift and go to state 38
+    ARCHIVO         shift and go to state 37
+    STRING          shift and go to state 38
 
-    name                           shift and go to state 37
+    name                           shift and go to state 39
 
 state 23
 
     (23) sub -> BODY . STRING
 
-    STRING          shift and go to state 39
+    STRING          shift and go to state 40
 
 
 state 24
 
     (24) sub -> PATH . RUTA
 
-    RUTA            shift and go to state 40
+    RUTA            shift and go to state 41
 
 
 state 25
 
     (25) sub -> FROM . RUTA
 
-    RUTA            shift and go to state 41
+    RUTA            shift and go to state 42
 
 
 state 26
 
     (26) sub -> TO . RUTA
 
-    RUTA            shift and go to state 42
+    RUTA            shift and go to state 43
 
 
 state 27
@@ -652,7 +659,7 @@ state 27
     LOCAL           shift and go to state 30
     CLOUD           shift and go to state 31
 
-    tipo                           shift and go to state 43
+    tipo                           shift and go to state 44
 
 state 28
 
@@ -872,59 +879,32 @@ state 35
 
 state 36
 
-    (21) sub -> LLAVE STRING .
+    (21) sub -> LLAVE name .
 
-    TYPE            reduce using rule 21 (sub -> LLAVE STRING .)
-    ENCRYPTLOG      reduce using rule 21 (sub -> LLAVE STRING .)
-    ENCRYPTREAD     reduce using rule 21 (sub -> LLAVE STRING .)
-    LLAVE           reduce using rule 21 (sub -> LLAVE STRING .)
-    NAME            reduce using rule 21 (sub -> LLAVE STRING .)
-    BODY            reduce using rule 21 (sub -> LLAVE STRING .)
-    PATH            reduce using rule 21 (sub -> LLAVE STRING .)
-    FROM            reduce using rule 21 (sub -> LLAVE STRING .)
-    TO              reduce using rule 21 (sub -> LLAVE STRING .)
-    MODE            reduce using rule 21 (sub -> LLAVE STRING .)
-    CONFIGURE       reduce using rule 21 (sub -> LLAVE STRING .)
-    CREATE          reduce using rule 21 (sub -> LLAVE STRING .)
-    DELETE          reduce using rule 21 (sub -> LLAVE STRING .)
-    COPY            reduce using rule 21 (sub -> LLAVE STRING .)
-    TRANSFER        reduce using rule 21 (sub -> LLAVE STRING .)
-    RENAME          reduce using rule 21 (sub -> LLAVE STRING .)
-    MODIFY          reduce using rule 21 (sub -> LLAVE STRING .)
-    ADD             reduce using rule 21 (sub -> LLAVE STRING .)
-    BACKUP          reduce using rule 21 (sub -> LLAVE STRING .)
-    EXEC            reduce using rule 21 (sub -> LLAVE STRING .)
-    $end            reduce using rule 21 (sub -> LLAVE STRING .)
+    TYPE            reduce using rule 21 (sub -> LLAVE name .)
+    ENCRYPTLOG      reduce using rule 21 (sub -> LLAVE name .)
+    ENCRYPTREAD     reduce using rule 21 (sub -> LLAVE name .)
+    LLAVE           reduce using rule 21 (sub -> LLAVE name .)
+    NAME            reduce using rule 21 (sub -> LLAVE name .)
+    BODY            reduce using rule 21 (sub -> LLAVE name .)
+    PATH            reduce using rule 21 (sub -> LLAVE name .)
+    FROM            reduce using rule 21 (sub -> LLAVE name .)
+    TO              reduce using rule 21 (sub -> LLAVE name .)
+    MODE            reduce using rule 21 (sub -> LLAVE name .)
+    CONFIGURE       reduce using rule 21 (sub -> LLAVE name .)
+    CREATE          reduce using rule 21 (sub -> LLAVE name .)
+    DELETE          reduce using rule 21 (sub -> LLAVE name .)
+    COPY            reduce using rule 21 (sub -> LLAVE name .)
+    TRANSFER        reduce using rule 21 (sub -> LLAVE name .)
+    RENAME          reduce using rule 21 (sub -> LLAVE name .)
+    MODIFY          reduce using rule 21 (sub -> LLAVE name .)
+    ADD             reduce using rule 21 (sub -> LLAVE name .)
+    BACKUP          reduce using rule 21 (sub -> LLAVE name .)
+    EXEC            reduce using rule 21 (sub -> LLAVE name .)
+    $end            reduce using rule 21 (sub -> LLAVE name .)
 
 
 state 37
-
-    (22) sub -> NAME name .
-
-    TYPE            reduce using rule 22 (sub -> NAME name .)
-    ENCRYPTLOG      reduce using rule 22 (sub -> NAME name .)
-    ENCRYPTREAD     reduce using rule 22 (sub -> NAME name .)
-    LLAVE           reduce using rule 22 (sub -> NAME name .)
-    NAME            reduce using rule 22 (sub -> NAME name .)
-    BODY            reduce using rule 22 (sub -> NAME name .)
-    PATH            reduce using rule 22 (sub -> NAME name .)
-    FROM            reduce using rule 22 (sub -> NAME name .)
-    TO              reduce using rule 22 (sub -> NAME name .)
-    MODE            reduce using rule 22 (sub -> NAME name .)
-    CONFIGURE       reduce using rule 22 (sub -> NAME name .)
-    CREATE          reduce using rule 22 (sub -> NAME name .)
-    DELETE          reduce using rule 22 (sub -> NAME name .)
-    COPY            reduce using rule 22 (sub -> NAME name .)
-    TRANSFER        reduce using rule 22 (sub -> NAME name .)
-    RENAME          reduce using rule 22 (sub -> NAME name .)
-    MODIFY          reduce using rule 22 (sub -> NAME name .)
-    ADD             reduce using rule 22 (sub -> NAME name .)
-    BACKUP          reduce using rule 22 (sub -> NAME name .)
-    EXEC            reduce using rule 22 (sub -> NAME name .)
-    $end            reduce using rule 22 (sub -> NAME name .)
-
-
-state 38
 
     (32) name -> ARCHIVO .
 
@@ -951,7 +931,61 @@ state 38
     $end            reduce using rule 32 (name -> ARCHIVO .)
 
 
+state 38
+
+    (33) name -> STRING .
+
+    TYPE            reduce using rule 33 (name -> STRING .)
+    ENCRYPTLOG      reduce using rule 33 (name -> STRING .)
+    ENCRYPTREAD     reduce using rule 33 (name -> STRING .)
+    LLAVE           reduce using rule 33 (name -> STRING .)
+    NAME            reduce using rule 33 (name -> STRING .)
+    BODY            reduce using rule 33 (name -> STRING .)
+    PATH            reduce using rule 33 (name -> STRING .)
+    FROM            reduce using rule 33 (name -> STRING .)
+    TO              reduce using rule 33 (name -> STRING .)
+    MODE            reduce using rule 33 (name -> STRING .)
+    CONFIGURE       reduce using rule 33 (name -> STRING .)
+    CREATE          reduce using rule 33 (name -> STRING .)
+    DELETE          reduce using rule 33 (name -> STRING .)
+    COPY            reduce using rule 33 (name -> STRING .)
+    TRANSFER        reduce using rule 33 (name -> STRING .)
+    RENAME          reduce using rule 33 (name -> STRING .)
+    MODIFY          reduce using rule 33 (name -> STRING .)
+    ADD             reduce using rule 33 (name -> STRING .)
+    BACKUP          reduce using rule 33 (name -> STRING .)
+    EXEC            reduce using rule 33 (name -> STRING .)
+    $end            reduce using rule 33 (name -> STRING .)
+
+
 state 39
+
+    (22) sub -> NAME name .
+
+    TYPE            reduce using rule 22 (sub -> NAME name .)
+    ENCRYPTLOG      reduce using rule 22 (sub -> NAME name .)
+    ENCRYPTREAD     reduce using rule 22 (sub -> NAME name .)
+    LLAVE           reduce using rule 22 (sub -> NAME name .)
+    NAME            reduce using rule 22 (sub -> NAME name .)
+    BODY            reduce using rule 22 (sub -> NAME name .)
+    PATH            reduce using rule 22 (sub -> NAME name .)
+    FROM            reduce using rule 22 (sub -> NAME name .)
+    TO              reduce using rule 22 (sub -> NAME name .)
+    MODE            reduce using rule 22 (sub -> NAME name .)
+    CONFIGURE       reduce using rule 22 (sub -> NAME name .)
+    CREATE          reduce using rule 22 (sub -> NAME name .)
+    DELETE          reduce using rule 22 (sub -> NAME name .)
+    COPY            reduce using rule 22 (sub -> NAME name .)
+    TRANSFER        reduce using rule 22 (sub -> NAME name .)
+    RENAME          reduce using rule 22 (sub -> NAME name .)
+    MODIFY          reduce using rule 22 (sub -> NAME name .)
+    ADD             reduce using rule 22 (sub -> NAME name .)
+    BACKUP          reduce using rule 22 (sub -> NAME name .)
+    EXEC            reduce using rule 22 (sub -> NAME name .)
+    $end            reduce using rule 22 (sub -> NAME name .)
+
+
+state 40
 
     (23) sub -> BODY STRING .
 
@@ -978,7 +1012,7 @@ state 39
     $end            reduce using rule 23 (sub -> BODY STRING .)
 
 
-state 40
+state 41
 
     (24) sub -> PATH RUTA .
 
@@ -1005,7 +1039,7 @@ state 40
     $end            reduce using rule 24 (sub -> PATH RUTA .)
 
 
-state 41
+state 42
 
     (25) sub -> FROM RUTA .
 
@@ -1032,7 +1066,7 @@ state 41
     $end            reduce using rule 25 (sub -> FROM RUTA .)
 
 
-state 42
+state 43
 
     (26) sub -> TO RUTA .
 
@@ -1059,7 +1093,7 @@ state 42
     $end            reduce using rule 26 (sub -> TO RUTA .)
 
 
-state 43
+state 44
 
     (27) sub -> MODE tipo .
 

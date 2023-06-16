@@ -61,9 +61,10 @@ class Leer:
                                         elementos2[1])
                             #print configure
                             #bitacora<<<<>>>>>
-                            gG.ecriptadO(self.encryptLog, self.llave)
                             gG.escribirTemp(
                                 'input', 'configure', comandoConfigure.printConfiguracion())
+                            gG.ecriptadO(comandoConfigure.encryptLog,
+                                         comandoConfigure.llave)
                 if (comando == "create"):  # !Comando Create y self.local es True
                     #local=False
                     comandoCreate = Create()

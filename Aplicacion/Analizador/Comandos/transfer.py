@@ -31,7 +31,7 @@ class Transfer:
     def transferir(self):#FIXME: es por self.mode
         #bitacora<<<<>>>>>
         gG.escribirTemp(
-            'input', 'transfer', f'from: {self.desde} to: {self.a} | {self.mode}')
+            'input', 'transfer', f'from: {self.de} to: {self.a} | {self.mode}')
         pathArchivofrom= "./archivos"+self.de
         pathArchivoto="./archivos"+self.a
         print(pathArchivoto)
@@ -92,7 +92,7 @@ class Transfer:
     def transferCloud(self):
         #bitacora<<<<>>>>>
         gG.escribirTemp(
-            'input', 'transfer', f'from: {self.desde} to: {self.a} | {self.mode}')
+            'input', 'transfer', f'from: {self.de} to: {self.a} | {self.mode}')
         retorno = gC.auxDeParaC(self.a, self.de)
         if retorno[0] == "":
             #bitacora<<<<>>>>>

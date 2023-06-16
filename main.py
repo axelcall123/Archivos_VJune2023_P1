@@ -64,6 +64,8 @@ class Main():
         f = open("./archivos/"+archivo, "r")  # abriendo y creando
         input = f.read()
         self.listaUsuariosFuction(input)
+        _G.cerrrarTemp()
+        print("BYES")
 
 a=Main()
 a.leerUsuarios()
