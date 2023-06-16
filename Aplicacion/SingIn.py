@@ -2,7 +2,7 @@ import tkinter.font as tkFont
 from tkinter import messagebox as MessageBox
 import tkinter as tk
 import tkinter.font as tkFont
-from Aplicacion.variablesGlobales import listaUsuarios#, temporalFile
+from Aplicacion.variablesGlobales import listaUsuarios,local#, temporalFile
 from Aplicacion.mainWindow import MainWindow
 import tempfile
 import Aplicacion.Analizador.Comandos._general as _G

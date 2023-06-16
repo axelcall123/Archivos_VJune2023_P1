@@ -13,7 +13,6 @@ from Aplicacion.formTransfer import Transfer
 
 from Aplicacion.Analizador.gramar import grammarInput,grammarInputCodificado
 from Aplicacion.Analizador.Comandos.esencial import Leer
-from Aplicacion.variablesGlobales import localmente
 
 from tkinter import *
 
@@ -230,8 +229,10 @@ class MainWindow:
         #Tamaño de un entrada es codificada es de 2, hexadecimal no lleva "-", los comandos si excepto para backup
         posibleCodificado=stringInput.split("\n")[1]# Obteniendo el posible codificado 
         if(("-" in posibleCodificado)|(posibleCodificado.lower()=="backup")):
+            print(stringInput)
             grammarInput(stringInput)
         else:
+            print(stringInput)
             grammarInputCodificado(stringInput)
         self.inputConsole.delete("1.0","end")
 

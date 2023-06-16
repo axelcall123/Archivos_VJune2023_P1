@@ -12,19 +12,19 @@ class Transfer:
 
     def desde (self,de):
         if('"' in de):
-            self.de="/"+de.split("\"")[1]+"/"
+            self.de=de.replace("\"", "" )
         else:
             self.de=de
 
     def to(self,a):
         if('"' in a):
-            self.a="/"+a.split("\"")[1]+"/"
+            self.a=a.replace("\"", "" )
         else:
             self.a=a
 
     def mode(self,mode):
         if('"' in mode):
-            self.modo=mode.split("\"")[1]
+            self.modo=mode.replace("\"", "" )
         else:
             self.modo=mode
 
@@ -40,8 +40,10 @@ class Transfer:
         #pasando archivo
         if(os.path.exists(pathArchivofrom)&('.' in self.de)):
             contenido = os.listdir(pathArchivoto) # si ya existe
+            x=len(pathArchivofrom.split("/"))
+            namFile=pathArchivofrom.split("/")[x-1]
             for element in contenido:
-                if(os.path.exists(pathArchivoto+element)):#buscar si ya existe
+                if(os.path.exists(pathArchivoto+element)&(element==namFile)):#buscar si ya existe
                     to=element.replace(".","(1).")
                     shutil.copy(pathArchivofrom,pathArchivoto+to)
                     #bitacora<<<<>>>>>

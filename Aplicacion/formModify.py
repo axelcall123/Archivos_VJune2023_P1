@@ -52,27 +52,28 @@ class Modify:
         GLabel_824["text"] = "Body"
         GLabel_824.place(x=30,y=220,width=141,height=46)
 
-        self.inputBody=tk.Entry(root)
-        self.inputBody["borderwidth"] = "1px"
+        self.path=tk.Entry(root)
+        self.path["borderwidth"] = "1px"
         ft = tkFont.Font(family='Times',size=10)
-        self.inputBody["font"] = ft
-        self.inputBody["fg"] = "#333333"
-        self.inputBody["justify"] = "center"
-        self.inputBody.place(x=170,y=150,width=337,height=30)
+        self.path["font"] = ft
+        self.path["fg"] = "#333333"
+        self.path["justify"] = "center"
+        self.path.place(x=170,y=150,width=337,height=30)
 
-        self.inputpath=tk.Entry(root)
-        self.inputpath["borderwidth"] = "1px"
+        self.body=tk.Entry(root)
+        self.body["borderwidth"] = "1px"
         ft = tkFont.Font(family='Times',size=10)
-        self.inputpath["font"] = ft
-        self.inputpath["fg"] = "#333333"
-        self.inputpath["justify"] = "center"
-        self.inputpath.place(x=170,y=230,width=338,height=30)
+        self.body["font"] = ft
+        self.body["fg"] = "#333333"
+        self.body["justify"] = "center"
+        self.body.place(x=170,y=230,width=338,height=30)
 
     def GButton_364_command(self):
-        #print(self.inputBody.get())
-        #print(self.inputpath.get())
-        if((self.inputBody.get()!="")&(self.inputpath.get()!="")):  
-            stringInput="modify "+ "-path->"+self.inputpath.get()+" -body->"+self.inputBody.get()
+        #print(self.path.get())
+        #print(self.body.get())
+        if((self.path.get()!="")&(self.body.get()!="")):  
+            stringInput="modify "+ "-path->"+self.path.get()+" -body->"+self.body.get()
+            print(stringInput)
             grammarInput(stringInput)
         else:
             MessageBox.showerror("Error!", "Llena todos los campos")

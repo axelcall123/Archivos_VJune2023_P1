@@ -73,11 +73,8 @@ class Add:
 
         if((self.inputPath.get()!="")&(self.inputBody.get()!="")):   
                 #Creando string
-                stringInput="modify "+ "-path->"+self.inputPath.get()+ " -body->\""+self.inputBody.get()+"\""
+                stringInput="add "+ "-path->"+self.inputPath.get()+ " -body->"+self.inputBody.get()+""
                 resultado=grammarInput(stringInput)
-                #analizar lista de ply
-                analizar=Leer()
-                analizar.comando(resultado)
         else:
             MessageBox.showerror("Error!", "Llena todos los campos")
 

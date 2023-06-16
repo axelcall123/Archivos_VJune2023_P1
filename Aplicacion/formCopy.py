@@ -74,6 +74,7 @@ class Copy:
         #print( self.inputFrom.get())
         if((self.inputFrom.get()!="")&(self.inputTo.get()!="")):  
             stringInput="Copy "+ "-from->"+self.inputFrom.get()+" -to->"+self.inputTo.get()
+            print(stringInput)
             grammarInput(stringInput)
         else:
             MessageBox.showerror("Error!", "Llena todos los campos")

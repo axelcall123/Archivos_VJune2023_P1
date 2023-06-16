@@ -1,7 +1,7 @@
 #Lista de usuario registrados
 listaUsuarios=[]
 #False= cloud, True=Local  
-localmente=False
+local:bool=False
 #archivo temporal bitacora
 temporalFile = None
 #si esta encriptado si o no

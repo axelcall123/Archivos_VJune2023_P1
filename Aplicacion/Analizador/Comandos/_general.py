@@ -1,7 +1,7 @@
 from datetime import datetime
 import tempfile
 import os
-from Aplicacion.variablesGlobales import temporalFile, encriptado, llaveEncript
+from Aplicacion.variablesGlobales import temporalFile, encriptado, llaveEncript, local
 from Aplicacion.Analizador import cripto
 def arrayRuta(ruta):
     arrayRuta = ruta.split("/")
@@ -74,3 +74,5 @@ def ecriptadO(encrip,llave):
     global llaveEncript
     encriptado = encrip
     llaveEncript = llave
+
+

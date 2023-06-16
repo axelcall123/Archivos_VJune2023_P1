@@ -131,10 +131,12 @@ class Configure:
         if((self.coboGetEncriptRead!="")&(self.coboGetEncriptLog!="")&(self.coboGetType!="")):  
                 #no se ingreso llave
                 if(self.llave==""):
-                    stringInput="configure "+ "-encrypt_log->"+self.coboGetEncriptLog+" -encrypt_read->"+self.coboGetEncriptRead
+                    stringInput="configure "+"-type->"+self.coboGetType+ " -encrypt_log->"+self.coboGetEncriptLog+" -encrypt_read->"+self.coboGetEncriptRead
+                    print(stringInput)
                     grammarInput(stringInput)
                 else:
-                    stringInput="configure "+ "-encrypt_log->"+self.coboGetEncriptLog+" -encrypt_read->"+self.coboGetEncriptRead+" -llave->"+self.llave
+                    stringInput="configure "+"-type->"+self.coboGetType+ "-encrypt_log->"+self.coboGetEncriptLog+" -encrypt_read->"+self.coboGetEncriptRead+" -llave->"+self.llave
+                    print(stringInput)
                     grammarInput(stringInput)
         else:
             MessageBox.showerror("Error!", "Llena todos los campos")

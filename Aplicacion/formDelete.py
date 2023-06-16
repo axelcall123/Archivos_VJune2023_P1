@@ -74,9 +74,11 @@ class Delete:
                 #no se ingreso name(opcional)
                 if(self.inputName.get()==""):
                     stringInput="delete "+ "-path->"+self.inputPath.get()
+                    print(stringInput)
                     grammarInput(stringInput)
                 else:
                     stringInput="delete "+ "-path->"+self.inputPath.get()+" -name->"+self.inputName.get()
+                    print(stringInput)
                     grammarInput(stringInput)
         else:
             MessageBox.showerror("Error!", "Llena todos los campos")

@@ -256,7 +256,6 @@ def grammarInput(input):
     analizar = Leer()
     posibleEntrada=analizar.comando(resultado)
     #exec retorna otra contenido input desde def comando
-
     print(type(posibleEntrada)==str)
     if(type(posibleEntrada)==str):
         #Otra entrada volver a identificar si es codificado o no

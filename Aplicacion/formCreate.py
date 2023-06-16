@@ -59,21 +59,21 @@ class Create:
         GLabel_824["text"] = "Path"
         GLabel_824.place(x=30,y=240,width=141,height=46)
 
-        self.inputName=tk.Entry(root)
-        self.inputName["borderwidth"] = "1px"
+        self.body=tk.Entry(root)
+        self.body["borderwidth"] = "1px"
         ft = tkFont.Font(family='Times',size=10)
-        self.inputName["font"] = ft
-        self.inputName["fg"] = "#333333"
-        self.inputName["justify"] = "center"
-        self.inputName.place(x=170,y=200,width=337,height=30)
+        self.body["font"] = ft
+        self.body["fg"] = "#333333"
+        self.body["justify"] = "center"
+        self.body.place(x=170,y=200,width=337,height=30)
 
-        self.inputBody=tk.Entry(root)
-        self.inputBody["borderwidth"] = "1px"
+        self.name=tk.Entry(root)
+        self.name["borderwidth"] = "1px"
         ft = tkFont.Font(family='Times',size=10)
-        self.inputBody["font"] = ft
-        self.inputBody["fg"] = "#333333"
-        self.inputBody["justify"] = "center"
-        self.inputBody.place(x=170,y=150,width=337,height=30)
+        self.name["font"] = ft
+        self.name["fg"] = "#333333"
+        self.name["justify"] = "center"
+        self.name.place(x=170,y=150,width=337,height=30)
 
         self.inputPath=tk.Entry(root)
         self.inputPath["borderwidth"] = "1px"
@@ -84,11 +84,12 @@ class Create:
         self.inputPath.place(x=170,y=250,width=338,height=30)
 
     def GButton_364_command(self):
-        #print(self.inputName.get())
-        #print(self.inputBody.get())
+        #print(self.body.get())
+        #print(self.name.get())
         #print(self.inputPath.get())
-        if((self.inputName.get()!="")&(self.inputBody.get()!="")&(self.inputPath.get()!="")):  
-            stringInput="create "+ "-name->"+self.inputName.get()+" -path->"+self.inputPath.get()+" -body->"+self.inputBody.get()
+        if((self.body.get()!="")&(self.name.get()!="")&(self.inputPath.get()!="")):  
+            stringInput="create "+ "-name->"+self.name.get()+" -path->"+self.inputPath.get()+" -body->" +self.body.get()
+            print(stringInput)
             grammarInput(stringInput)
         else:
             MessageBox.showerror("Error!", "Llena todos los campos")

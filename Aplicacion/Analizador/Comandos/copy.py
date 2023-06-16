@@ -34,15 +34,16 @@ class Copy:
         if(os.path.exists(pathArchivofrom)&('.' in self.de)):#identificando si es un archivo
             #copiar archivo
             contenido = os.listdir(pathArchivoto) # si ya existe
+            x=len(pathArchivofrom.split("/"))
+            namFile=pathArchivofrom.split("/")[x-1]
             for element in contenido:
-                if(os.path.exists(pathArchivoto+element)):#buscar si ya existe
+                if(os.path.exists(pathArchivoto+element)&(element==namFile)):#buscar si ya existe
                     to=element.replace(".","(1).")
                     shutil.copy(pathArchivofrom,pathArchivoto+to)
                     #bitacora<<<<>>>>>
                     gG.escribirTemp('output', 'copy', 'el archivo fue copiado y renombrado con exito')
                     print("******EL ARCHIVO CON NOMBRE REPETIDO FUE COPIADO CON EXITO******")
                     return
-            print("-------------")
             shutil.copy(pathArchivofrom,pathArchivoto)
             #bitacora<<<<>>>>>
             gG.escribirTemp(
@@ -52,7 +53,6 @@ class Copy:
             if(os.path.exists(pathArchivofrom)):
                 #existe la ruta
                 print("--------------")
-                #!--------------------------------------------
                 x=len(pathArchivofrom.split("/"))
                 nameModule=pathArchivofrom.split("/")[x-2]#obteniendo el nombre del modulo a copiar
                 shutil.copytree(pathArchivofrom,pathArchivoto+nameModule)

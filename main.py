@@ -10,7 +10,7 @@ import Aplicacion.Analizador.Comandos._general as _G
 #analizar = Leer()
 #analizar.comando(resultado)
 #archivo=input()
-archivo = "usuarios.txt"
+archivo = "usuario.txt"
 #contiene todos los usuarios con sus respectivas contraseñas
 root = tk.Tk()
 def callback():  # para guardar lo ultimo por si acaso, temporal

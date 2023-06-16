@@ -73,6 +73,7 @@ class Rename:
         print(self.inputName.get())
         if((self.inputName.get()!="")&(self.inputPath.get()!="")):  
             stringInput="rename "+ "-path->"+self.inputPath.get()+" -name->"+self.inputName.get()
+            print(stringInput)
             grammarInput(stringInput)
         else:
             MessageBox.showerror("Error!", "Llena todos los campos")

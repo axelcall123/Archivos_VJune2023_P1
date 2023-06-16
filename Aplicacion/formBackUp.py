@@ -43,16 +43,7 @@ class BackUp:
 
 
     def GButton_364_command(self):
-        self.getInput="backup"
-        if((self.getInput.get()!="")):   
-                #Creando string
-                stringInput=self.getInput
-                resultado=grammarInput(stringInput)
-                #analizar lista de ply
-                analizar=Leer()
-                analizar.comando(resultado)
-        else:
-            MessageBox.showerror("Error!", "Llena el campo")
+        grammarInput("backup")
 
 if __name__ == "__main__":
     root = tk.Tk()

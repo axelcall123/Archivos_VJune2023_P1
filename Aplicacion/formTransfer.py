@@ -91,6 +91,7 @@ class Transfer:
         if((self.inputFrom.get()!="")&(self.inputTo.get()!="")&(self.inputMode.get()!="")):  
             #no se ingreso name(opcional)
             stringInput="transfer "+ "-from->"+self.inputFrom.get()+" -to->"+self.inputTo.get()+ " -mode->"+self.inputMode.get()
+            print(stringInput)
             grammarInput(stringInput)
         else:
             MessageBox.showerror("Error!", "Llena todos los campos")
