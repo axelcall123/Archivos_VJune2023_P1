@@ -14,7 +14,7 @@ class Login:
 
         self.root=root
         #setting title
-        self.root.title("undefined")
+        self.root.title("Login")
         _G.closeTempFile(False)
 
         #setting window size

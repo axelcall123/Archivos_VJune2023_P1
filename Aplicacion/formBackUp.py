@@ -12,7 +12,7 @@ class BackUp:
         self.getInput=""
 
         #setting title
-        root.title("undefined")
+        root.title("Back up")
         #setting window size
         width=600
         height=500

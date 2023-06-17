@@ -11,7 +11,7 @@ class Rename:
         self.analizar=analizar
 
         #setting title
-        root.title("undefined")
+        root.title("Rename")
         #setting window size
         width=600
         height=500

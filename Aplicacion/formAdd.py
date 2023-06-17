@@ -9,7 +9,7 @@ class Add:
     def __init__(self, root,analizar):
         self.analizar=analizar
         #setting title
-        root.title("undefined")
+        root.title("Add")
         #setting window size
         
         width=600

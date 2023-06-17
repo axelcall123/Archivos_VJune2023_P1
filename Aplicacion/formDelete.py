@@ -8,7 +8,7 @@ class Delete:
     def __init__(self, root,analizar):
         self.analizar=analizar
         #setting title
-        root.title("undefined")
+        root.title("Delete")
         #setting window size
         width=600
         height=500

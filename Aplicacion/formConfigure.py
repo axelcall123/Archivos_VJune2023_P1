@@ -16,7 +16,7 @@ class Configure:
         self.llave=""
 
         #setting title
-        root.title("undefined")
+        root.title("Configure")
         #setting window size
         width=600
         height=500

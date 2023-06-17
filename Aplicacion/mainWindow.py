@@ -22,7 +22,7 @@ class MainWindow:
     def __init__(self, root):
         self.root=root
         #setting title
-        self.root.title("undefined")
+        self.root.title("Consola")
         self.analizar=Leer()
         #setting window size
         width=600
