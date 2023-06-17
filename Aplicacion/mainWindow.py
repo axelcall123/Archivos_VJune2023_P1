@@ -10,9 +10,11 @@ from Aplicacion.formExec import Exec
 from Aplicacion.formModify import Modify
 from Aplicacion.formRename import Rename
 from Aplicacion.formTransfer import Transfer
-
 from Aplicacion.Analizador.gramar import grammarInput,grammarInputCodificado
+from Aplicacion.Analizador.cripto import decrypt_hex_string
 from Aplicacion.Analizador.Comandos.esencial import Leer
+from tkinter import messagebox as MessageBox
+
 
 from tkinter import *
 
@@ -21,6 +23,7 @@ class MainWindow:
         self.root=root
         #setting title
         self.root.title("undefined")
+        self.analizar=Leer()
         #setting window size
         width=600
         height=500
@@ -182,44 +185,44 @@ class MainWindow:
 
     def bttnBackUp_command(self):
         self.root = tk.Tk()
-        comandoInput=BackUp(self.root)
+        comandoInput=BackUp(self.root,self.analizar)
         print(comandoInput.getInput)
 
     def bttnCopy_command(self):
         self.root = tk.Tk()
-        comandoInput=Copy(self.root)
+        comandoInput=Copy(self.root,self.analizar)
 
     def bttnDelete_command(self):
         self.root = tk.Tk()
-        comandoInput=Delete(self.root)
+        comandoInput=Delete(self.root,self.analizar)
 
     def bttnCreate_command(self):
         self.root = tk.Tk()
-        comandoInput=Create(self.root)
+        comandoInput=Create(self.root,self.analizar)
 
     def bttnConfigure_command(self):
         self.root = tk.Tk()
-        comandoInput=Configure(self.root)
+        comandoInput=Configure(self.root,self.analizar)
 
     def bttnExec_command(self):
         self.root = tk.Tk()
-        comandoInput=Exec(self.root)
+        comandoInput=Exec(self.root,self.analizar)
 
     def bttnAdd_command(self):
         self.root = tk.Tk()
-        comandoInput=Add(self.root)
+        comandoInput=Add(self.root,self.analizar)
 
     def bttnModify_command(self):
         self.root = tk.Tk()
-        comandoInput=Modify(self.root)
+        comandoInput=Modify(self.root,self.analizar)
 
     def bttnRename_command(self):
         self.root = tk.Tk()
-        comandoInput=Rename(self.root)
+        comandoInput=Rename(self.root,self.analizar)
 
     def bttnTransfer_command(self):
         self.root = tk.Tk()
-        comandoInput=Transfer(self.root)
+        comandoInput=Transfer(self.root,self.analizar)
 
     def bttnEjecComando_command(self):
         # ESTE ES EL IMPUT DE LA CONSOLA
@@ -227,19 +230,30 @@ class MainWindow:
         stringInput=self.inputConsole.get("1.0", "end-1c")
         #identificar si es codificado
         #Tamaño de un entrada es codificada es de 2, hexadecimal no lleva "-", los comandos si excepto para backup
+        print(stringInput)
         x=len(stringInput.split("\n"))
         if(x>=2):
             posibleCodificado=stringInput.split("\n")[1]# Obteniendo el posible codificado 
             if(("-" in posibleCodificado)|(posibleCodificado.lower()=="backup")):
-                print(stringInput)
-                grammarInput(stringInput)
+                grammarInput(stringInput,self.analizar)
             else:
-                print("Codificado-------------------------------------------------------")
-                print(stringInput)
-                grammarInputCodificado(stringInput)
+                grammarInputCodificado(stringInput,self.analizar)
             self.inputConsole.delete("1.0","end")
         else:
-            grammarInput(stringInput)
+            posibleCodificado=stringInput.split("\n")[0]
+            #comando normal
+            if(("-" in posibleCodificado)|(posibleCodificado.lower()=="backup")):
+                grammarInput(stringInput,self.analizar)
+            else:
+                #encriptado y es true de antes en configure
+                if(self.analizar.encryptRead):
+                    print(stringInput)
+                    byte_string = self.analizar.llave.encode("utf-8")
+                    if("\""in self.analizar.llave ):self.analizar.llave=self.analizar.llave.replace("\"","")
+                    comando=decrypt_hex_string(byte_string,stringInput)
+                    grammarInput(comando,self.analizar)
+                else:
+                    MessageBox.showerror("Error!", "encryptRead = False")
 
 
 

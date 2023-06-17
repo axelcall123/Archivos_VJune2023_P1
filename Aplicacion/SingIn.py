@@ -9,6 +9,9 @@ import Aplicacion.Analizador.Comandos._general as _G
 
 class Login:
     def __init__(self, root):
+        #print({"dsa65asd56asd56a56sd56*/*/*******","CREANDO"})
+
+
         self.root=root
         #setting title
         self.root.title("undefined")

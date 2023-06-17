@@ -6,10 +6,12 @@ from Aplicacion.Analizador.gramar import grammarInput
 from Aplicacion.Analizador.Comandos.esencial import Leer
 from tkinter import messagebox as MessageBox
 class Add:
-    def __init__(self, root):
+    def __init__(self, root,analizar):
+        self.analizar=analizar
         #setting title
         root.title("undefined")
         #setting window size
+        
         width=600
         height=500
         screenwidth = root.winfo_screenwidth()
@@ -74,7 +76,7 @@ class Add:
         if((self.inputPath.get()!="")&(self.inputBody.get()!="")):   
                 #Creando string
                 stringInput="add "+ "-path->"+self.inputPath.get()+ " -body->"+self.inputBody.get()+""
-                resultado=grammarInput(stringInput)
+                resultado=grammarInput(stringInput,self.analizar)
         else:
             MessageBox.showerror("Error!", "Llena todos los campos")
 

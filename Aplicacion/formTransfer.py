@@ -3,10 +3,12 @@ import tkinter.font as tkFont
 
 from Aplicacion.Analizador.gramar import grammarInput
 from tkinter import messagebox as MessageBox
+from Aplicacion.Analizador.Comandos.esencial import Leer
 
 
 class Transfer:
-    def __init__(self, root):
+    def __init__(self, root,analizar):
+        self.analizar=analizar
         #setting title
         root.title("undefined")
         #setting window size
@@ -92,7 +94,7 @@ class Transfer:
             #no se ingreso name(opcional)
             stringInput="transfer "+ "-from->"+self.inputFrom.get()+" -to->"+self.inputTo.get()+ " -mode->"+self.inputMode.get()
             print(stringInput)
-            grammarInput(stringInput)
+            grammarInput(stringInput,self.analizar)
         else:
             MessageBox.showerror("Error!", "Llena todos los campos")
 

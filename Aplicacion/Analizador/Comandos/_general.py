@@ -29,8 +29,8 @@ def closeTempFile(TF):
     if temporalFile == None:  # no se creo el archivo, genero uno por si acaso
         temporalFile = tempfile.TemporaryFile()
     temporalFile.seek(0)
-    print("temporal console", os.path.exists(temporalFile.name), '\n',
-          temporalFile.read().decode("utf-8"))  # existe file temporal
+    #!print("temporal console", os.path.exists(temporalFile.name), '\n',
+    #!      temporalFile.read().decode("utf-8"))  # existe file temporal
     temporalFile.seek(0)
     if temporalFile.read().decode("utf-8")!='':  # si existe algo en el archivo creo la carpeta y el log
         path = './archivos/$logs$'
@@ -63,11 +63,11 @@ def closeTempFile(TF):
 def escribirTemp(iO: str, com: str, res: str):
     global temporalFile
     temporalFile.seek(0)
-    print("leer temp<O>\n", temporalFile.read().decode('utf-8'))
+    #!print("leer temp<O>\n", temporalFile.read().decode('utf-8'))
     #temporalFile = tempfile.TemporaryFile()
     temporalFile.write(bitacora(iO,com,res))
     temporalFile.seek(0)
-    print("leer temp<N>\n", temporalFile.read().decode('utf-8'))
+    #!print("leer temp<N>\n", temporalFile.read().decode('utf-8'))
     
 def ecriptadO(encrip,llave):
     global encriptado

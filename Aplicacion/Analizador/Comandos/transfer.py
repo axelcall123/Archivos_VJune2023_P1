@@ -45,7 +45,7 @@ class Transfer:
             for element in contenido:
                 if(os.path.exists(pathArchivoto+element)&(element==namFile)):#buscar si ya existe
                     to=element.replace(".","(1).")
-                    shutil.copy(pathArchivofrom,pathArchivoto+to)
+                    shutil.move(pathArchivofrom,pathArchivoto+to)
                     #bitacora<<<<>>>>>
                     gG.escribirTemp(
                         'output', 'transfer', 'el archivo fue transferido y renombrado con exito')

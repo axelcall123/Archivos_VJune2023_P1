@@ -8,7 +8,8 @@ from Aplicacion.Analizador.Comandos.esencial import Leer
 from tkinter import messagebox as MessageBox
 
 class Configure:
-    def __init__(self, root):
+    def __init__(self, root,analizar):
+        self.analizar=analizar
         self.coboGetType=""
         self.coboGetEncriptLog=""
         self.coboGetEncriptRead=""
@@ -130,14 +131,15 @@ class Configure:
         #la llave es opcional 
         if((self.coboGetEncriptRead!="")&(self.coboGetEncriptLog!="")&(self.coboGetType!="")):  
                 #no se ingreso llave
-                if(self.llave==""):
+                print(self.llave)
+                if(self.inputLlave.get()==""):
                     stringInput="configure "+"-type->"+self.coboGetType+ " -encrypt_log->"+self.coboGetEncriptLog+" -encrypt_read->"+self.coboGetEncriptRead
                     print(stringInput)
-                    grammarInput(stringInput)
+                    grammarInput(stringInput,self.analizar)
                 else:
-                    stringInput="configure "+"-type->"+self.coboGetType+ "-encrypt_log->"+self.coboGetEncriptLog+" -encrypt_read->"+self.coboGetEncriptRead+" -llave->"+self.llave
+                    stringInput="configure "+"-type->"+self.coboGetType+ "-encrypt_log->"+self.coboGetEncriptLog+" -encrypt_read->"+self.coboGetEncriptRead+" -llave->"+self.inputLlave.get()
                     print(stringInput)
-                    grammarInput(stringInput)
+                    grammarInput(stringInput,self.analizar)
         else:
             MessageBox.showerror("Error!", "Llena todos los campos")
         

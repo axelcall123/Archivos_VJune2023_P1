@@ -7,7 +7,8 @@ from tkinter import messagebox as MessageBox
 
 
 class Copy:
-    def __init__(self, root):
+    def __init__(self, root,analizar):
+        self.analizar=analizar
         #setting title
         root.title("undefined")
         #setting window size
@@ -75,7 +76,7 @@ class Copy:
         if((self.inputFrom.get()!="")&(self.inputTo.get()!="")):  
             stringInput="Copy "+ "-from->"+self.inputFrom.get()+" -to->"+self.inputTo.get()
             print(stringInput)
-            grammarInput(stringInput)
+            grammarInput(stringInput,self.analizar)
         else:
             MessageBox.showerror("Error!", "Llena todos los campos")
 

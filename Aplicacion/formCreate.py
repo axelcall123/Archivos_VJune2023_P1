@@ -3,9 +3,11 @@ import tkinter.font as tkFont
 
 from Aplicacion.Analizador.gramar import grammarInput
 from tkinter import messagebox as MessageBox
+from Aplicacion.Analizador.Comandos.esencial import Leer
 
 class Create:
-    def __init__(self, root):
+    def __init__(self, root,analizar):
+        self.analizar=analizar
         #setting title
         root.title("undefined")
         #setting window size
@@ -90,7 +92,7 @@ class Create:
         if((self.body.get()!="")&(self.name.get()!="")&(self.inputPath.get()!="")):  
             stringInput="create "+ "-name->"+self.name.get()+" -path->"+self.inputPath.get()+" -body->" +self.body.get()
             print(stringInput)
-            grammarInput(stringInput)
+            grammarInput(stringInput,self.analizar)
         else:
             MessageBox.showerror("Error!", "Llena todos los campos")
 

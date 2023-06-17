@@ -9,11 +9,10 @@ from Aplicacion.Analizador.Comandos.transfer import Transfer
 from Aplicacion.Analizador.Comandos.exec import Exec
 from Aplicacion.Analizador.Comandos.add import Add
 #from Aplicacion.Analizador.cripto import encrypt_string,decrypt_string
-#from Aplicacion.variablesGlobales import localmente
+#from Aplicacion.variablesGlobales import self.localmente
 from Aplicacion.Analizador.Comandos.backup import Backup
 #import tempfile
 import Aplicacion.Analizador.Comandos._general as gG
-from Aplicacion.variablesGlobales import encriptado, llaveEncript,local
 
         #plaintext = "sssssss!"
         #stringK = b'miaproyecto12345'
@@ -26,6 +25,7 @@ from Aplicacion.variablesGlobales import encriptado, llaveEncript,local
 
 class Leer:
     def __init__(self,):
+        self.local=False
         self.encryptLog = False
         self.encryptRead = False
         self.llave = ""
@@ -47,8 +47,7 @@ class Leer:
                         if (parametros != "configure"):
                             for elementos2 in parametros:
                                 if (elementos2[0] == "-type->"):
-                                    global local
-                                    local = comandoConfigure.type(
+                                    self.local = comandoConfigure.type(
                                         elementos2[1])
                                 elif (elementos2[0] == "-encrypt_log->"):
                                     self.encryptLog = comandoConfigure.encryptLog(
@@ -65,8 +64,8 @@ class Leer:
                                 'input', 'configure', comandoConfigure.printConfiguracion())
                             gG.ecriptadO(comandoConfigure.encryptLog,
                                          comandoConfigure.llave)
-                if (comando == "create"):  # !Comando Create y self.local es True
-                    #local=False
+                if (comando == "create"):  # !Comando Create y self.self.local es True
+                    #self.local=False
                     comandoCreate = Create()
                     for parametros in element:
                         if (parametros != "create"):
@@ -78,12 +77,12 @@ class Leer:
                                 elif (elementos2[0] == "-body->"):
                                     comandoCreate.body(elementos2[1])
                             #creando archivo
-                            if (local == True):
+                            if (self.local == True):
                                 comandoCreate.creacionLocal()
                             else:
                                 comandoCreate.creacionCloud()
                 if (comando == "delete"):  # !Comando delete
-                    #local=False
+                    #self.local=False 
                     comandoDelete = Delete()
                     for parametros in element:
                         if (parametros != "delete"):
@@ -93,12 +92,12 @@ class Leer:
                                 elif (elementos2[0] == "-name->"):
                                     comandoDelete.name(elementos2[1])
                             #! Dependiento del configure
-                            if (local == True):
+                            if (self.local == True):
                                 comandoDelete.borrar()
                             else:
                                 comandoDelete.borrarCloud()
                 if (comando == "copy"):  # !Comando delete
-                    #local=False
+                    #self.local=False
                     comandoCopy = Copy()
                     for parametros in element:
                         if (parametros != "copy"):
@@ -108,12 +107,12 @@ class Leer:
                                 elif (elementos2[0] == "-to->"):
                                     comandoCopy.to(elementos2[1])
                             #! Dependiento del configure
-                            if (local == True):
+                            if (self.local == True):
                                 comandoCopy.copiar()
                             else:
                                 comandoCopy.copiarCloud()
                 if (comando == "transfer"):  # !Comando trasnfer
-                    #local=False
+                    #self.local=False
                     comandoTransfer = Transfer()
                     for parametros in element:
                         if (parametros != "transfer"):
@@ -125,12 +124,12 @@ class Leer:
                                 elif (elementos2[0] == "-mode->"):
                                     comandoTransfer.mode(elementos2[1])
                             #! Dependiento del configure
-                            if (local == True):
+                            if (self.local == True):
                                 comandoTransfer.transferir()
                             else:
                                 comandoTransfer.transferCloud()
                 if (comando == "rename"):  # !Comando rename
-                    #local=False
+                    #self.local=False
                     comandoRenombrar = Rename()
                     for parametros in element:
                         if (parametros != "rename"):
@@ -140,12 +139,12 @@ class Leer:
                                 elif (elementos2[0] == "-name->"):
                                     comandoRenombrar.name(elementos2[1])
                             #! Dependiento del configure
-                            if (local == True):
+                            if (self.local == True):
                                 comandoRenombrar.reNombrar()
                             else:
                                 comandoRenombrar.renameCloud()
                 if (comando == "modify"):  # !Comando modify
-                    #local=False
+                    #self.local=False
                     comandoModificar = Modify()
                     for parametros in element:
                         if (parametros != "modify"):
@@ -155,12 +154,12 @@ class Leer:
                                 elif (elementos2[0] == "-body->"):
                                     comandoModificar.body(elementos2[1])
                             #! Dependiento del configure
-                            if local == True:
+                            if self.local == True:
                                 comandoModificar.modificar()
                             else:
                                 comandoModificar.modificarCloud()
                 if (comando == "add"):  # !Comando add
-                    #local=False
+                    #self.local=False
                     comandoAgregar = Add()
                     for parametros in element:
                         if (parametros != "add"):
@@ -170,12 +169,12 @@ class Leer:
                                 elif (elementos2[0] == "-body->"):
                                     comandoAgregar.body(elementos2[1])
                             #añadir
-                            if local == True:
+                            if self.local == True:
                                 comandoAgregar.aniadir()
                             else:
                                 comandoAgregar.agregarCloud()
                 if (comando == "exec"):  # !Comando exec
-                    #local=False
+                    #self.local=False
                     comandoEjecutar = Exec()
                     for parametros in element:
                         if (parametros != "exec"):
@@ -188,8 +187,8 @@ class Leer:
                 if (comando == "backup"):  # !Comando 
                     comandoBackup = None
                     #! Dependiento del configure 
-                    if local == True:
-                        comandoBackup = Backup("local")
+                    if self.local == True:
+                        comandoBackup = Backup("self.local")
                     else:
                         comandoBackup = Backup("cloud")
                     comandoBackup.backupA()

@@ -113,6 +113,7 @@ def t_RUTA(t):
 
 
 def t_STRING(t):
+    #llave si no lleva saltos no lleva
     r'"[^"]+"'
     t.value = t.value.lower()
     return t
@@ -249,25 +250,23 @@ def p_error(p):
 # Lee los inputs que vienen del tkinter
 
 # si el comando no esta codificado
-def grammarInput(input):
+def grammarInput(input,analizar):
     print("grammarInput")
     parser = yacc.yacc()
     resultado = parser.parse(input.lower())
-    analizar = Leer()
     posibleEntrada=analizar.comando(resultado)
     #exec retorna otra contenido input desde def comando
     print(type(posibleEntrada)==str)
     if(type(posibleEntrada)==str):
         #Otra entrada volver a identificar si es codificado o no
-        execInput(posibleEntrada)
+        execInput(posibleEntrada,analizar)
 
-def grammarInputCodificado(input):
+def grammarInputCodificado(input,analizar):
     print("grammarInputCodificado")
     # si el input esta codificado solo son 2 saltos de lieas (\n)
     #el primero siempre sera configure
     lista=input.split("\n")
     contador=0
-    analizar = Leer()
     llave=""
     for element in lista:
         print(element)
@@ -276,7 +275,6 @@ def grammarInputCodificado(input):
             configure = element
             parser = yacc.yacc()
             resultado = parser.parse(configure.lower())
-            print(resultado+"----------------------------")
             #analizar tomara las validaciones
             analizar.comando(resultado)
         #comandos encriptados
@@ -292,6 +290,7 @@ def grammarInputCodificado(input):
                 #desencriptando
                 byte_string = llave.encode("utf-8")
                 comando=decrypt_hex_string(byte_string,element)
+                print(comando) 
                 parser = yacc.yacc()
                 resultado = parser.parse(comando.lower())
                 #analizar tomara las validaciones
@@ -299,19 +298,20 @@ def grammarInputCodificado(input):
                 #exec retorna otra contenido input desde def comando
                 if(type(posibleEntrada)==str):
                     #Otra entrada volver a identificar si es codificado o no
-                    execInput(posibleEntrada)
+                    execInput(posibleEntrada,analizar)
             else:
                 print("error codificacion no es True")
         contador=contador+1
 
 
-def execInput(inputExec):
+def execInput(inputExec,analizar):
+    print(analizar.local)
     #mismo caso para main Window(otra entrada)
     posibleCodificado=inputExec.split("\n")[1]# Obteniendo el posible codificado 
     if("-" in posibleCodificado)|(posibleCodificado.lower()=="backup"):
-        grammarInput(inputExec)
+        grammarInput(inputExec,analizar)
     else:
-        grammarInputCodificado(inputExec)
+        grammarInputCodificado(inputExec,analizar)
 
 
 

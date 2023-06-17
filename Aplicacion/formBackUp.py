@@ -7,7 +7,8 @@ from Aplicacion.Analizador.Comandos.esencial import Leer
 from tkinter import messagebox as MessageBox
 
 class BackUp:
-    def __init__(self, root):
+    def __init__(self, root,analizar):
+        self.analizar=analizar
         self.getInput=""
 
         #setting title
@@ -43,7 +44,7 @@ class BackUp:
 
 
     def GButton_364_command(self):
-        grammarInput("backup")
+        grammarInput("backup",self.analizar)
 
 if __name__ == "__main__":
     root = tk.Tk()
