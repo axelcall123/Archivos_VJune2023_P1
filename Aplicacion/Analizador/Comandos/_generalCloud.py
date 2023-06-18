@@ -80,7 +80,8 @@ def crearCloud(service, nombre:str, tipo:str, idFolderRaiz:str,contenido:str)->s
             body=metadata,
             media_body=media,
             fields='id'
-        ).execute()
+        ).execute()  # <<<<<here proces file
+        gG.archivosProcesados(1,0,0,0)
         print(f'creando archivo: {nombre}')
         return archivo.get("id")
     elif tipo == 'application/vnd.google-apps.folder':#creo folder
@@ -156,7 +157,8 @@ def creacionCarpetaIteraC(service, array: list[str], idFolder: str) -> str:
     return idFolder
 
 def eliminarCloud(service, idDelete:str,tipo):
-    service.files().delete(fileId=idDelete).execute()
+    service.files().delete(fileId=idDelete).execute()  # <<<<<here proces file
+    gG.archivosProcesados(1,0,0,0)
     if tipo == "text/plain":
         print(f"Archivo borrado totalmente.")
     elif tipo == "application/vnd.google-apps.folder":
@@ -170,7 +172,8 @@ def renameCloud(service,idAcces:str,nombreNuevo:str):#renombrea el archivo|folde
         fileId=idAcces,
         body=folder_metadata,
         fields='name'
-    ).execute()
+    ).execute()  # <<<<<here proces file
+    gG.archivosProcesados(1,0,0,0)
     print('Renombrado a', updateNombre['name'])
 
 def copiarCloud(service,idA:str,idDe:str,tipo:str)->str:#copia archivo|folder
@@ -180,7 +183,8 @@ def copiarCloud(service,idA:str,idDe:str,tipo:str)->str:#copia archivo|folder
             body={
                 'parents': [idA]
             }
-        ).execute()
+        ).execute()  # <<<<<here proces file
+        gG.archivosProcesados(1,0,0,0)
         print(f"Archivo copiado: {file['name']}")
         return file['id']
     elif tipo == "application/vnd.google-apps.folder":#crear un folder y copiar los archivos
@@ -241,7 +245,8 @@ def escribirCloud(service,idFile,contenidoNeuvo,addMod):
         fileId=idFile,
         media_body=media,
         fields='id, name, mimeType, modifiedTime'
-    ).execute()
+    ).execute()  # <<<<<here proces file
+    gG.archivosProcesados(1,0,0,0)
     if addMod == "add":
         print('se agrego al archivo')
     else:
@@ -269,7 +274,8 @@ def upLoading(service,folderLocal,folderCloud):#
                 body=file_metadata,
                 media_body=media,
                 fields='id'
-            ).execute()
+            ).execute()  # <<<<<here proces file
+            gG.archivosProcesados(1,0,0,0)
             print(f"subiendo archivo {file_name}")
         elif tipo(file_name)=="folder":# crear folder
             resultado = existeNombreC(service, folderCloud, file_name)#existe folder

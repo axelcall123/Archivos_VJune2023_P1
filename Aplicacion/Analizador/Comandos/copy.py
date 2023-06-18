@@ -39,7 +39,8 @@ class Copy:
             for element in contenido:
                 if(os.path.exists(pathArchivoto+element)&(element==namFile)):#buscar si ya existe
                     to=element.replace(".","(1).")
-                    shutil.copy(pathArchivofrom,pathArchivoto+to)
+                    shutil.copy(pathArchivofrom,pathArchivoto+to)# <<<<<here proces file
+                    gG.archivosProcesados(0, 1, 0, 0)
                     #bitacora<<<<>>>>>
                     gG.escribirTemp('output', 'copy', 'el archivo fue copiado y renombrado con exito')
                     print("******EL ARCHIVO CON NOMBRE REPETIDO FUE COPIADO CON EXITO******")
@@ -55,7 +56,8 @@ class Copy:
                 print("--------------")
                 x=len(pathArchivofrom.split("/"))
                 nameModule=pathArchivofrom.split("/")[x-2]#obteniendo el nombre del modulo a copiar
-                shutil.copytree(pathArchivofrom,pathArchivoto+nameModule)
+                shutil.copytree(pathArchivofrom,pathArchivoto+nameModule)# <<<<<here proces file
+                gG.archivosProcesados(0, 1, 0, 0)
                 #bitacora<<<<>>>>>
                 gG.escribirTemp(
                     'output', 'copy', 'la carpeta fue copiado con exito')

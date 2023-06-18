@@ -11,7 +11,7 @@ from Aplicacion.Analizador.Comandos.add import Add
 #from Aplicacion.Analizador.cripto import encrypt_string,decrypt_string
 #from Aplicacion.variablesGlobales import self.localmente
 from Aplicacion.Analizador.Comandos.backup import Backup
-#import tempfile
+import time
 import Aplicacion.Analizador.Comandos._general as gG
 
         #plaintext = "sssssss!"
@@ -37,6 +37,9 @@ class Leer:
 
         #la cantidad de comandos
         #print(arreglo)
+        start = time.time()
+        cloudS = 0
+        cloudE = 0
         for element in arreglo:
             # cuales comandos
             for comando in element:
@@ -62,8 +65,7 @@ class Leer:
                             #bitacora<<<<>>>>>
                             gG.escribirTemp(
                                 'input', 'configure', comandoConfigure.printConfiguracion())
-                            gG.ecriptadO(comandoConfigure.encryptLog,
-                                         comandoConfigure.llave)
+                            gG.ecriptadO(self.encryptLog,self.llave)
                 if (comando == "create"):  # !Comando Create y self.self.local es True
                     #self.local=False
                     comandoCreate = Create()
@@ -188,10 +190,20 @@ class Leer:
                     comandoBackup = None
                     #! Dependiento del configure 
                     if self.local == True:
-                        comandoBackup = Backup("self.local")
+                        comandoBackup = Backup("local")
                     else:
                         comandoBackup = Backup("cloud")
+                    cloudS = time.time()
                     comandoBackup.backupA()
+                    cloudE = time.time()
                 if (comando == "error"):  # !Comando add
                     print("ERROR GRAMATICA")
+        end = time.time()
+        retDic = {}
+        if self.local == True:
+            retDic = gG.archivosProcesados(0, 0, cloudS+cloudE, end-start)
+        else:
+            retDic = gG.archivosProcesados(0, 0, end-start+cloudS-cloudE, 0)
+        gG.escribirTemp('output', 'archivos',
+                        f'Archivos procesados localmente:{retDic["archivoLocal"]} tiempo:{retDic["tiempoLocal"]} | Archivos procesados cloud:{retDic["archivoCloud"]} tiempo:{retDic["tiempoCloud"]}')
         

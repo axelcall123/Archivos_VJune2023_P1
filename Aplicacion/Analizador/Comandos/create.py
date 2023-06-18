@@ -53,14 +53,16 @@ class Create:
             if(os.path.exists(pathArchivo)):
                 #existe la ruta
                 f = open(pathArchivo+"/"+self.nombre, "w") #abriendo y creando
-                f.write(self.contenido)
+                f.write(self.contenido)  # <<<<<here proces file
+                gG.archivosProcesados(0, 1, 0, 0)
                 f.close() # siempre cerrar
                 print("archivo creado")
             else:
                 #si no existe nada
                 self.directoriosAnidados(self.ruta)
                 f = open(pathArchivo+"/"+self.nombre, "w") #abriendo y creando
-                f.write(self.contenido)
+                f.write(self.contenido)  # <<<<<here proces file
+                gG.archivosProcesados(0, 1, 0, 0)
                 f.close() # siempre cerrar
                 print("ARCHIVO CREADO")
             #bitacora<<<<>>>>>

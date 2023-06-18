@@ -10,3 +10,11 @@ encriptado:bool=False
 llaveEncript:str=""
 #archivos totales procesados
 numeroArchivoPr=0
+
+tiempoCloud=0
+
+tiempoLocal=0
+
+archivoLocal=0
+
+archivoCloud=0

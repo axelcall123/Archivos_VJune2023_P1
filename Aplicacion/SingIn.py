@@ -16,7 +16,7 @@ class Login:
         #setting title
         self.root.title("Login")
         _G.closeTempFile(False)
-
+        _G.resetProcesados()
         #setting window size
         width = 452
         height = 411

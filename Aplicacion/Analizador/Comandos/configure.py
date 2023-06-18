@@ -44,7 +44,7 @@ class Configure:
         # print(self.logBool)
         # print(self.readBool)
         # print(self.key)
-        return f'tipo:{self.local} bitacaora_encriptada:{self.logBool} leer_encriptado:{self.readBool}'
+        return f'local:{self.local} bitacaora_encriptada:{self.logBool} leer_encriptado:{self.readBool}'
 
 
 

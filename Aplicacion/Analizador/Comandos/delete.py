@@ -33,7 +33,8 @@ class Delete:
         #Existe direccion completa
         #print(os.path.exists(pathArchivo+self.nombre)&(self.nombre!=""))
         if(os.path.exists(pathArchivo+self.nombre)&(self.nombre!="")):
-            os.remove(pathArchivo+self.nombre)
+            os.remove(pathArchivo+self.nombre)  # <<<<<here proces file
+            gG.archivosProcesados(0, 1, 0, 0)
             #bitacora<<<<>>>>>
             gG.escribirTemp(
                 'output', 'delete', 'el archivo fue borrado')
@@ -47,7 +48,8 @@ class Delete:
                     self.elementosDirectorio(pathArchivo)
                     #print(x)
                     x=x+1
-                os.rmdir(pathArchivo)
+                os.rmdir(pathArchivo)  # <<<<<here proces file
+                gG.archivosProcesados(0, 1, 0, 0)
                 #bitacora<<<<>>>>>
                 gG.escribirTemp(
                     'output', 'delete', 'la carpeta fue borrada')
@@ -68,7 +70,8 @@ class Delete:
             for element in contenido:
                 #SI ES ARCHIVO
                 if("." in element):
-                    os.remove(path+"/"+element)
+                    os.remove(path+"/"+element)  # <<<<<here proces file
+                    gG.archivosProcesados(0, 1, 0, 0)
                     print("*****SE ELIMINO EL ARCHIVO DENTRO DE CARPETA: "+path+element)
                 #SI ES CARPETA
                 else:
@@ -76,7 +79,8 @@ class Delete:
                     print(contenido2)
                     if(contenido2==[]):
                         print(path+element)
-                        os.rmdir(path+element)
+                        os.rmdir(path+element)  # <<<<<here proces file
+                        gG.archivosProcesados(0, 1, 0, 0)
                         print("*****SE ELIMINO EL CARPETA DENTRO DE CARPETA: "+path+element)
                     else:
                         self.num=self.num+1

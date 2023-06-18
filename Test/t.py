@@ -104,3 +104,9 @@ fp.write(b"0")
 fp.close()
 curr_time =curr_time+ round(time.time()*1000)
 print("Milliseconds since epoch2:", int(curr_time/100000000000))
+
+
+start = time.time()
+print("hello")
+end = time.time()
+print((end - start)*1000)

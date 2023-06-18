@@ -29,11 +29,12 @@ class Add:
         print(pathArchivo)
         if(os.path.exists(pathArchivo)):
             f = open(pathArchivo, "a+") #abriendo y creando
-            f.write(f.read()+self.contenido)
+            f.write(f.read()+self.contenido)  # <<<<<here proces file
+            gG.archivosProcesados(0,1,0,0)
             f.close() # siempre cerrar
             #bitacora<<<<>>>>>
             gG.escribirTemp(
-                'output', 'add', f'se añadio el contenido al archivo con exito| local')
+                'output', 'add', f'se aniadio el contenido al archivo con exito| local')
             print("******SE AÑADIO CONTENIDO AL ARCHIVO CON EXITO******")
             
         else:

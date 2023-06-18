@@ -28,10 +28,10 @@ class Transfer:
         else:
             self.modo=mode
 
-    def transferir(self):#FIXME: es por self.mode
+    def transferir(self):#FIXME: es por self.modo
         #bitacora<<<<>>>>>
         gG.escribirTemp(
-            'input', 'transfer', f'from: {self.de} to: {self.a} | {self.mode}')
+            'input', 'transfer', f'from: {self.de} to: {self.a} | {self.modo}')
         pathArchivofrom= "./archivos"+self.de
         pathArchivoto="./archivos"+self.a
         print(pathArchivoto)
@@ -45,7 +45,8 @@ class Transfer:
             for element in contenido:
                 if(os.path.exists(pathArchivoto+element)&(element==namFile)):#buscar si ya existe
                     to=element.replace(".","(1).")
-                    shutil.move(pathArchivofrom,pathArchivoto+to)
+                    shutil.move(pathArchivofrom,pathArchivoto+to)# <<<<<here proces file
+                    gG.archivosProcesados(0, 1, 0, 0)
                     #bitacora<<<<>>>>>
                     gG.escribirTemp(
                         'output', 'transfer', 'el archivo fue transferido y renombrado con exito')
@@ -53,7 +54,9 @@ class Transfer:
                     return
             #mover archivo
             print("-----------------------------")
-            shutil.move(pathArchivofrom,pathArchivoto)
+            # <<<<<here proces file
+            shutil.move(pathArchivofrom, pathArchivoto)
+            gG.archivosProcesados(0, 1, 0, 0)
             #bitacora<<<<>>>>>
             gG.escribirTemp(
                 'output', 'transfer', 'el archivo fue trasnferido con exito')
@@ -69,14 +72,16 @@ class Transfer:
                     if(os.path.exists(pathArchivoto+nameModule)):
                         to=nameModule+"(1)"
                         print(pathArchivoto+to)
-                        shutil.move(pathArchivofrom,pathArchivoto+to)
+                        shutil.move(pathArchivofrom,pathArchivoto+to)# <<<<<here proces file
+                        gG.archivosProcesados(0, 1, 0, 0)
                         #bitacora<<<<>>>>>
                         gG.escribirTemp(
                             'output', 'transfer', 'la carpeta fue transferida y renombrada con exito')
                         print("******LA CARPETA FUE TRASFERIDA CON EXITO******")
                         return                
                 
-                shutil.move(pathArchivofrom,pathArchivoto+nameModule)
+                shutil.move(pathArchivofrom,pathArchivoto+nameModule)# <<<<<here proces file
+                gG.archivosProcesados(0, 1, 0, 0)
                 #bitacora<<<<>>>>>
                 gG.escribirTemp(
                     'output', 'transfer', 'la carpeta fue transferida con exito')
@@ -92,7 +97,7 @@ class Transfer:
     def transferCloud(self):
         #bitacora<<<<>>>>>
         gG.escribirTemp(
-            'input', 'transfer', f'from: {self.de} to: {self.a} | {self.mode}')
+            'input', 'transfer', f'from: {self.de} to: {self.a} | {self.modo}')
         retorno = gC.auxDeParaC(self.a, self.de)
         if retorno[0] == "":
             #bitacora<<<<>>>>>

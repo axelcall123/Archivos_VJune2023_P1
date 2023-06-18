@@ -24,7 +24,7 @@ class Rename:
 
     def reNombrar(self):
         #bitacora<<<<>>>>>
-        gG.escribirTemp('input', 'rename', f'path:{self.path} name:{self.nombre} | local')
+        gG.escribirTemp('input', 'rename', f'path:{self.ruta} name:{self.nombre} | local')
         pathArchivo= "./archivos"+self.ruta
         print(pathArchivo)
         #obtener ruta para el nuevo nombre
@@ -41,7 +41,8 @@ class Rename:
         pathNuevoNombre="./archivos"+nuevaRuta+"/"+self.nombre
         
         if(os.path.exists(pathArchivo)& (not(os.path.exists(pathNuevoNombre)))):
-            os.rename(pathArchivo,pathNuevoNombre)
+            os.rename(pathArchivo, pathNuevoNombre)  # <<<<<here proces file
+            gG.archivosProcesados(0, 1, 0, 0)
             #bitacora<<<<>>>>>
             gG.escribirTemp(
                 'output', 'rename', 'fue renombrado con exito')
@@ -55,7 +56,7 @@ class Rename:
     def renameCloud(self):
         #bitacora<<<<>>>>>
         gG.escribirTemp(
-            'input', 'rename', f'path:{self.path} name:{self.nombre} | cloud')
+            'input', 'rename', f'path:{self.ruta} name:{self.nombre} | cloud')
         arrayRuta = gG.arrayRuta(self.ruta)
         arrayRutaAux = arrayRuta[0:-1]  # solo tomo parte de sin el file.txt
 

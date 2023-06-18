@@ -29,7 +29,8 @@ class Modify:
         if(os.path.exists(pathArchivo)):
             print(pathArchivo)
             f = open(pathArchivo, "w") #abriendo y creando
-            f.write(self.contenido)
+            f.write(self.contenido)  # <<<<<here proces file
+            gG.archivosProcesados(0, 1, 0, 0)
             f.close() # siempre cerrar
             #bitacora<<<<>>>>>
             gG.escribirTemp(
